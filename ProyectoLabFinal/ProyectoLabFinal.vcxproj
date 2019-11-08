@@ -18,6 +18,18 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="FirstPersonCamera.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TimeManager.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B52C2283-A93A-46A9-BCBE-68FCAF15ACCE}</ProjectGuid>
@@ -127,18 +139,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Box.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Cylinder.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\FirstPersonCamera.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\main.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Mesh.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Model.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Shader.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Sphere.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\Texture.cpp" />
-    <ClCompile Include="..\..\..\Desktop\12\12-AnimacionKeyFrames\src\TimeManager.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
