@@ -2,6 +2,8 @@
 .vs/
 */*/Debug/*
 */Debug/*
+Debug/
+Debug/*
 Debug/*.exe
 Debug/*.ilk
 Debug/*.pdb
