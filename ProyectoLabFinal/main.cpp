@@ -68,7 +68,7 @@ Box pisoHabitacion, paredHabitacion, muebleHabitacion;
 Box cocinaPared, cocinaPiso, cocina, encimera;
 Box salaPared, salaPiso, sillon;
 Box paredExt, paredExt2;
-Box pisoExt, carretera;
+Box pisoExt, carreteraAle;
 Box puertaAle;
 Box ventana;
 
@@ -335,9 +335,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	jacuzi.init();
 	jacuzi.setShader(&shaderMulLighting);
 	//pista
-	carretera.init();
-	carretera.setShader(&shaderMulLighting);
-	//TERMINA CASITA
+	carreteraAle.init();
+	carreteraAle.setShader(&shaderMulLighting);
+	//TERMINA CASITA ALE
 	/*=======================*/
 
 	/////////////////////////////////////BOB/////////////////////////////
@@ -593,10 +593,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	texture3.freeImage(bitmap);
 
-	// Definiendo la textura a utilizar
 	Texture texture4("../Textures/texturaLadrillos.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texture4.loadImage(true);
 	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture4.convertToData(bitmap, imageWidth, imageHeight);
@@ -1912,13 +1909,7 @@ void applicationLoop() {
 		boxc1.render(glm::scale(modelpiso, glm::vec3(18.0, 0.1, 30.0)));
 
 
-
-
-
 		//box1.enableWireMode();
-
-
-
 
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
@@ -1935,7 +1926,6 @@ void applicationLoop() {
 		glm::mat4 puerta = glm::translate(pared1, glm::vec3(4.0, 0.0, 0.0));
 		boxc1.render(glm::scale(puerta, glm::vec3(4.5, 4.0, 0.1)));
 
-
 		//6
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
@@ -1950,12 +1940,6 @@ void applicationLoop() {
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared3a = glm::translate(pared3, glm::vec3(-2.75, -0.1, 3.0));
 		boxc1.render(glm::scale(pared3a, glm::vec3(0.1, 4.2, 6.0)));
-
-
-
-
-
-
 
 
 
@@ -2006,7 +1990,6 @@ void applicationLoop() {
 
 
 
-
 		/*glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
@@ -2018,11 +2001,6 @@ void applicationLoop() {
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared4b = glm::translate(pared4, glm::vec3(2.75, 0.0, 5.7));
 		boxc1.render(glm::scale(pared4b, glm::vec3(0.01, 4.0, 0.5)));*/
-
-
-
-
-
 
 
 		glBindTexture(GL_TEXTURE_2D, textureID6);
@@ -2438,7 +2416,7 @@ void applicationLoop() {
 
 		//CASA ALE//
 		//CASITA
-		glm::mat4 modelAle = glm::translate(model, glm::vec3(40.0, 0.0, 0));
+		glm::mat4 modelAle = glm::translate(model, glm::vec3(35.0, 0.0, 0));
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
 		//TECHO
 		glm::mat4 modelCasaTecho = glm::mat4(1.0);
@@ -2685,9 +2663,10 @@ void applicationLoop() {
 		ventana.render(glm::scale(ventanas, glm::vec3(3.0, 3.0, 0.07)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 3.0));
-		glBindTexture(GL_TEXTURE_2D, textureIDA31);
+		
+		/*glBindTexture(GL_TEXTURE_2D, textureIDA31);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
-		carretera.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0)));//FRENTE
+		carreteraAle.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0)));//FRENTE
 		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -3.0));
 		carretera.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0))); //ATRAS
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -2698,7 +2677,7 @@ void applicationLoop() {
 		pista = glm::translate(modelCasa3, glm::vec3(3.0, -1.5, 0.0)); //DERECHA
 		carretera.render(glm::scale(pista, glm::vec3(3.0, 0.001, 18.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));*/
 		/*====================================*/
 		glm::mat4 estufa = glm::translate(modelCasa, glm::vec3(0.5, -0.5, 5.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA20);
