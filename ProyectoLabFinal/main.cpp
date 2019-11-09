@@ -80,6 +80,7 @@ Model modelPlanta;
 Model modelMesaOfrenda; //mesa en la sala para la ofrenda
 Model modelCraneoOfrenda;
 Model modelPumpkin;
+Model modelDulces;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -500,6 +501,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelPumpkin.loadModel("../models/Classic ROBLOX Pumpkin Head/ClassicRobloxPumpkinHead.obj");
 	modelPumpkin.setShader(&shaderMulLighting);
+
+	modelDulces.loadModel("../models/Pumpkin Bucket/PumpkinBucket.obj");
+	modelDulces.setShader(&shaderMulLighting);
 
 	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
 
@@ -2581,6 +2585,12 @@ void applicationLoop() {
 		modelPumpkin.render(matrixPumpkin);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixDulces = glm::mat4(1.0);
+		matrixDulces = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 4.5));
+		matrixDulces = glm::scale(matrixDulces, glm::vec3(0.5, 0.5, 0.5));
+		matrixDulces = glm::rotate(matrixDulces, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelDulces.render(matrixDulces);
+		glActiveTexture(GL_TEXTURE0);
 		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
