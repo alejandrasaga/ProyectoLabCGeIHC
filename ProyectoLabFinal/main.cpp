@@ -1376,25 +1376,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
 
-	Texture textureA32("../Textures/carretera2.jpg");
-	bitmap = textureA32.loadImage();
-	data = textureA32.convertToData(bitmap, imageWidth, imageHeight);
-	glGenTextures(1, &textureIDA32);
-	glBindTexture(GL_TEXTURE_2D, textureIDA32);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
-			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "Failed to load texture" << std::endl;
-	textureA32.freeImage(bitmap);
-
-
+	
 	//FINALIZA TEXTURA PARA LA CASA
 
 
@@ -2416,7 +2398,7 @@ void applicationLoop() {
 
 		//CASA ALE//
 		//CASITA
-		glm::mat4 modelAle = glm::translate(model, glm::vec3(35.0, 0.0, 0));
+		glm::mat4 modelAle = glm::translate(model, glm::vec3(29.5, 0.2, 0));
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
 		//TECHO
 		glm::mat4 modelCasaTecho = glm::mat4(1.0);
@@ -2662,9 +2644,11 @@ void applicationLoop() {
 		ventanas = glm::translate(modelCasa4, glm::vec3(-5.0, 0.0, 0.01));
 		ventana.render(glm::scale(ventanas, glm::vec3(3.0, 3.0, 0.07)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 3.0));
+		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, .0));
 		
-		/*glBindTexture(GL_TEXTURE_2D, textureIDA31);
+
+
+		/*glBindTexture(GL_TEXTURE_2D, textureID17);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
 		carreteraAle.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0)));//FRENTE
 		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -3.0));
