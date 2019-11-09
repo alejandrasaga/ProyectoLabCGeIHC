@@ -1,2 +1,2 @@
 # proyectoLabCGeIHC
-Proyecto para la materia CGeIHC
+Proyecto para la materia CGeIHC semestre 2020-1
