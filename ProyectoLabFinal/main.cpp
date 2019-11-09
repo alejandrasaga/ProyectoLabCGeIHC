@@ -71,12 +71,13 @@ Box paredExt, paredExt2;
 Box pisoExt, carreteraAle;
 Box puertaAle;
 Box ventana;
-
+//MODELOS CASA ALE
 Model modelReloj;
 Model modelSilla;
 Model modelMesita;
 Model modelTaburete;
 Model modelPlanta;
+Model modelMesaOfrenda; //mesa en la sala para la ofrenda
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -477,9 +478,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphere14.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 
 
-
-
-
 	modelRock.loadModel("../models/rock/rock.obj");
 	modelRock.setShader(&shaderMulLighting);
 	modelRailRoad.loadModel("../models/railroad/railroad_track.obj");
@@ -489,6 +487,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelmesa.loadModel("../models/Wood_Table/Wood_Table.obj");
 	modelmesa.setShader(&shaderMulLighting);
+
+	//CARGA DE MODELOS CASA ALE
+
+	modelMesaOfrenda.loadModel("../models/RAIG Table/RageTable.obj");
+	modelMesaOfrenda.setShader(&shaderMulLighting);
 	
 	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
 
@@ -1837,11 +1840,6 @@ void applicationLoop() {
 		//boxc1.enableWireMode();
 
 		
-
-	
-		
-
-
 		glm::mat4 matrixmesa = glm::mat4(1.0);
 		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
 		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
@@ -2400,8 +2398,8 @@ void applicationLoop() {
 		//CASITA
 		glm::mat4 modelAle = glm::translate(model, glm::vec3(29.5, 0.2, 0));
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
-		//TECHO
-		glm::mat4 modelCasaTecho = glm::mat4(1.0);
+		//TECHO ALE
+		/*glm::mat4 modelCasaTecho = glm::mat4(1.0);
 		modelCasaTecho = glm::translate(modelAle, glm::vec3(0.0, 0.0, 0.0));
 		glm::mat4 modelCasaRoof = glm::translate(modelCasaTecho, glm::vec3(7.5, 1.5, 3.5));
 		glBindTexture(GL_TEXTURE_2D, textureIDA28);
@@ -2412,7 +2410,7 @@ void applicationLoop() {
 		glm::mat4 modelCasaRoof3 = glm::translate(modelCasaTecho, glm::vec3(2.0, 1.5, -6.0));
 		casaTecho.render(glm::scale(modelCasaRoof3, glm::vec3(4.0, 0.01, 3.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));*/
 
 		//PARED IZQUIERDA
 		glm::mat4 modelCasa = glm::mat4(1.0);
@@ -2547,6 +2545,12 @@ void applicationLoop() {
 		paredSala = glm::translate(modelCasa3, glm::vec3(-0.01, 0.0, 6.25));
 		salaPared.render(glm::scale(paredSala, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 matrixMesaOfrenda = glm::mat4(1.0);
+		matrixMesaOfrenda = glm::translate(modelCasa3, glm::vec3(-1.0, -1.5, 4.0));
+		matrixMesaOfrenda = glm::scale(matrixMesaOfrenda, glm::vec3(1.5, 1.5, 1.5));
+		modelMesaOfrenda.render(matrixMesaOfrenda);
+		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
