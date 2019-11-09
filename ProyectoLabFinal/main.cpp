@@ -2644,25 +2644,40 @@ void applicationLoop() {
 		ventanas = glm::translate(modelCasa4, glm::vec3(-5.0, 0.0, 0.01));
 		ventana.render(glm::scale(ventanas, glm::vec3(3.0, 3.0, 0.07)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, .0));
 		
-
-
-		/*glBindTexture(GL_TEXTURE_2D, textureID17);
+		
+		glBindTexture(GL_TEXTURE_2D, textureID17);
+		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 18.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
-		carreteraAle.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0)));//FRENTE
-		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -3.0));
-		carretera.render(glm::scale(pista, glm::vec3(24.0, 0.001, 3.0))); //ATRAS
+		carreteraAle.render(glm::scale(pista, glm::vec3(49.0, 0.1, 4.0)));//FRENTE
+		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -20.0));
+		carreteraAle.render(glm::scale(pista, glm::vec3(49.0, 0.001, 4.5))); //ATRAS
+
+		pista = glm::translate(modelCasa3, glm::vec3(15.0, -1.5, 0.0)); //DERECHA
+		carreteraAle.render(glm::scale(pista, glm::vec3(4.0, 0.001, 53.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		pista = glm::translate(modelCasa, glm::vec3(-3.0, -1.5, 0.0)); //IZQUIERDA
-		glBindTexture(GL_TEXTURE_2D, textureIDA32);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(1.0, 2.0)));
-		carretera.render(glm::scale(pista, glm::vec3(3.0, 0.001, 18.0)));
-		pista = glm::translate(modelCasa3, glm::vec3(3.0, -1.5, 0.0)); //DERECHA
-		carretera.render(glm::scale(pista, glm::vec3(3.0, 0.001, 18.0)));
+
+		glBindTexture(GL_TEXTURE_2D, textureID16);
+		glm::mat4 pista2Ale = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 21.0));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
+		carreteraAle.render(glm::scale(pista2Ale, glm::vec3(49.0, 0.1, 2.0)));//FRENTE
+		pista2Ale = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 16.0));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
+		carreteraAle.render(glm::scale(pista2Ale, glm::vec3(41.0, 0.1, 2.0)));//FRENTE 2
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(4.0, 10.0)));
+		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -24.0));
+		carreteraAle.render(glm::scale(pista, glm::vec3(49.0, 0.1, 4.0))); //ATRAS
+		pista = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -17.0));
+		carreteraAle.render(glm::scale(pista, glm::vec3(41.0, 0.1, 2.0))); //ATRAS 2
+		pista = glm::translate(modelCasa3, glm::vec3(12.0, -1.55, 0.0)); //DERECHA
+		carreteraAle.render(glm::scale(pista, glm::vec3(2.0, 0.1, 55.0)));
+		pista = glm::translate(modelCasa3, glm::vec3(18.0, -1.55, -2.0)); //DERECHA 2
+		carreteraAle.render(glm::scale(pista, glm::vec3(2.0, 0.1, 62.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));*/
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+
 		/*====================================*/
+		glBindTexture(GL_TEXTURE_2D, 0);
 		glm::mat4 estufa = glm::translate(modelCasa, glm::vec3(0.5, -0.5, 5.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA20);
 		cocina.render(glm::scale(estufa, glm::vec3(1.0, 0.02, 1.5)));
