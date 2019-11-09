@@ -78,6 +78,8 @@ Model modelMesita;
 Model modelTaburete;
 Model modelPlanta;
 Model modelMesaOfrenda; //mesa en la sala para la ofrenda
+Model modelCraneoOfrenda;
+Model modelPumpkin;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -492,7 +494,13 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelMesaOfrenda.loadModel("../models/RAIG Table/RageTable.obj");
 	modelMesaOfrenda.setShader(&shaderMulLighting);
-	
+
+	modelCraneoOfrenda.loadModel("../models/Skull/Skull.obj");
+	modelCraneoOfrenda.setShader(&shaderMulLighting);
+
+	modelPumpkin.loadModel("../models/Classic ROBLOX Pumpkin Head/ClassicRobloxPumpkinHead.obj");
+	modelPumpkin.setShader(&shaderMulLighting);
+
 	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
 
 	// Descomentar
@@ -736,7 +744,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 
 
-	
+
 	Texture texture7("../Textures/cesped.jpg");
 	bitmap = texture7.loadImage(true);
 	data = texture7.convertToData(bitmap, imageWidth, imageHeight);
@@ -1379,7 +1387,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
 
-	
+
 	//FINALIZA TEXTURA PARA LA CASA
 
 
@@ -1563,8 +1571,8 @@ void applicationLoop() {
 	modelMatrixEclipse = glm::translate(modelMatrixEclipse, glm::vec3(-10, -1.1, -25));
 	glm::mat4 modelMatrixHelicoptero = glm::mat4(1.0f);
 	modelMatrixHelicoptero = glm::translate(modelMatrixHelicoptero, glm::vec3(0.0, 0.0, -25));
-	glm::mat4 modelMatrixLambo= glm::mat4(1.0f);
-	modelMatrixLambo= glm::translate(modelMatrixLambo, glm::vec3(-10, -1.1, 9));
+	glm::mat4 modelMatrixLambo = glm::mat4(1.0f);
+	modelMatrixLambo = glm::translate(modelMatrixLambo, glm::vec3(-10, -1.1, 9));
 	float angulo = 0.0;
 	float offX = 0.0;
 	float angle = 0.0;
@@ -1839,7 +1847,7 @@ void applicationLoop() {
 
 		//boxc1.enableWireMode();
 
-		
+
 		glm::mat4 matrixmesa = glm::mat4(1.0);
 		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
 		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
@@ -2289,9 +2297,9 @@ void applicationLoop() {
 
 
 		//MUEBLE
-		
 
-		
+
+
 		//Cama
 
 
@@ -2547,11 +2555,33 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 matrixMesaOfrenda = glm::mat4(1.0);
-		matrixMesaOfrenda = glm::translate(modelCasa3, glm::vec3(-1.0, -1.5, 4.0));
-		matrixMesaOfrenda = glm::scale(matrixMesaOfrenda, glm::vec3(1.5, 1.5, 1.5));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixMesaOfrenda = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 3.0));
+		matrixMesaOfrenda = glm::scale(matrixMesaOfrenda, glm::vec3(1.5, 1.5, 2.5));
 		modelMesaOfrenda.render(matrixMesaOfrenda);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixCraneoOfrenda = glm::mat4(1.0);
+		matrixCraneoOfrenda = glm::translate(modelCasa3, glm::vec3(-0.35, -0.85, 2.0));
+		matrixCraneoOfrenda = glm::scale(matrixCraneoOfrenda, glm::vec3(0.01, 0.01, 0.01));
+		matrixCraneoOfrenda = glm::rotate(matrixCraneoOfrenda, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelCraneoOfrenda.render(matrixCraneoOfrenda);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixCraneoOfrenda = glm::translate(modelCasa3, glm::vec3(-0.35, -0.85, 4.0));
+		matrixCraneoOfrenda = glm::scale(matrixCraneoOfrenda, glm::vec3(0.01, 0.01, 0.01));
+		matrixCraneoOfrenda = glm::rotate(matrixCraneoOfrenda, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelCraneoOfrenda.render(matrixCraneoOfrenda);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixPumpkin = glm::mat4(1.0);
+		matrixPumpkin = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 6.5));
+		matrixPumpkin = glm::scale(matrixPumpkin, glm::vec3(0.5, 0.5, 0.5));
+		matrixPumpkin = glm::rotate(matrixPumpkin, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelPumpkin.render(matrixPumpkin);
+		glActiveTexture(GL_TEXTURE0);
+
+		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
 		matrixReloj = glm::scale(matrixReloj, glm::vec3(0.5, 0.5, 0.5));
@@ -2648,8 +2678,8 @@ void applicationLoop() {
 		ventanas = glm::translate(modelCasa4, glm::vec3(-5.0, 0.0, 0.01));
 		ventana.render(glm::scale(ventanas, glm::vec3(3.0, 3.0, 0.07)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		
-		
+
+
 		glBindTexture(GL_TEXTURE_2D, textureID17);
 		glm::mat4 pista = glm::translate(modelCasa4, glm::vec3(0.0, -1.5, 18.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
@@ -3192,7 +3222,7 @@ void applicationLoop() {
 		//LAMBO
 		glm::mat4 modelMatriLambo = glm::mat4(modelMatrixLambo);
 
-	
+
 		if (angle > 2 * M_PI)
 			angle = 0.0;
 		else
@@ -3228,8 +3258,8 @@ void applicationLoop() {
 				rotWheely2 = 0.0;
 			}
 
-			if (advanceCount1 >=10.0) {
-				advanceCount1= 0;
+			if (advanceCount1 >= 10.0) {
+				advanceCount1 = 0;
 				state3 = 1;
 			}
 			break;
@@ -3283,7 +3313,7 @@ void applicationLoop() {
 			break;
 
 		case 3:
-			angulo-= 0.1;
+			angulo -= 0.1;
 			if (angulo < 0) {
 				angulo = 0.0;
 				state3 = 0;
