@@ -84,6 +84,10 @@ Model modelDulces;
 Model modelBananaAle;
 Model modelAppleAle;
 Model modelWatermelonAle;
+Model modelCakeAle;
+Model modelZombiePatio;
+Model modelSenora;
+Model modelDrSalvador;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -514,8 +518,20 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelAppleAle.loadModel("../models/Apple/apple.obj");
 	modelAppleAle.setShader(&shaderMulLighting);
 
-	modelWatermelonAle.loadModel("../models/watermelon/Watermelon.obj");
+	modelWatermelonAle.loadModel("../models/Watermelon/Watermelon.obj");
 	modelWatermelonAle.setShader(&shaderMulLighting);
+
+	modelCakeAle.loadModel("../models/Cake/Cake.obj");
+	modelCakeAle.setShader(&shaderMulLighting);
+
+	modelZombiePatio.loadModel("../models/charger/charger.obj");
+	modelZombiePatio.setShader(&shaderMulLighting);
+
+	modelSenora.loadModel("../models/Michiko Yamada - Ghost/Michiko Yamada - Ghost.obj");
+	modelSenora.setShader(&shaderMulLighting);
+
+	modelDrSalvador.loadModel("../models/salvador/Scene.obj");
+	modelDrSalvador.setShader(&shaderMulLighting);
 
 	camera->setPosition(glm::vec3(30.0, 0.0, 10.0));
 
@@ -2611,26 +2627,53 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixAppleAle = glm::mat4(1.0);
-		matrixAppleAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.85, 3.5));
-		matrixAppleAle = glm::scale(matrixAppleAle, glm::vec3(0.1, 0.1, 0.1));
+		matrixAppleAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.8, 3.5));
+		matrixAppleAle = glm::scale(matrixAppleAle, glm::vec3(0.08, 0.08, 0.08));
+		modelAppleAle.render(matrixAppleAle);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAppleAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.8, 3.7));
+		matrixAppleAle = glm::scale(matrixAppleAle, glm::vec3(0.08, 0.08, 0.08));
 		modelAppleAle.render(matrixAppleAle);
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixWatermelonAle = glm::mat4(1.0);
-		matrixWatermelonAle = glm::translate(modelCasa3, glm::vec3(-0.45, -0.75, 3.0));
-		matrixWatermelonAle = glm::scale(matrixWatermelonAle, glm::vec3(5.5, 5.5, 5.5));
-		matrixWatermelonAle = glm::rotate(matrixDulces, glm::radians(-45.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixWatermelonAle = glm::translate(modelCasa3, glm::vec3(-0.65, -0.75, 3.0));
+		matrixWatermelonAle = glm::scale(matrixWatermelonAle, glm::vec3(1.2, 1.2, 1.2));
 		modelWatermelonAle.render(matrixWatermelonAle);
 		glActiveTexture(GL_TEXTURE0);
 		
+		glm::mat4 matrixCakeAle = glm::mat4(1.0);
+		matrixCakeAle = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 2.5));
+		matrixCakeAle = glm::scale(matrixCakeAle, glm::vec3(1.2, 1.2, 1.2));
+		modelCakeAle.render(matrixCakeAle);
+		glActiveTexture(GL_TEXTURE0);
 		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
 		matrixReloj = glm::scale(matrixReloj, glm::vec3(0.5, 0.5, 0.5));
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelReloj.render(matrixReloj);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixZombiePatio = glm::mat4(1.0);
+		matrixZombiePatio = glm::translate(modelCasa2, glm::vec3(2.0, -1.5, 2.5));
+		matrixZombiePatio = glm::scale(matrixZombiePatio, glm::vec3(0.04, 0.04, 0.04));
+		modelZombiePatio.render(matrixZombiePatio);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixSenora = glm::mat4(1.0);
+		matrixSenora = glm::translate(modelCasa, glm::vec3(6.0, -1.5, -3.0));
+		matrixSenora = glm::scale(matrixSenora, glm::vec3(1.2, 1.2, 1.2));
+		modelSenora.render(matrixSenora);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixDrSalvador = glm::mat4(1.0);
+		matrixDrSalvador = glm::translate(modelCasa4, glm::vec3(6.0, -1.5, 10.0));
+		matrixDrSalvador = glm::scale(matrixDrSalvador, glm::vec3(0.2, 0.2, 0.2));
+		modelDrSalvador.render(matrixDrSalvador);
+		glActiveTexture(GL_TEXTURE0);
+
+		//HASTA AQUI MODIFIQUE
 		//PISO SALA COMEDOR
 		glm::mat4 pisoSala = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA13);
