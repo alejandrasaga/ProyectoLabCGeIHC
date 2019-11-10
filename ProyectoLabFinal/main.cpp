@@ -81,6 +81,8 @@ Model modelMesaOfrenda; //mesa en la sala para la ofrenda
 Model modelCraneoOfrenda;
 Model modelPumpkin;
 Model modelDulces;
+Model modelBananaAle;
+Model modelAppleAle;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -505,7 +507,13 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelDulces.loadModel("../models/Pumpkin Bucket/PumpkinBucket.obj");
 	modelDulces.setShader(&shaderMulLighting);
 
-	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
+	modelBananaAle.loadModel("../models/banana/OBJ_BANANA_02_LOD100.obj");
+	modelBananaAle.setShader(&shaderMulLighting);
+
+	modelAppleAle.loadModel("../models/Apple/apple.obj");
+	modelAppleAle.setShader(&shaderMulLighting);
+
+	camera->setPosition(glm::vec3(0.0, 0.0, 10.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -2590,6 +2598,18 @@ void applicationLoop() {
 		matrixDulces = glm::scale(matrixDulces, glm::vec3(0.5, 0.5, 0.5));
 		matrixDulces = glm::rotate(matrixDulces, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelDulces.render(matrixDulces);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixBananaAle = glm::mat4(1.0);
+		matrixBananaAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.75, 2.5));
+		matrixBananaAle = glm::scale(matrixBananaAle, glm::vec3(0.2, 0.2, 0.2));
+		modelBananaAle.render(matrixBananaAle);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixAppleAle = glm::mat4(1.0);
+		matrixAppleAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.85, 3.5));
+		matrixAppleAle = glm::scale(matrixAppleAle, glm::vec3(0.1, 0.1, 0.1));
+		modelAppleAle.render(matrixAppleAle);
 		glActiveTexture(GL_TEXTURE0);
 		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
