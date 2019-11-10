@@ -89,6 +89,10 @@ Model modelZombiePatio;
 Model modelSenora;
 Model modelDrSalvador;
 Model modelCarroza;
+Model modelArbolAle;
+Model modelAutumnTree;
+Model modelMeat, modelMeat2, modelMeat3;
+Model modelHand;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -536,6 +540,24 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelCarroza.loadModel("../models/GhostBus/GhostBus.obj");
 	modelCarroza.setShader(&shaderMulLighting);
+
+	modelArbolAle.loadModel("../models/Wickedtree/Wickedtree.obj");
+	modelArbolAle.setShader(&shaderMulLighting);
+
+	modelAutumnTree.loadModel("../models/Autumn Tree/Autumn Tree.obj");
+	modelAutumnTree.setShader(&shaderMulLighting);
+
+	modelMeat.loadModel("../models/Meat/Meat1.obj");
+	modelMeat.setShader(&shaderMulLighting);
+
+	modelMeat2.loadModel("../models/Meat/Meat2.obj");
+	modelMeat2.setShader(&shaderMulLighting);
+
+	modelMeat3.loadModel("../models/Meat/Meat3.obj");
+	modelMeat3.setShader(&shaderMulLighting);
+
+	modelHand.loadModel("../models/Hand/Hand.obj");
+	modelHand.setShader(&shaderMulLighting);
 
 
 	camera->setPosition(glm::vec3(40.0, 0.0, 10.0));
@@ -2441,7 +2463,7 @@ void applicationLoop() {
 
 		//CASA ALE//
 		//CASITA
-		glm::mat4 modelAle = glm::translate(model, glm::vec3(29.5, 0.2, 0));
+		glm::mat4 modelAle = glm::translate(model, glm::vec3(40.0, 0.2, 0));
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
 		//TECHO ALE
 		/*glm::mat4 modelCasaTecho = glm::mat4(1.0);
@@ -2680,10 +2702,63 @@ void applicationLoop() {
 
 		glm::mat4 matrixCarroza = glm::mat4(1.0);
 		matrixCarroza = glm::translate(modelCasa4, glm::vec3(3.0, -1.5, 18.0));
-		//matrixCarroza = glm::scale(matrixCarroza, glm::vec3(1.5, 1.5, 1.5));
+		matrixCarroza = glm::scale(matrixCarroza, glm::vec3(1.5, 1.5, 1.5));
 		modelCarroza.render(matrixCarroza);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixArbolAle = glm::mat4(1.0);
+		matrixArbolAle = glm::translate(modelCasa4, glm::vec3(-10.0, -1.5, 11.0));
+		matrixArbolAle = glm::scale(matrixArbolAle, glm::vec3(0.3, 0.3, 0.3));
+		modelArbolAle.render(matrixArbolAle);
+		glActiveTexture(GL_TEXTURE0);
+		
+		glm::mat4 matrixAutumnTree = glm::mat4(1.0);
+		matrixAutumnTree = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, 10.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAutumnTree = glm::translate(modelCasa3, glm::vec3(7.0, -1.5, 0.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAutumnTree = glm::translate(modelCasa2, glm::vec3(15.0, -1.5, -10.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAutumnTree = glm::translate(modelCasa2, glm::vec3(-15.0, -1.5, -10.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAutumnTree = glm::translate(modelCasa2, glm::vec3(0.0, -1.5, -10.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixMeat = glm::mat4(1.0);
+		matrixMeat = glm::translate(modelCasa3, glm::vec3(-6.0, 1.5, 4.0));
+		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
+		modelMeat.render(matrixMeat);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixMeat = glm::translate(modelCasa3, glm::vec3(-5.5, 1.5, 4.0));
+		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
+		modelMeat2.render(matrixMeat);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixMeat = glm::translate(modelCasa3, glm::vec3(-5.75, 1.5, 3.5));
+		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
+		modelMeat2.render(matrixMeat);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixHand = glm::mat4(1.0);
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-6.0, -1.5, 7.0));
+		matrixHand = glm::scale(matrixHand, glm::vec3(0.1, 0.1, 0.1));
+		modelHand.render(matrixHand);
+		glActiveTexture(GL_TEXTURE0);
 
 		//HASTA AQUI MODIFIQUE
 		//PISO SALA COMEDOR
