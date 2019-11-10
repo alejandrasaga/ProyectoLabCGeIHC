@@ -94,6 +94,7 @@ Model modelArbolAle;
 Model modelAutumnTree;
 Model modelMeat, modelMeat2, modelMeat3;
 Model modelHand, modelHandCandy;
+Model modelPan;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -571,7 +572,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelHandCandy.loadModel("../models/HandMario/Crazy Hand.obj");
 	modelHandCandy.setShader(&shaderMulLighting);
 
-
+	modelPan.loadModel("../models/Bread/Bread.obj");
+	modelPan.setShader(&shaderMulLighting);
 
 	camera->setPosition(glm::vec3(0.0, 0.0, 0.0));
 
@@ -2850,18 +2852,20 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 
+		glm::mat4 matrixPanMuerto = glm::mat4(1.0);
+		matrixPanMuerto = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
+		matrixPanMuerto = glm::scale(matrixPanMuerto, glm::vec3(0.1, 0.1, 0.05));
+		//glBindTexture(GL_TEXTURE_2D, textureIDA32);
+		modelPan.render(matrixPanMuerto);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
 		//PISO SALA COMEDOR
 		glm::mat4 pisoSala = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA13);
 		salaPiso.render(glm::scale(pisoSala, glm::vec3(8.0, 0.01, 8.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		glm::mat4 modelPanMuerto = glm::mat4(1.0);
-		modelPanMuerto = glm::translate(pisoSala, glm::vec3(3.0, 1.0, 0.0));
-		modelPanMuerto = glm::scale(modelPanMuerto, glm::vec3(0.3, 0.001, 0.3));
-		glBindTexture(GL_TEXTURE_2D, textureIDA32);
-		panMuerto.render(modelPanMuerto);
-		glBindTexture(GL_TEXTURE_2D, 0);
 		//HASTA AQUI MODIFIQUE
 
 		glm::mat4 matrixMesita = glm::mat4(1.0);
