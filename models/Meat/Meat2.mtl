@@ -1,0 +1,39 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 18.01.2019 23:40:23
+
+newmtl wire_006134006
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.0235 0.5255 0.0235
+	Kd 0.0235 0.5255 0.0235
+	Ks 0.3500 0.3500 0.3500
+
+newmtl wire_224198087
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.8784 0.7765 0.3412
+	Kd 0.8784 0.7765 0.3412
+	Ks 0.3500 0.3500 0.3500
+
+newmtl pawn_om_om0844_model_om_meatB01_01_BM
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka om_meatb01_01_bm.png
+	map_Kd om_meatb01_01_bm.png
+	map_Ks om_meatb01_01_mm.png
+	map_bump om_meatb01_01_nm.png
+	bump om_meatb01_01_nm.png
