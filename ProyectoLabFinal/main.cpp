@@ -68,9 +68,11 @@ Box pisoHabitacion, paredHabitacion, muebleHabitacion;
 Box cocinaPared, cocinaPiso, cocina, encimera;
 Box salaPared, salaPiso, sillon;
 Box paredExt, paredExt2;
-Box pisoExt, carreteraAle;
+Box pisoExt, carreteraAle, pastoAle;
 Box puertaAle;
 Box ventana;
+Box panMuerto;
+Box papelPicado, sangre;
 //MODELOS CASA ALE
 Model modelReloj;
 Model modelSilla;
@@ -80,7 +82,7 @@ Model modelPlanta;
 Model modelMesaOfrenda; //mesa en la sala para la ofrenda
 Model modelCraneoOfrenda;
 Model modelPumpkin;
-Model modelDulces;
+Model modelDulces, modelCandy; //Model dulces es la calabza con dulces y candy es el dulce solo
 Model modelBananaAle;
 Model modelAppleAle;
 Model modelWatermelonAle;
@@ -92,7 +94,7 @@ Model modelCarroza;
 Model modelArbolAle;
 Model modelAutumnTree;
 Model modelMeat, modelMeat2, modelMeat3;
-Model modelHand;
+Model modelHand, modelHandCandy;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -101,8 +103,8 @@ GLuint textureIDA5, textureIDA6, textureIDA7, textureIDA9, textureIDA8;
 GLuint textureIDA10, textureIDA11, textureIDA12, textureIDA13, textureIDA14, textureIDA15, textureIDA16, textureIDA17;
 //		puertas		ventana		cocina estufa, comida		horno estufa cama base	cama colchon, piscina
 GLuint textureIDA18, textureIDA19, textureIDA20, textureIDA21, textureIDA22, textureIDA23, textureIDA24, textureIDA25;
-// sillon			encimera	techo			fregadero  lavabo,		carretera
-GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, textureIDA31, textureIDA32;
+// sillon			encimera	techo			fregadero  lavabo,		carretera			pan de muerto papel Picado
+GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, textureIDA31, textureIDA32, textureIDA33;
 
 
 //Models complex instances 
@@ -327,6 +329,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	salaPiso.setShader(&shaderMulLighting);
 	sillon.init();
 	sillon.setShader(&shaderMulLighting);
+	panMuerto.init();
+	panMuerto.setShader(&shaderMulLighting);
 	//CUARTO EXTERIOR
 	paredExt.init();
 	paredExt.setShader(&shaderMulLighting);
@@ -353,6 +357,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//pista
 	carreteraAle.init();
 	carreteraAle.setShader(&shaderMulLighting);
+
+	pastoAle.init();
+	pastoAle.setShader(&shaderMulLighting);
 	//TERMINA CASITA ALE
 	/*=======================*/
 
@@ -558,6 +565,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelHand.loadModel("../models/Hand/Hand.obj");
 	modelHand.setShader(&shaderMulLighting);
+
+	modelHandCandy.loadModel("../models/HandMario/Crazy Hand.obj");
+	modelHandCandy.setShader(&shaderMulLighting);
+
 
 
 	camera->setPosition(glm::vec3(40.0, 0.0, 10.0));
@@ -1446,8 +1457,26 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
 
+	Texture textureA32("../Textures/panMuerto.png");
+	bitmap = textureA32.loadImage();
+	data = textureA32.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureIDA32);
+	glBindTexture(GL_TEXTURE_2D, textureIDA32);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureA32.freeImage(bitmap);
 
-	//FINALIZA TEXTURA PARA LA CASA
+
+	//FINALIZA TEXTURA PARA LA CASA ALE
 
 
 
@@ -1887,10 +1916,6 @@ void applicationLoop() {
 		matrixModelPuerta = glm::scale(matrixModelPuerta, glm::vec3(0.1, 0.1, 0.1));
 		modelPuerta.render(matrixModelPuerta);
 		glActiveTexture(GL_TEXTURE0);*/
-
-
-
-
 
 
 		/*glm::mat4 boxMaterialModel = glm::mat4(1.0f);
@@ -2509,6 +2534,7 @@ void applicationLoop() {
 		modelCasaDer = glm::translate(modelCasaDer, glm::vec3(0.0, 0.0, 5.5));
 		casaExterior3.render(glm::scale(modelCasaDer, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
+
 		//PARED DE ENFRENTE
 		glm::mat4 modelCasa4 = glm::translate(modelCasa3, glm::vec3(-7.5, 0.0, 7.5));
 		glm::mat4 modelCasaFrente = glm::translate(modelCasa3, glm::vec3(-7.5, 0.0, 7.5));
@@ -2612,6 +2638,9 @@ void applicationLoop() {
 		paredSala = glm::translate(modelCasa3, glm::vec3(-0.01, 0.0, 6.25));
 		salaPared.render(glm::scale(paredSala, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+
+	
 
 		//MODELOS CASA ALE
 		glm::mat4 matrixMesaOfrenda = glm::mat4(1.0);
@@ -2641,12 +2670,38 @@ void applicationLoop() {
 		modelPumpkin.render(matrixPumpkin);
 		glActiveTexture(GL_TEXTURE0);
 
+		matrixPumpkin = glm::translate(modelCasa4, glm::vec3(3.0, -1.5, 0.75));
+		matrixPumpkin = glm::scale(matrixPumpkin, glm::vec3(0.5, 0.5, 0.5));
+		modelPumpkin.render(matrixPumpkin);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixPumpkin = glm::translate(modelCasa4, glm::vec3(-0.75, -1.5, 0.75));
+		matrixPumpkin = glm::scale(matrixPumpkin, glm::vec3(0.5, 0.5, 0.5));
+		modelPumpkin.render(matrixPumpkin);
+		glActiveTexture(GL_TEXTURE0);
+
+		//DULCES CERCA DE LA OFRENDA
 		glm::mat4 matrixDulces = glm::mat4(1.0);
 		matrixDulces = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 4.5));
 		matrixDulces = glm::scale(matrixDulces, glm::vec3(0.5, 0.5, 0.5));
 		matrixDulces = glm::rotate(matrixDulces, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelDulces.render(matrixDulces);
 		glActiveTexture(GL_TEXTURE0);
+		//DULCES EN LA PUERTA
+		matrixDulces = glm::translate(modelCasa4, glm::vec3(2.75, -1.5, -0.5));
+		matrixDulces = glm::scale(matrixDulces, glm::vec3(0.5, 0.5, 0.5));
+		matrixDulces = glm::rotate(matrixDulces, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelDulces.render(matrixDulces);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixManoDulces = glm::translate(modelCasa4, glm::vec3(2.75, -1.0, -0.8));
+		matrixManoDulces = glm::scale(matrixManoDulces, glm::vec3(0.04, 0.04, 0.04));
+		matrixManoDulces = glm::rotate(matrixManoDulces, glm::radians(-30.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelHandCandy.render(matrixManoDulces);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixCandy = glm::translate(modelCasa4, glm::vec3(2.75, -2.0, -0.5));
+		//matrixCandy
 
 		glm::mat4 matrixBananaAle = glm::mat4(1.0);
 		matrixBananaAle = glm::translate(modelCasa3, glm::vec3(-0.3, -0.75, 2.5));
@@ -2790,12 +2845,19 @@ void applicationLoop() {
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
-		//HASTA AQUI MODIFIQUE
+
 		//PISO SALA COMEDOR
 		glm::mat4 pisoSala = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA13);
 		salaPiso.render(glm::scale(pisoSala, glm::vec3(8.0, 0.01, 8.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 modelPanMuerto = glm::mat4(1.0);
+		modelPanMuerto = glm::translate(pisoSala, glm::vec3(3.0, 1.0, -1.0));
+		glBindTexture(GL_TEXTURE_2D, textureIDA32);
+		panMuerto.render(glm::scale(modelPanMuerto, glm::vec3(0.3, 0.001, 0.3)));
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//HASTA AQUI MODIFIQUE
 
 		glm::mat4 matrixMesita = glm::mat4(1.0);
 		matrixMesita = glm::translate(pisoSala, glm::vec3(0.75, 0.0, 0.0));
@@ -2891,6 +2953,13 @@ void applicationLoop() {
 
 		pista = glm::translate(modelCasa3, glm::vec3(15.0, -1.5, 0.0)); //DERECHA
 		carreteraAle.render(glm::scale(pista, glm::vec3(4.0, 0.001, 53.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glBindTexture(GL_TEXTURE_2D, textureID7);
+		glm::mat4 matrixPastoAle = glm::translate(modelAle, glm::vec3(0.0, -1.55, 0.0));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(6.0, 5.0)));
+		pastoAle.render(glm::scale(matrixPastoAle, glm::vec3(52.0, 0.1, 50.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glBindTexture(GL_TEXTURE_2D, textureID16);
