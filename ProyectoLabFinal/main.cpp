@@ -83,6 +83,7 @@ Model modelPumpkin;
 Model modelDulces;
 Model modelBananaAle;
 Model modelAppleAle;
+Model modelWatermelonAle;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -513,7 +514,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelAppleAle.loadModel("../models/Apple/apple.obj");
 	modelAppleAle.setShader(&shaderMulLighting);
 
-	camera->setPosition(glm::vec3(0.0, 0.0, 10.0));
+	modelWatermelonAle.loadModel("../models/watermelon/Watermelon.obj");
+	modelWatermelonAle.setShader(&shaderMulLighting);
+
+	camera->setPosition(glm::vec3(30.0, 0.0, 10.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -2611,6 +2615,14 @@ void applicationLoop() {
 		matrixAppleAle = glm::scale(matrixAppleAle, glm::vec3(0.1, 0.1, 0.1));
 		modelAppleAle.render(matrixAppleAle);
 		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixWatermelonAle = glm::mat4(1.0);
+		matrixWatermelonAle = glm::translate(modelCasa3, glm::vec3(-0.45, -0.75, 3.0));
+		matrixWatermelonAle = glm::scale(matrixWatermelonAle, glm::vec3(5.5, 5.5, 5.5));
+		matrixWatermelonAle = glm::rotate(matrixDulces, glm::radians(-45.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelWatermelonAle.render(matrixWatermelonAle);
+		glActiveTexture(GL_TEXTURE0);
+		
 		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
