@@ -48,7 +48,6 @@ Shader shaderMulLighting;
 
 std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 
-
 Sphere sphereLamp(20, 20);
 Sphere skyboxSphere(20, 20);
 
@@ -178,6 +177,9 @@ bool sentido = true;
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
 int lastMousePosY, offsetY = 0;
+
+int lastMousePosX2, offsetX2 = 0;
+int lastMousePosY2, offsetY2 = 0;
 
 
 double deltaTime;
@@ -571,7 +573,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 
 
-	camera->setPosition(glm::vec3(40.0, 0.0, 10.0));
+	camera->setPosition(glm::vec3(0.0, 0.0, 0.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -1582,6 +1584,8 @@ bool processInput(bool continueApplication) {
 		camera->mouseMoveCamera(offsetX, offsetY, 0.03);
 	offsetX = 0;
 	offsetY = 0;
+
+	
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		sentido = false;
 
@@ -2853,9 +2857,10 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 modelPanMuerto = glm::mat4(1.0);
-		modelPanMuerto = glm::translate(pisoSala, glm::vec3(3.0, 1.0, -1.0));
+		modelPanMuerto = glm::translate(pisoSala, glm::vec3(3.0, 1.0, 0.0));
+		modelPanMuerto = glm::scale(modelPanMuerto, glm::vec3(0.3, 0.001, 0.3));
 		glBindTexture(GL_TEXTURE_2D, textureIDA32);
-		panMuerto.render(glm::scale(modelPanMuerto, glm::vec3(0.3, 0.001, 0.3)));
+		panMuerto.render(modelPanMuerto);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//HASTA AQUI MODIFIQUE
 
