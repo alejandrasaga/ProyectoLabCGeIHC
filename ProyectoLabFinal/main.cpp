@@ -88,6 +88,7 @@ Model modelCakeAle;
 Model modelZombiePatio;
 Model modelSenora;
 Model modelDrSalvador;
+Model modelCarroza;
 
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
@@ -533,7 +534,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelDrSalvador.loadModel("../models/salvador/Scene.obj");
 	modelDrSalvador.setShader(&shaderMulLighting);
 
-	camera->setPosition(glm::vec3(30.0, 0.0, 10.0));
+	modelCarroza.loadModel("../models/GhostBus/GhostBus.obj");
+	modelCarroza.setShader(&shaderMulLighting);
+
+
+	camera->setPosition(glm::vec3(40.0, 0.0, 10.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -2672,6 +2677,13 @@ void applicationLoop() {
 		matrixDrSalvador = glm::scale(matrixDrSalvador, glm::vec3(0.2, 0.2, 0.2));
 		modelDrSalvador.render(matrixDrSalvador);
 		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixCarroza = glm::mat4(1.0);
+		matrixCarroza = glm::translate(modelCasa4, glm::vec3(3.0, -1.5, 18.0));
+		//matrixCarroza = glm::scale(matrixCarroza, glm::vec3(1.5, 1.5, 1.5));
+		modelCarroza.render(matrixCarroza);
+		glActiveTexture(GL_TEXTURE0);
+
 
 		//HASTA AQUI MODIFIQUE
 		//PISO SALA COMEDOR
