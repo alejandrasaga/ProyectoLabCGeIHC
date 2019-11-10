@@ -2613,6 +2613,7 @@ void applicationLoop() {
 		salaPared.render(glm::scale(paredSala, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		//MODELOS CASA ALE
 		glm::mat4 matrixMesaOfrenda = glm::mat4(1.0);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixMesaOfrenda = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 3.0));
@@ -2678,7 +2679,7 @@ void applicationLoop() {
 		
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
-		matrixReloj = glm::scale(matrixReloj, glm::vec3(0.5, 0.5, 0.5));
+		//matrixReloj = glm::scale(matrixReloj, glm::vec3(0.5, 0.5, 0.5));
 		modelReloj.render(matrixReloj);
 		glActiveTexture(GL_TEXTURE0);
 
@@ -2738,6 +2739,16 @@ void applicationLoop() {
 		modelAutumnTree.render(matrixAutumnTree);
 		glActiveTexture(GL_TEXTURE0);
 
+		matrixAutumnTree = glm::translate(modelCasa, glm::vec3(-7.0, -1.5, 0.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixAutumnTree = glm::translate(modelCasa, glm::vec3(-7.0, -1.5, 17.0));
+		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
+		modelAutumnTree.render(matrixAutumnTree);
+		glActiveTexture(GL_TEXTURE0);
+
 		glm::mat4 matrixMeat = glm::mat4(1.0);
 		matrixMeat = glm::translate(modelCasa3, glm::vec3(-6.0, 1.5, 4.0));
 		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
@@ -2753,10 +2764,29 @@ void applicationLoop() {
 		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
 		modelMeat2.render(matrixMeat);
 		glActiveTexture(GL_TEXTURE0);
-
+		//MANO ZOMBIE
 		glm::mat4 matrixHand = glm::mat4(1.0);
-		matrixHand = glm::translate(modelCasa4, glm::vec3(-6.0, -1.5, 7.0));
-		matrixHand = glm::scale(matrixHand, glm::vec3(0.1, 0.1, 0.1));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.5, 5.0));
+		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
+		matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+		modelHand.render(matrixHand);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, 5.0));
+		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
+		matrixHand = glm::rotate(matrixHand, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
+		modelHand.render(matrixHand);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.5, -3.5));
+		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
+		matrixHand = glm::rotate(matrixHand, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelHand.render(matrixHand);
+		glActiveTexture(GL_TEXTURE0);
+
+		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, -0.5));
+		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
+		matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
@@ -2950,7 +2980,7 @@ void applicationLoop() {
 		sillon.render(glm::scale(sillones, glm::vec3(3.0, 0.3, 0.6)));//asiento sillon 2
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-
+		//================TERMINA CASA ALE
 
 		////////////////////////////////////////////////////////////////////////////BOB//////////////////////////////////////////////////////////////////
 
