@@ -612,7 +612,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//NAVIDAD
 
 
-	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
+	camera->setPosition(glm::vec3(0.0, 0.0, 0.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -2898,13 +2898,13 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 		//MANO ZOMBIE
 		glm::mat4 matrixHand = glm::mat4(1.0);
-		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.25, 5.0));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -0.7, 5.0));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
-		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.25, 5.0));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -0.7, 5.0));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
 		modelHand.render(matrixHand);
