@@ -1,0 +1,15 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl TableBooth_MAT
+Ns 68.627451
+Ka 0.588000 0.588000 0.588000
+Kd 0.588000 0.588000 0.588000
+Ks 0.900000 0.900000 0.900000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd TableBoothRed_DIFF.png
+map_Bump TableBooth_NORM.png
+map_Ka TableBoothRed_DIFF.png
