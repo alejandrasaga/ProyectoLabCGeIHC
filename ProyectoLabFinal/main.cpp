@@ -61,6 +61,7 @@ GLuint textureID1, textureID2, textureID3, textureID4, /*CASA*/ textureID5, text
 //=======CASA ALE======
 Cylinder buroHabit(20, 20, 0.5, 0.5);
 Cylinder jacuzi(20, 20, 0.5, 0.5);
+Cylinder veladora(20, 20, 0.5, 0.5);
 Box boxMaterials2;
 Box casaExterior, casaExterior2, casaExterior3, casaExterior4, casaTecho; //paredes de la casa exterior
 Box mosaicoBanio, paredBanio, banio;//BANIO1
@@ -107,6 +108,8 @@ GLuint textureIDA10, textureIDA11, textureIDA12, textureIDA13, textureIDA14, tex
 GLuint textureIDA18, textureIDA19, textureIDA20, textureIDA21, textureIDA22, textureIDA23, textureIDA24, textureIDA25;
 // sillon			encimera	techo			fregadero  lavabo,		carretera		pan de muerto	papel Picado
 GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, textureIDA31, textureIDA32, textureIDA33;
+//		vela
+GLuint textureIDA34;
 
 
 //Models complex instances 
@@ -370,6 +373,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//pista
 	carreteraAle.init();
 	carreteraAle.setShader(&shaderMulLighting);
+	//veladora
+	veladora.init();
+	veladora.setShader(&shaderMulLighting);
 
 	pastoAle.init();
 	pastoAle.setShader(&shaderMulLighting);
@@ -1497,6 +1503,24 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
+
+	Texture textureA34("../Textures/vela.jpg");
+	bitmap = textureA34.loadImage();
+	data = textureA34.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureIDA34);
+	glBindTexture(GL_TEXTURE_2D, textureIDA34);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureA34.freeImage(bitmap);
 
 
 	//FINALIZA TEXTURA PARA LA CASA
@@ -2727,6 +2751,19 @@ void applicationLoop() {
 		modelMesaOfrenda.render(matrixMesaOfrenda);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 modelVeladora = glm::mat4(1.0);
+		glBindTexture(GL_TEXTURE_2D, textureIDA34);
+		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
+		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
+		veladora.render(modelVeladora);
+
+		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 2.2));
+		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
+		veladora.render(modelVeladora);
+		glActiveTexture(GL_TEXTURE0);
+
+
+		
 		glm::mat4 matrixCraneoOfrenda = glm::mat4(1.0);
 		matrixCraneoOfrenda = glm::translate(modelCasa3, glm::vec3(-0.35, -0.85, 2.0));
 		matrixCraneoOfrenda = glm::scale(matrixCraneoOfrenda, glm::vec3(0.01, 0.01, 0.01));
