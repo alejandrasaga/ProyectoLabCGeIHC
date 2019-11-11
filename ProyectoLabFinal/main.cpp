@@ -48,6 +48,7 @@ Shader shaderMulLighting;
 
 std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 
+
 Sphere sphereLamp(20, 20);
 Sphere skyboxSphere(20, 20);
 
@@ -96,6 +97,7 @@ Model modelMeat, modelMeat2, modelMeat3;
 Model modelHand, modelHandCandy;
 Model modelPan;
 
+
 //TEXTURAS CASA ALE
 //	paredes exterior, mosaicoBanio,paredBanio, pisoHabit, paredHabit
 GLuint textureIDA5, textureIDA6, textureIDA7, textureIDA9, textureIDA8;
@@ -103,7 +105,7 @@ GLuint textureIDA5, textureIDA6, textureIDA7, textureIDA9, textureIDA8;
 GLuint textureIDA10, textureIDA11, textureIDA12, textureIDA13, textureIDA14, textureIDA15, textureIDA16, textureIDA17;
 //		puertas		ventana		cocina estufa, comida		horno estufa cama base	cama colchon, piscina
 GLuint textureIDA18, textureIDA19, textureIDA20, textureIDA21, textureIDA22, textureIDA23, textureIDA24, textureIDA25;
-// sillon			encimera	techo			fregadero  lavabo,		carretera			pan de muerto papel Picado
+// sillon			encimera	techo			fregadero  lavabo,		carretera		pan de muerto	papel Picado
 GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, textureIDA31, textureIDA32, textureIDA33;
 
 
@@ -111,9 +113,20 @@ GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, tex
 Model modelRailRoad;
 Model modelAircraft;
 Model modelRock;
-Model modelarbol;
+Model modelarboldenavidad;
 Model modelmesa;
 Model model6;
+Model modelregalo;
+Model modeladorno1;
+Model modeladotrineo;
+Model modelcocina;
+Model modelmueblecocina;
+Model modelmuneconieve;
+Model modelcorona;
+Model modelcocinamesa;
+Model modelalacena;
+Model modelbaston;
+
 //CASA
 //Animacion 
 GLuint skyboxTextureID;
@@ -178,9 +191,6 @@ bool sentido = true;
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
 int lastMousePosY, offsetY = 0;
-
-int lastMousePosX2, offsetX2 = 0;
-int lastMousePosY2, offsetY2 = 0;
 
 
 double deltaTime;
@@ -575,7 +585,34 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelPan.loadModel("../models/Bread/Bread.obj");
 	modelPan.setShader(&shaderMulLighting);
 
-	camera->setPosition(glm::vec3(0.0, 0.0, 0.0));
+
+	// NAVIDAD
+	;
+	modelcorona.loadModel("../models/adornos/corona/ChristmasWreath.obj");
+	modelcorona.setShader(&shaderMulLighting);
+	modeladorno1.loadModel("../models/adornos/santa/chimenea.obj");
+	modeladorno1.setShader(&shaderMulLighting);
+	modeladotrineo.loadModel("../models/adornos/trineo/SantasSleigh.obj");
+	modeladotrineo.setShader(&shaderMulLighting);
+	modelbaston.loadModel("../models/adornos/baston/candyCane.obj");
+	modelbaston.setShader(&shaderMulLighting);
+	modelcocina.loadModel("../models/cocina/kitchen_oven.obj");
+	modelcocina.setShader(&shaderMulLighting);
+	modelmueblecocina.loadModel("../models/cocina/mueble/kitchen_pantry.obj");
+	modelmueblecocina.setShader(&shaderMulLighting);
+	modelregalo.loadModel("../models/adornos/regalo/13495_Stack_of_Gifts_v2_L2.obj");
+	modelregalo.setShader(&shaderMulLighting);
+
+	modelmuneconieve.loadModel("../models/adornos/nieve/11581_Snowman_V2_l3.obj");
+	modelmuneconieve.setShader(&shaderMulLighting);
+
+	modelarboldenavidad.loadModel("../models/adornos/arbol/12150_Christmas_Tree_V2_L2.obj");
+	modelarboldenavidad.setShader(&shaderMulLighting);
+
+	//NAVIDAD
+
+
+	camera->setPosition(glm::vec3(0.0, 0.0, 4.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -687,7 +724,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID4);
 	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -720,7 +757,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID5);
 	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -754,7 +791,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID6);
 	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -1461,26 +1498,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
 
-	Texture textureA32("../Textures/panMuerto.png");
-	bitmap = textureA32.loadImage();
-	data = textureA32.convertToData(bitmap, imageWidth, imageHeight);
-	glGenTextures(1, &textureIDA32);
-	glBindTexture(GL_TEXTURE_2D, textureIDA32);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
-			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "Failed to load texture" << std::endl;
-	textureA32.freeImage(bitmap);
 
-
-	//FINALIZA TEXTURA PARA LA CASA ALE
+	//FINALIZA TEXTURA PARA LA CASA
 
 
 
@@ -1586,8 +1605,6 @@ bool processInput(bool continueApplication) {
 		camera->mouseMoveCamera(offsetX, offsetY, 0.03);
 	offsetX = 0;
 	offsetY = 0;
-
-	
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		sentido = false;
 
@@ -1924,6 +1941,10 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);*/
 
 
+
+
+
+
 		/*glm::mat4 boxMaterialModel = glm::mat4(1.0f);
 		boxMaterialModel = glm::translate(boxMaterialModel, glm::vec3(-3.0, 2.0, -3.0));
 		shaderMaterialLighting.setVectorFloat3("material.ambient", glm::value_ptr(glm::vec3(0.61424f, 0.04136f, 0.04136f)));
@@ -1931,12 +1952,26 @@ void applicationLoop() {
 		shaderMaterialLighting.setVectorFloat3("material.specular", glm::value_ptr(glm::vec3(0.727811f, 0.626959f, 0.626959f)));
 		shaderMaterialLighting.setFloat("material.shininess", 76.8f);
 		boxMaterials.render(boxMaterialModel);*/
-		////////////////////////////////////////////////////// CASA ////////////////////////////////////////////////////////////////
 
-		//	PISO 
+		/////////////////////////////////////COCINA////////////////////////
 
-		//boxc1.enableWireMode();
+		glm::mat4 matrixcocina = glm::mat4(1.0);
+		matrixcocina = glm::translate(matrixcocina, glm::vec3(11.0, -1.2, 8.0));
+		matrixcocina = glm::rotate(matrixcocina, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelcocina.render(matrixcocina);
+		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixmueblecocina = glm::mat4(1.0);
+		matrixmueblecocina = glm::translate(matrixmueblecocina, glm::vec3(11.0, -1.2, 7.0));
+		matrixmueblecocina = glm::rotate(matrixmueblecocina, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelmueblecocina.render(matrixmueblecocina);
+		glActiveTexture(GL_TEXTURE0);
+
+
+
+
+
+		////////////////////////////////termina cocina////////////////////////////
 
 		glm::mat4 matrixmesa = glm::mat4(1.0);
 		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
@@ -1945,6 +1980,7 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixModelAircraft = glm::mat4(1.0);
+		shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(-7.0, 0.0, -9.0));
 		modelAircraft.render(matrixModelAircraft);
 		glActiveTexture(GL_TEXTURE0);
@@ -1953,7 +1989,49 @@ void applicationLoop() {
 		matrixModelRock = glm::translate(matrixModelRock, glm::vec3(4, -1.0, -18));
 		modelRock.render(matrixModelRock);
 		glActiveTexture(GL_TEXTURE0);
+		////////////////////////////////////////////////////// CASA NAVIDAD  ////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////// MODELOS //////////////////////////////7777
 
+
+
+
+
+		// corona 
+		glm::mat4 matrixcorona = glm::mat4(1.0);
+		matrixcorona = glm::translate(matrixcorona, glm::vec3(2, -1.2, -12.0));
+		modelcorona.render(matrixcorona);
+		glActiveTexture(GL_TEXTURE0);
+		// PARA SANTA CHIMENEA
+		glm::mat4 matrixadorno1 = glm::mat4(1.0);
+		matrixadorno1 = glm::translate(matrixadorno1, glm::vec3(13.0, 3.3, -12.0));
+		modeladorno1.render(matrixadorno1);
+		glActiveTexture(GL_TEXTURE0);
+		// trineo 
+		glm::mat4 matrixtrineo = glm::mat4(1.0);
+		matrixtrineo = glm::translate(matrixtrineo, glm::vec3(20, -1, 0.0));
+		modeladotrineo.render(matrixtrineo);
+		glActiveTexture(GL_TEXTURE0);
+		// regalo
+		glm::mat4 matrixregalo = glm::mat4(1.0);
+		matrixregalo = glm::translate(matrixregalo, glm::vec3(13.0, 2.3, -12.0));
+		modelregalo.render(matrixregalo);
+		glActiveTexture(GL_TEXTURE0);
+		//baston
+		glm::mat4 matrixbaston = glm::mat4(1.0);
+		matrixbaston = glm::translate(matrixbaston, glm::vec3(10.0, 2.3, -12.0));
+		modelbaston.render(matrixbaston);
+		glActiveTexture(GL_TEXTURE0);
+		//muñeco de nieve
+		glm::mat4 matrixmuneconieve = glm::mat4(1.0);
+		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(8.0, 2.3, -12.0));
+		shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		modelmuneconieve.render(matrixmuneconieve);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
+		matrixarboldenavidad = glm::translate(matrixarboldenavidad, glm::vec3(8.0, 2.3, -12.0));
+		modelarboldenavidad.render(matrixarboldenavidad);
+		glActiveTexture(GL_TEXTURE0);
+		////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//ALBERCA
 		glm::mat4 modelAgua = glm::mat4(1.0);
@@ -2006,11 +2084,9 @@ void applicationLoop() {
 
 		//6
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		shaderTexture.setVectorFloat2("scaleUV",
-			glm::value_ptr(glm::vec2(2.0, 1.0)));
+		shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared3 = glm::translate(modelpiso, glm::vec3(-4.5, 2.0, 8));
 		boxc1.render(glm::scale(pared3, glm::vec3(5.5, 4.0, 0.1)));
-
 
 
 
@@ -2073,7 +2149,6 @@ void applicationLoop() {
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared4a = glm::translate(pared4, glm::vec3(2.75, 0.0, 2.0));
 		boxc1.render(glm::scale(pared4a, glm::vec3(0.01, 4.0, 4.0)));
-
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
@@ -2285,8 +2360,7 @@ void applicationLoop() {
 
 		techo = glm::translate(techo, glm::vec3(5.0, 3.0, -7.5));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		shaderTexture.setVectorFloat2("scaleUV",
-			glm::value_ptr(glm::vec2(6.0, 6.0)));
+		shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(6.0, 6.0)));
 		boxc1.render(glm::scale(techo, glm::vec3(23.0, 0.3, 19.0)));
 
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -2363,8 +2437,7 @@ void applicationLoop() {
 
 
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		shaderTexture.setVectorFloat2("scaleUV",
-			glm::value_ptr(glm::vec2(2.0, 1.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(10.0, 10.0)));
 		glm::mat4 pared10 = glm::translate(modelpiso, glm::vec3(0.5, 2.0, -15));
 		boxc1.render(glm::scale(pared10, glm::vec3(16.0, 4.0, 0.1)));
 
@@ -2514,10 +2587,12 @@ void applicationLoop() {
 		glm::mat4 modelCasa = glm::mat4(1.0);
 		modelCasa = glm::translate(modelAle, glm::vec3(0.0, 0.0, 0.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA5);
+
 		glm::mat4 modelCasaIzq = glm::translate(modelCasa, glm::vec3(0.0, 0.0, 0.0));
 		modelCasaIzq = glm::translate(modelCasa, glm::vec3(0.0, 0.0, -5.25));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(5.0, 3.0)));
 		casaExterior.render(glm::scale(modelCasaIzq, glm::vec3(0.01, 3.0, 4.5)));
+
 		modelCasaIzq = glm::translate(modelCasa, glm::vec3(0.0, 0.0, 1.75));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(4.0, 3.0)));
 		casaExterior.render(glm::scale(modelCasaIzq, glm::vec3(0.01, 3.0, 3.5)));
@@ -2540,7 +2615,6 @@ void applicationLoop() {
 		modelCasaDer = glm::translate(modelCasaDer, glm::vec3(0.0, 0.0, 5.5));
 		casaExterior3.render(glm::scale(modelCasaDer, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-
 		//PARED DE ENFRENTE
 		glm::mat4 modelCasa4 = glm::translate(modelCasa3, glm::vec3(-7.5, 0.0, 7.5));
 		glm::mat4 modelCasaFrente = glm::translate(modelCasa3, glm::vec3(-7.5, 0.0, 7.5));
@@ -2644,11 +2718,8 @@ void applicationLoop() {
 		paredSala = glm::translate(modelCasa3, glm::vec3(-0.01, 0.0, 6.25));
 		salaPared.render(glm::scale(paredSala, glm::vec3(0.01, 3.0, 2.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 
-	
-
-		//MODELOS CASA ALE
+		//MODELOS ALE RENDERIZADO
 		glm::mat4 matrixMesaOfrenda = glm::mat4(1.0);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixMesaOfrenda = glm::translate(modelCasa3, glm::vec3(-0.5, -1.5, 3.0));
@@ -2731,13 +2802,13 @@ void applicationLoop() {
 		matrixWatermelonAle = glm::scale(matrixWatermelonAle, glm::vec3(1.2, 1.2, 1.2));
 		modelWatermelonAle.render(matrixWatermelonAle);
 		glActiveTexture(GL_TEXTURE0);
-		
+
 		glm::mat4 matrixCakeAle = glm::mat4(1.0);
 		matrixCakeAle = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 2.5));
 		matrixCakeAle = glm::scale(matrixCakeAle, glm::vec3(1.2, 1.2, 1.2));
 		modelCakeAle.render(matrixCakeAle);
 		glActiveTexture(GL_TEXTURE0);
-		
+
 		glm::mat4 matrixReloj = glm::mat4(1.0);
 		matrixReloj = glm::translate(paredSala, glm::vec3(-7.93, 1.0, -1.2));
 		//matrixReloj = glm::scale(matrixReloj, glm::vec3(0.5, 0.5, 0.5));
@@ -2773,7 +2844,7 @@ void applicationLoop() {
 		matrixArbolAle = glm::scale(matrixArbolAle, glm::vec3(0.3, 0.3, 0.3));
 		modelArbolAle.render(matrixArbolAle);
 		glActiveTexture(GL_TEXTURE0);
-		
+
 		glm::mat4 matrixAutumnTree = glm::mat4(1.0);
 		matrixAutumnTree = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, 10.0));
 		matrixAutumnTree = glm::scale(matrixAutumnTree, glm::vec3(0.1, 0.1, 0.1));
@@ -2865,8 +2936,6 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, textureIDA13);
 		salaPiso.render(glm::scale(pisoSala, glm::vec3(8.0, 0.01, 8.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		//HASTA AQUI MODIFIQUE
 
 		glm::mat4 matrixMesita = glm::mat4(1.0);
 		matrixMesita = glm::translate(pisoSala, glm::vec3(0.75, 0.0, 0.0));
@@ -2962,7 +3031,6 @@ void applicationLoop() {
 
 		pista = glm::translate(modelCasa3, glm::vec3(15.0, -1.5, 0.0)); //DERECHA
 		carreteraAle.render(glm::scale(pista, glm::vec3(4.0, 0.001, 53.0)));
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glBindTexture(GL_TEXTURE_2D, textureID7);
@@ -3058,7 +3126,7 @@ void applicationLoop() {
 		sillon.render(glm::scale(sillones, glm::vec3(3.0, 0.3, 0.6)));//asiento sillon 2
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		//================TERMINA CASA ALE
+
 
 		////////////////////////////////////////////////////////////////////////////BOB//////////////////////////////////////////////////////////////////
 
@@ -3670,6 +3738,7 @@ int main(int argc, char **argv) {
 	applicationLoop();
 	destroy();
 	return 1;
+
 }
 
 //HOLI
