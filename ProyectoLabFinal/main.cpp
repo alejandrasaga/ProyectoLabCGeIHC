@@ -606,8 +606,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelmuneconieve.loadModel("../models/adornos/nieve/11581_Snowman_V2_l3.obj");
 	modelmuneconieve.setShader(&shaderMulLighting);
 
-	modelarboldenavidad.loadModel("../models/adornos/arbol/12150_Christmas_Tree_V2_L2.obj");
-	modelarboldenavidad.setShader(&shaderMulLighting);
+	//modelarboldenavidad.loadModel("../models/adornos/arbol/12150_Christmas_Tree_V2_L2.obj");
+	//modelarboldenavidad.setShader(&shaderMulLighting);
 
 	//NAVIDAD
 
@@ -1980,7 +1980,7 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixModelAircraft = glm::mat4(1.0);
-		shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(-7.0, 0.0, -9.0));
 		modelAircraft.render(matrixModelAircraft);
 		glActiveTexture(GL_TEXTURE0);
@@ -2024,13 +2024,13 @@ void applicationLoop() {
 		//muñeco de nieve
 		glm::mat4 matrixmuneconieve = glm::mat4(1.0);
 		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(8.0, 2.3, -12.0));
-		shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelmuneconieve.render(matrixmuneconieve);
 		glActiveTexture(GL_TEXTURE0);
-		glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
+		/*glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
 		matrixarboldenavidad = glm::translate(matrixarboldenavidad, glm::vec3(8.0, 2.3, -12.0));
 		modelarboldenavidad.render(matrixarboldenavidad);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0);*/
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//ALBERCA
@@ -2898,13 +2898,13 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 		//MANO ZOMBIE
 		glm::mat4 matrixHand = glm::mat4(1.0);
-		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.5, 5.0));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.25, 5.0));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
-		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, 5.0));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.25, 5.0));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
 		modelHand.render(matrixHand);
