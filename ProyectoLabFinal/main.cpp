@@ -75,7 +75,7 @@ Box pisoExt, carreteraAle, pastoAle;
 Box puertaAle;
 Box ventana;
 Box panMuerto;
-Box papelPicado, sangre;
+Box papelPicado, sangre, florCempa;
 //MODELOS CASA ALE
 Model modelReloj;
 Model modelSilla;
@@ -99,6 +99,9 @@ Model modelAutumnTree;
 Model modelMeat, modelMeat2, modelMeat3;
 Model modelHand, modelHandCandy;
 Model modelPan;
+Model modelCupTea;
+Model modelBotella;
+Model modelWineGlass;
 
 
 //TEXTURAS CASA ALE
@@ -110,8 +113,8 @@ GLuint textureIDA10, textureIDA11, textureIDA12, textureIDA13, textureIDA14, tex
 GLuint textureIDA18, textureIDA19, textureIDA20, textureIDA21, textureIDA22, textureIDA23, textureIDA24, textureIDA25;
 // sillon			encimera	techo			fregadero  lavabo,		carretera		pan de muerto	papel Picado
 GLuint textureIDA26, textureIDA27, textureIDA28, textureIDA29, textureIDA30, textureIDA31, textureIDA32, textureIDA33;
-//		vela
-GLuint textureIDA34;
+//		vela		cempasuchitl
+GLuint textureIDA34, textureIDA35;
 
 
 //Models complex instances 
@@ -393,6 +396,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	papelPicado.init();
 	papelPicado.setShader(&shaderMulLighting);
+
+	florCempa.init();
+	florCempa.setShader(&shaderMulLighting);
 	//TERMINA CASITA ALE
 	/*=======================*/
 
@@ -605,6 +611,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelPan.loadModel("../models/Bread/Bread.obj");
 	modelPan.setShader(&shaderMulLighting);
 
+	modelBotella.loadModel("../models/bottle/Juggernog Bottle.obj");
+	modelBotella.setShader(&shaderMulLighting);
+
+	modelWineGlass.loadModel("../models/WineGlass/WineGlass.obj");
+	modelWineGlass.setShader(&shaderMulLighting);
 
 	// NAVIDAD
 	;
@@ -1552,6 +1563,24 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else
 		std::cout << "Failed to load texture" << std::endl;
 	textureA34.freeImage(bitmap);
+
+	Texture textureA35("../Textures/cempa.png");
+	bitmap = textureA35.loadImage();
+	data = textureA35.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureIDA35);
+	glBindTexture(GL_TEXTURE_2D, textureIDA35);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureA35.freeImage(bitmap);
 
 
 	//FINALIZA TEXTURA PARA LA CASA
@@ -2832,6 +2861,12 @@ void applicationLoop() {
 		modelMesaOfrenda.render(matrixMesaOfrenda);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixBotella = glm::mat4(1.0);
+		matrixBotella = glm::translate(modelCasa3, glm::vec3(-0.3, -0.65, 3.3));
+		matrixBotella = glm::scale(matrixBotella, glm::vec3(0.015, 0.015, 0.015));
+		modelBotella.render(matrixBotella);
+		glActiveTexture(GL_TEXTURE0);
+
 		//aqui le movi, veladora derecha
 		glm::mat4 modelVeladora = glm::mat4(1.0);
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
@@ -2902,6 +2937,25 @@ void applicationLoop() {
 		modelPapelPicado = glm::translate(modelCasa4, glm::vec3(4.0, 1.0, -7.9));
 		modelPapelPicado = glm::scale(modelPapelPicado, glm::vec3(3.0, 1.0, 0.001));
 		papelPicado.render(modelPapelPicado);
+		glActiveTexture(GL_TEXTURE0);
+
+		glBindTexture(GL_TEXTURE_2D, textureIDA33);
+		modelPapelPicado = glm::translate(modelCasa3, glm::vec3(-1.1, -0.8, 3.1));
+		modelPapelPicado = glm::scale(modelPapelPicado, glm::vec3(0.001, 0.3, 0.81));
+		papelPicado.render(modelPapelPicado);
+		glActiveTexture(GL_TEXTURE0);
+		//aqui le movi
+		glm::mat4 modelFlorCempasuchitl = glm::mat4(1.0);
+		glBindTexture(GL_TEXTURE_2D, textureIDA35);
+		modelFlorCempasuchitl = glm::translate(modelCasa3, glm::vec3(-1.1, -1.1, 2.3));
+		modelFlorCempasuchitl = glm::scale(modelFlorCempasuchitl, glm::vec3(0.001, 0.8, 0.8));
+		florCempa.render(modelFlorCempasuchitl);
+		glActiveTexture(GL_TEXTURE0);
+
+		glBindTexture(GL_TEXTURE_2D, textureIDA35);
+		modelFlorCempasuchitl = glm::translate(modelCasa3, glm::vec3(-1.1, -1.1, 3.9));
+		modelFlorCempasuchitl = glm::scale(modelFlorCempasuchitl, glm::vec3(0.001, 0.8, 0.8));
+		florCempa.render(modelFlorCempasuchitl);
 		glActiveTexture(GL_TEXTURE0);
 
 		
