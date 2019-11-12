@@ -2997,19 +2997,19 @@ void applicationLoop() {
 		glm::mat4 matrixPanMuerto = glm::mat4(1.0);
 		matrixPanMuerto = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
 		matrixPanMuerto = glm::scale(matrixPanMuerto, glm::vec3(0.1, 0.1, 0.05));
-		//glBindTexture(GL_TEXTURE_2D, textureIDA32);
-		modelPan.render(matrixPanMuerto);
+		glBindTexture(GL_TEXTURE_2D, textureIDA32);
+		panMuerto.render(matrixPanMuerto);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 
 		//PISO SALA COMEDOR
-
-		/*glm::mat4 matrixMesita = glm::mat4(1.0);
+		glm::mat4 pisoSalaAle = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
+		glm::mat4 matrixMesita = glm::mat4(1.0);
 		matrixMesita = glm::translate(pisoSalaAle, glm::vec3(0.75, 0.0, 0.0));
 		matrixMesita = glm::scale(matrixMesita, glm::vec3(2.0, 1.0, 2.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelMesita.render(matrixMesita);
-		glActiveTexture(GL_TEXTURE0);*/
+		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 comedor = glm::translate(pisoCocina, glm::vec3(0.5, 1.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA23);
@@ -3018,7 +3018,6 @@ void applicationLoop() {
 		buroHabit.render(glm::scale(comedor, glm::vec3(0.2, 1.0, 0.2)));
 		glActiveTexture(GL_TEXTURE0);
 
-		glm::mat4 pisoSalaAle = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA13);
 		salaPiso.render(glm::scale(pisoSalaAle, glm::vec3(8.0, 0.01, 8.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -3812,5 +3811,3 @@ int main(int argc, char **argv) {
 	return 1;
 
 }
-
-//HOLI
