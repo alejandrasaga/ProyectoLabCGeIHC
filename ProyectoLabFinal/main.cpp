@@ -62,6 +62,8 @@ GLuint textureID1, textureID2, textureID3, textureID4, /*CASA*/ textureID5, text
 Cylinder buroHabit(20, 20, 0.5, 0.5);
 Cylinder jacuzi(20, 20, 0.5, 0.5);
 Cylinder veladora(20, 20, 0.5, 0.5);
+Sphere velaPunta(20, 20);
+Sphere velaPunta2(20, 20);
 Box boxMaterials2;
 Box casaExterior, casaExterior2, casaExterior3, casaExterior4, casaTecho; //paredes de la casa exterior
 Box mosaicoBanio, paredBanio, banio;//BANIO1
@@ -288,6 +290,14 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphereLamp.setShader(&shader);
 	sphereLamp.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 
+	velaPunta.init(); //agregue esto
+	velaPunta.setShader(&shader);
+	velaPunta.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+
+	velaPunta2.init(); //agregue esto
+	velaPunta2.setShader(&shader);
+	velaPunta2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+
 
 	/////////////////////////////////////////////CASA ////////////////////////////////////////////////////////////////////////////
 	boxc1.init();// piso
@@ -308,6 +318,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	//CASA ALE
 	//PAREDES EXTERIORES DE LA CASA 
+
 	casaExterior.init();
 	casaExterior.setShader(&shaderMulLighting);
 	casaExterior2.init();
@@ -2787,14 +2798,31 @@ void applicationLoop() {
 
 		glm::mat4 modelVeladora = glm::mat4(1.0);
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
-		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
+		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.9));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
 		veladora.render(modelVeladora);
+		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 modelVelaPunta = glm::mat4(1.0);
+		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0,0.21,0.0));
+		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5,1.0,0.5));
+		velaPunta.render(modelVelaPunta);
+
+		glBindTexture(GL_TEXTURE_2D, textureIDA34);
 		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 2.2));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
 		veladora.render(modelVeladora);
 		glActiveTexture(GL_TEXTURE0);
+
+		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0, 0.21, 0.0));
+		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5, 1.2, 0.5));
+		velaPunta.render(modelVelaPunta);
+
+		/*velaPunta2.setPosition(glm::vec3(54.25,-0.28,2.2)); POSICION LUZ VELA
+		velaPunta2.setScale(glm::vec3(0.25,0.25,0.25));
+		velaPunta2.render();*/
+
+
 
 
 		
@@ -2997,8 +3025,8 @@ void applicationLoop() {
 		glm::mat4 matrixPanMuerto = glm::mat4(1.0);
 		matrixPanMuerto = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
 		matrixPanMuerto = glm::scale(matrixPanMuerto, glm::vec3(0.1, 0.1, 0.05));
-		glBindTexture(GL_TEXTURE_2D, textureIDA32);
-		panMuerto.render(matrixPanMuerto);
+		//glBindTexture(GL_TEXTURE_2D, textureIDA32);
+		modelPan.render(matrixPanMuerto);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 
