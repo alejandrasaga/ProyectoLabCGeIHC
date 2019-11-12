@@ -3114,19 +3114,19 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixMeat = glm::mat4(1.0);
-		matrixMeat = glm::translate(modelCasa3, glm::vec3(-6.0, 1.5, 4.0));
+		matrixMeat = glm::translate(modelCasa, glm::vec3(4.5, 1.5, 4.0));
 		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
 		modelMeat.render(matrixMeat);
 		glActiveTexture(GL_TEXTURE0);
 
-		matrixMeat = glm::translate(modelCasa3, glm::vec3(-5.5, 1.5, 4.0));
+		matrixMeat = glm::translate(modelCasa, glm::vec3(4.0, 1.5, 4.0));
 		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
 		modelMeat2.render(matrixMeat);
 		glActiveTexture(GL_TEXTURE0);
 
-		matrixMeat = glm::translate(modelCasa3, glm::vec3(-5.75, 1.5, 3.5));
+		matrixMeat = glm::translate(modelCasa, glm::vec3(4.75, 1.5, 3.5));
 		matrixMeat = glm::scale(matrixMeat, glm::vec3(0.008, 0.008, 0.008));
-		modelMeat2.render(matrixMeat);
+		modelMeat3.render(matrixMeat);
 		glActiveTexture(GL_TEXTURE0);
 		//MANO ZOMBIE
 		glm::mat4 matrixHand = glm::mat4(1.0);
