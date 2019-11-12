@@ -390,6 +390,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	pastoAle.init();
 	pastoAle.setShader(&shaderMulLighting);
+
+	papelPicado.init();
+	papelPicado.setShader(&shaderMulLighting);
 	//TERMINA CASITA ALE
 	/*=======================*/
 
@@ -1514,6 +1517,23 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else
 		std::cout << "Failed to load texture" << std::endl;
 	textureA31.freeImage(bitmap);
+	Texture textureA33("../Textures/papelPicado.png");
+	bitmap = textureA33.loadImage();
+	data = textureA33.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureIDA33);
+	glBindTexture(GL_TEXTURE_2D, textureIDA33);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureA33.freeImage(bitmap);
 
 	Texture textureA34("../Textures/vela.jpg");
 	bitmap = textureA34.loadImage();
@@ -2864,9 +2884,25 @@ void applicationLoop() {
 		/*velaPunta2.setPosition(glm::vec3(54.25,-0.28,2.2)); POSICION LUZ VELA
 		velaPunta2.setScale(glm::vec3(0.25,0.25,0.25));
 		velaPunta2.render();*/
-
-
-
+		//aqui le movi papel picado
+		glm::mat4 modelPapelPicado = glm::mat4(1.0);
+		glBindTexture(GL_TEXTURE_2D, textureIDA33);
+		modelPapelPicado = glm::translate(modelCasa, glm::vec3(7.12,1.0,6.0));
+		modelPapelPicado = glm::scale(modelPapelPicado, glm::vec3(0.001, 1.0, 3.0));
+		papelPicado.render(modelPapelPicado);
+		glActiveTexture(GL_TEXTURE0);
+		//aqui le movi
+		glBindTexture(GL_TEXTURE_2D, textureIDA33);
+		modelPapelPicado = glm::translate(modelCasa4, glm::vec3(1.0, 1.0, -7.9));
+		modelPapelPicado = glm::scale(modelPapelPicado, glm::vec3(3.0, 1.0, 0.001));
+		papelPicado.render(modelPapelPicado);
+		glActiveTexture(GL_TEXTURE0);
+		//aqui le movi
+		glBindTexture(GL_TEXTURE_2D, textureIDA33);
+		modelPapelPicado = glm::translate(modelCasa4, glm::vec3(4.0, 1.0, -7.9));
+		modelPapelPicado = glm::scale(modelPapelPicado, glm::vec3(3.0, 1.0, 0.001));
+		papelPicado.render(modelPapelPicado);
+		glActiveTexture(GL_TEXTURE0);
 
 		
 		glm::mat4 matrixCraneoOfrenda = glm::mat4(1.0);
