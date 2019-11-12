@@ -1680,13 +1680,13 @@ bool processInput(bool continueApplication) {
 		camera->moveFrontCamera(true, 0.1);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		camera->moveFrontCamera(false, 0.1);
-
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		camera->moveRightCamera(false, 0.1);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera->moveRightCamera(true, 0.1);
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 		camera->mouseMoveCamera(offsetX, offsetY, 0.01);
+
 	offsetX = 0;
 	offsetY = 0;
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
