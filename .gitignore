@@ -1,5 +1,6 @@
 .vs
 .vs/
+.vs/*
 */*/Debug/*
 */Debug/*
 Debug/
