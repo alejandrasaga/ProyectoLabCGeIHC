@@ -629,7 +629,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//NAVIDAD
 
 
-	camera->setPosition(glm::vec3(0.0, 0.0, 0.0));
+	camera->setPosition(glm::vec3(40.0, 2.0, 3.0));
 
 	// Descomentar
 	// Definimos el tamanio de la imagen
@@ -1637,7 +1637,7 @@ bool processInput(bool continueApplication) {
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera->moveRightCamera(true, 0.1);
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-		camera->mouseMoveCamera(offsetX, offsetY, 0.03);
+		camera->mouseMoveCamera(offsetX, offsetY, 0.01);
 	offsetX = 0;
 	offsetY = 0;
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
@@ -1841,7 +1841,7 @@ void applicationLoop() {
 			a += 0.0001;
 			b -= 0.0001;
 
-			shaderMulLighting.setInt("pointLightCount", 7);
+			shaderMulLighting.setInt("pointLightCount", 9); //+4 que son las que uso en la ofrenda
 			shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(13.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1903,6 +1903,22 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[6].constant", a);
 			shaderMulLighting.setFloat("pointLights[6].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[6].quadratic", 0.004);
+			//OFRENDA AQUI LE MOVI esta es la vela izquierda
+			shaderMulLighting.setVectorFloat3("pointLights[7].position", glm::value_ptr((glm::vec3(54.25, -0.28, 2.2))));
+			shaderMulLighting.setVectorFloat3("pointLights[7].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[7].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[7].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));// amarillo
+			shaderMulLighting.setFloat("pointLights[7].constant", 1.0);
+			shaderMulLighting.setFloat("pointLights[7].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[7].quadratic", 0.004);
+			//OFRENDA AQUI LE MOVI esta es la vela izquierda
+			shaderMulLighting.setVectorFloat3("pointLights[8].position", glm::value_ptr((glm::vec3(54.25, -0.28, 3.9))));
+			shaderMulLighting.setVectorFloat3("pointLights[8].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[8].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[8].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));// amarillo
+			shaderMulLighting.setFloat("pointLights[8].constant", 1.0);
+			shaderMulLighting.setFloat("pointLights[8].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[8].quadratic", 0.004);
 		}
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
@@ -2796,27 +2812,54 @@ void applicationLoop() {
 		modelMesaOfrenda.render(matrixMesaOfrenda);
 		glActiveTexture(GL_TEXTURE0);
 
+		//aqui le movi, veladora derecha
 		glm::mat4 modelVeladora = glm::mat4(1.0);
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
 		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.9));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
 		veladora.render(modelVeladora);
 		glActiveTexture(GL_TEXTURE0);
-
+		//flama vela derecha
 		glm::mat4 modelVelaPunta = glm::mat4(1.0);
 		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0,0.21,0.0));
 		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5,1.0,0.5));
 		velaPunta.render(modelVelaPunta);
 
+		//aqui le movi, veladora izquierda
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
 		modelVeladora = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 2.2));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.2, 0.1));
 		veladora.render(modelVeladora);
+		//flama veladora izq
+		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0, 0.21, 0.0));
+		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5, 1.0, 0.5));
+		velaPunta.render(modelVelaPunta);
 		glActiveTexture(GL_TEXTURE0);
+		//aqui le movi, cirio izquierdo
 
+		//AQUI LE MOVI CIRIO IZQ
+		glBindTexture(GL_TEXTURE_2D, textureIDA34);
+		modelVeladora = glm::translate(modelCasa3, glm::vec3(-1.05, -1.2, 1.9));
+		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.6, 0.1));
+		veladora.render(modelVeladora);
+		//flama veladora izq
 		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0, 0.21, 0.0));
 		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5, 1.2, 0.5));
 		velaPunta.render(modelVelaPunta);
+		glActiveTexture(GL_TEXTURE0);
+		
+		//AQUI LE MOVI CIRIO der
+		glBindTexture(GL_TEXTURE_2D, textureIDA34);
+		modelVeladora = glm::translate(modelCasa3, glm::vec3(-1.05, -1.2, 4.2));
+		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.6, 0.1));
+		veladora.render(modelVeladora);
+		//flama veladora der
+		modelVelaPunta = glm::translate(modelVeladora, glm::vec3(0.0, 0.21, 0.0));
+		modelVelaPunta = glm::scale(modelVelaPunta, glm::vec3(0.5, 1.2, 0.5));
+		velaPunta.render(modelVelaPunta);
+		glActiveTexture(GL_TEXTURE0);
+
+
 
 		/*velaPunta2.setPosition(glm::vec3(54.25,-0.28,2.2)); POSICION LUZ VELA
 		velaPunta2.setScale(glm::vec3(0.25,0.25,0.25));
