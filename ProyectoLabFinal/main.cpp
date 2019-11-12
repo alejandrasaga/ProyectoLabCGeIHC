@@ -1822,13 +1822,13 @@ void applicationLoop() {
 		 * Propiedades PointLights
 		 *******************************************/
 
-		if (a >= 10.0) {
+		if (a >= 30.0) {
 			a = 0.0;
-			b = 5.0;
+			b = 30.0;
 		}
 		else {
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 
 			shaderMulLighting.setInt("pointLightCount", 7);
 			shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(13.0, 2.5, -15.0))));
@@ -1838,8 +1838,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[0].constant", a);
 			shaderMulLighting.setFloat("pointLights[0].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[0].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[1].position", glm::value_ptr((glm::vec3(11.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1847,8 +1847,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[1].constant", b);
 			shaderMulLighting.setFloat("pointLights[1].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[1].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[2].position", glm::value_ptr((glm::vec3(9.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1856,8 +1856,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[2].constant", a);
 			shaderMulLighting.setFloat("pointLights[2].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[2].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[3].position", glm::value_ptr((glm::vec3(7.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1865,8 +1865,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[3].constant", b);
 			shaderMulLighting.setFloat("pointLights[3].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[3].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[4].position", glm::value_ptr((glm::vec3(5.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1874,8 +1874,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[4].constant", a);
 			shaderMulLighting.setFloat("pointLights[4].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[4].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[5].position", glm::value_ptr((glm::vec3(3.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -1883,8 +1883,8 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[5].constant", b);
 			shaderMulLighting.setFloat("pointLights[5].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[5].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.0001;
+			b -= 0.0001;
 			shaderMulLighting.setVectorFloat3("pointLights[6].position", glm::value_ptr((glm::vec3(1.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -2032,24 +2032,58 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 		// trineo 
 		glm::mat4 matrixtrineo = glm::mat4(1.0);
-		matrixtrineo = glm::translate(matrixtrineo, glm::vec3(20, -1, 0.0));
+		matrixtrineo = glm::translate(matrixtrineo, glm::vec3(20, -1, -5.0));
 		modeladotrineo.render(matrixtrineo);
 		glActiveTexture(GL_TEXTURE0);
 		// regalo
 		glm::mat4 matrixregalo = glm::mat4(1.0);
-		matrixregalo = glm::translate(matrixregalo, glm::vec3(13.0, 2.3, -12.0));
+		matrixregalo = glm::translate(matrixregalo, glm::vec3(9.0, -1.0, -11.0));
 		modelregalo.render(matrixregalo);
 		glActiveTexture(GL_TEXTURE0);
 		//baston
 		glm::mat4 matrixbaston = glm::mat4(1.0);
-		matrixbaston = glm::translate(matrixbaston, glm::vec3(10.0, 2.3, -12.0));
+		matrixbaston = glm::translate(matrixbaston, glm::vec3(4.5, -1.2, 22.0));
 		modelbaston.render(matrixbaston);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston1 = glm::mat4(1.0);
+		matrixbaston1 = glm::translate(matrixbaston1, glm::vec3(4.5, -1.2, 20.0));
+		modelbaston.render(matrixbaston1);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston2 = glm::mat4(1.0);
+		matrixbaston2 = glm::translate(matrixbaston2, glm::vec3(4.5, -1.2, 17.0));
+		modelbaston.render(matrixbaston2);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston3 = glm::mat4(1.0);
+		matrixbaston3 = glm::translate(matrixbaston3, glm::vec3(4.5, -1.2, 15.0));
+		modelbaston.render(matrixbaston3);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixbaston4 = glm::mat4(1.0);
+		matrixbaston4 = glm::translate(matrixbaston4, glm::vec3(7.5, -1.2, 22.0));
+		modelbaston.render(matrixbaston4);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston5 = glm::mat4(1.0);
+		matrixbaston5 = glm::translate(matrixbaston5, glm::vec3(7.5, -1.2, 20.0));
+		modelbaston.render(matrixbaston5);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston6 = glm::mat4(1.0);
+		matrixbaston6 = glm::translate(matrixbaston6, glm::vec3(7.5, -1.2, 17.0));
+		modelbaston.render(matrixbaston6);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixbaston7 = glm::mat4(1.0);
+		matrixbaston7 = glm::translate(matrixbaston7, glm::vec3(7.5, -1.2, 15.0));
+		modelbaston.render(matrixbaston7);
 		glActiveTexture(GL_TEXTURE0);
 		//muñeco de nieve
 		glm::mat4 matrixmuneconieve = glm::mat4(1.0);
-		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(8.0, 2.3, -12.0));
+		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(-5, -1.2, 16.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelmuneconieve.render(matrixmuneconieve);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixmuneconieve2 = glm::mat4(1.0);
+		matrixmuneconieve2 = glm::translate(matrixmuneconieve2, glm::vec3(16, -1.2, 16.0));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		modelmuneconieve.render(matrixmuneconieve2);
 		glActiveTexture(GL_TEXTURE0);
 		/*glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
 		matrixarboldenavidad = glm::translate(matrixarboldenavidad, glm::vec3(8.0, 2.3, -12.0));
@@ -2969,17 +3003,13 @@ void applicationLoop() {
 
 
 		//PISO SALA COMEDOR
-		glm::mat4 pisoSala = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
-		glBindTexture(GL_TEXTURE_2D, textureIDA13);
-		salaPiso.render(glm::scale(pisoSala, glm::vec3(8.0, 0.01, 8.0)));
-		glBindTexture(GL_TEXTURE_2D, 0);
 
-		glm::mat4 matrixMesita = glm::mat4(1.0);
-		matrixMesita = glm::translate(pisoSala, glm::vec3(0.75, 0.0, 0.0));
+		/*glm::mat4 matrixMesita = glm::mat4(1.0);
+		matrixMesita = glm::translate(pisoSalaAle, glm::vec3(0.75, 0.0, 0.0));
 		matrixMesita = glm::scale(matrixMesita, glm::vec3(2.0, 1.0, 2.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelMesita.render(matrixMesita);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0);*/
 
 		glm::mat4 comedor = glm::translate(pisoCocina, glm::vec3(0.5, 1.0, -1.0));
 		glBindTexture(GL_TEXTURE_2D, textureIDA23);
@@ -2987,6 +3017,11 @@ void applicationLoop() {
 		comedor = glm::translate(pisoCocina, glm::vec3(0.5, 0.5, -1.0));
 		buroHabit.render(glm::scale(comedor, glm::vec3(0.2, 1.0, 0.2)));
 		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 pisoSalaAle = glm::translate(pisoCocina, glm::vec3(7.5, 0.0, -1.0));
+		glBindTexture(GL_TEXTURE_2D, textureIDA13);
+		salaPiso.render(glm::scale(pisoSalaAle, glm::vec3(8.0, 0.01, 8.0)));
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		comedor = glm::translate(pisoCocina, glm::vec3(0.5, 1.0, -1.0));
 		glm::mat4 matrixTaburete = glm::mat4(1.0);
@@ -3020,11 +3055,11 @@ void applicationLoop() {
 		paredExt.render(glm::scale(parExt, glm::vec3(3.0, 3.0, 0.01)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//PISO PATIO
-		glm::mat4 pisoPatio = glm::translate(pisoSala, glm::vec3(0.0, 0.0, -6.0));
+		glm::mat4 pisoPatio = glm::translate(pisoSalaAle, glm::vec3(0.0, 0.0, -6.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(8.0, 2.0)));
 		glBindTexture(GL_TEXTURE_2D, textureIDA16);
 		pisoExt.render(glm::scale(pisoPatio, glm::vec3(8.0, 0.01, 4.0)));
-		pisoPatio = glm::translate(pisoSala, glm::vec3(-2.0, 0.0, -9.5));
+		pisoPatio = glm::translate(pisoSalaAle, glm::vec3(-2.0, 0.0, -9.5));
 		pisoExt.render(glm::scale(pisoPatio, glm::vec3(12.0, 0.01, 3.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//PUERTA PRINCIPAL
