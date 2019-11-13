@@ -1805,7 +1805,7 @@ void applicationLoop() {
 	matrixadorno1 = glm::translate(matrixadorno1, glm::vec3(13.0, 3.3, -12.0));
 
 	glm::mat4 matrixpiessanta = glm::mat4(matrixadorno1);
-	matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(-0.02302, -0.57959, -0.555));
+	matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(-0.02302, -0.57959, -0.255));
 
 	//ANIMACIONES ALE INICIA
 	glm::mat4 modelAle = glm::translate(model, glm::vec3(40.0, 0.2, 0));
