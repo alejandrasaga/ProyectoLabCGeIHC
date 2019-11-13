@@ -1877,7 +1877,7 @@ void applicationLoop() {
 	float rotCount = 0.0;
 
 	//LUCES AUTOMATICAS
-	float encender = 0.35;
+	float encender = 10.35;
 	
 	//HELICPTE
 	int state2 = 0;
@@ -1900,6 +1900,8 @@ void applicationLoop() {
 	float rotSanta = 0.0;
 
 	while (psi) {
+		glm::vec3 camera_pos = camera->getPosition();
+
 		psi = processInput(true);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -3461,6 +3463,15 @@ void applicationLoop() {
 		sillones = glm::translate(modelCasa2, glm::vec3(4.0, -1.35, 9.25));
 		sillon.render(glm::scale(sillones, glm::vec3(3.0, 0.3, 0.6)));//asiento sillon 2
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::vec3 salaPos = sillones[3];
+		if (glm::distance(camera_pos, salaPos) < 4.0) {
+			std::cout << "Prender la luz." << std::endl;
+			encender = 0.35;
+		}
+		else {
+			encender = 10.35;
+		}
 
 
 
