@@ -2104,7 +2104,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[10].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[10].quadratic", 0.004);
 			//FOCOS CASA ALE COCINA FOCO
-			shaderMulLighting.setVectorFloat3("pointLights[11].position", glm::value_ptr((glm::vec3(49.0, 1.45, 3.0))));
+			shaderMulLighting.setVectorFloat3("pointLights[11].position", glm::value_ptr((glm::vec3(43.0, 1.45, 3.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[11].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[11].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[11].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
@@ -2120,7 +2120,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[12].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[12].quadratic", 0.004);
 			//FOCOS CASA ALE CUARTO FOCO
-			shaderMulLighting.setVectorFloat3("pointLights[13].position", glm::value_ptr((glm::vec3(49.0, 1.45, -1.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[13].position", glm::value_ptr((glm::vec3(45.0, 1.45, -1.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[13].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[13].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[13].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
@@ -2128,7 +2128,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[13].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[13].quadratic", 0.004);
 			//FOCOS CASA ALE CUARTO 2do FOCO
-			shaderMulLighting.setVectorFloat3("pointLights[14].position", glm::value_ptr((glm::vec3(45.0, 1.45, -1.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[14].position", glm::value_ptr((glm::vec3(43.0, 1.45, -1.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[14].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[14].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[14].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
@@ -2136,7 +2136,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[14].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[14].quadratic", 0.004);
 			//FOCO CUARTO BAÑO
-			shaderMulLighting.setVectorFloat3("pointLights[15].position", glm::value_ptr((glm::vec3(43.5, 1.45, -1.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[15].position", glm::value_ptr((glm::vec3(42.5, 1.45, -1.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
@@ -2147,6 +2147,7 @@ void applicationLoop() {
 		//LUCES AUTOMATICAS DE LAS CASAS
 		
 		//LUCES CASA ALE AUTOMATICAS
+		//LUZ SALA
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(54.0, 1.45, 3.0));
 		luzAutomatica.render();
@@ -2154,19 +2155,27 @@ void applicationLoop() {
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(50.0, 1.45, 3.0));
 		luzAutomatica.render();
-
+		//LUZ COCINA
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
-		luzAutomatica.setPosition(glm::vec3(54.0, 1.45, 3.0));
+		luzAutomatica.setPosition(glm::vec3(43.0, 1.45, 3.0));
 		luzAutomatica.render();
-
-		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
-		luzAutomatica.setPosition(glm::vec3(49.0, 1.45, 3.0));
-		luzAutomatica.render();
-
+		
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(45.0, 1.45, 3.0));
 		luzAutomatica.render();
+		//LUZ CUARTO ALE
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(45.0, 1.45, -1.5));
+		luzAutomatica.render();
 
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(43.0, 1.45, -1.5));
+		luzAutomatica.render();
+		//LUZ BANIO ALE
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(42.5, 1.45, -1.5));
+		luzAutomatica.render();
+		
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
