@@ -99,7 +99,7 @@ Model modelCarroza;
 Model modelArbolAle;
 Model modelAutumnTree;
 Model modelMeat, modelMeat2, modelMeat3;
-Model modelHand, modelHandCandy;
+Model modelHand, modelHand2, modelHand3, modelHandCandy;
 Model modelPan;
 Model modelCupTea;
 Model modelBotella;
@@ -306,7 +306,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	
 	luzAutomatica.init();
 	luzAutomatica.setShader(&shader);
-	luzAutomatica.setColor(glm::vec4(1.0, 1.0, 0.0, 1.0));
+	luzAutomatica.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
 
 
 	/////////////////////////////////////////////CASA ////////////////////////////////////////////////////////////////////////////
@@ -610,6 +610,12 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelHand.loadModel("../models/Hand/Hand.obj");
 	modelHand.setShader(&shaderMulLighting);
+
+	modelHand2.loadModel("../models/Hand/Hand.obj");
+	modelHand2.setShader(&shaderMulLighting);
+
+	modelHand3.loadModel("../models/Hand/Hand.obj");
+	modelHand3.setShader(&shaderMulLighting);
 
 	modelHandCandy.loadModel("../models/HandMario/Crazy Hand.obj");
 	modelHandCandy.setShader(&shaderMulLighting);
@@ -1846,27 +1852,24 @@ void applicationLoop() {
 	matrixSenora = glm::translate(modelCasa, glm::vec3(6.0, -1.5, -3.0));
 	matrixSenora = glm::scale(matrixSenora, glm::vec3(1.2, 1.2, 1.2));
 	//MANOS ZOMBIE
-	glm::mat4 modelCasaz = glm::mat4(1.0);
-	modelCasaz = glm::translate(modelCasa, glm::vec3(7.5, -1.5, 7.5));
-	glm::mat4 matrixHand = glm::mat4(1.0);
-
-	matrixHand = glm::translate(modelCasa, glm::vec3(-15.0, -0.7, 5.0));
-	matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
-	matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	modelHand.render(matrixHand);
-	glActiveTexture(GL_TEXTURE0);
-
-	matrixHand = glm::translate(modelCasa, glm::vec3(15.0, -0.7, 5.0));
-	matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
-	matrixHand = glm::rotate(matrixHand, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
-	modelHand.render(matrixHand);
-	glActiveTexture(GL_TEXTURE0);
-
+	glm::mat4 matrixHand2 = glm::mat4(1.0);
+	matrixHand2 = glm::translate(modelCasa, glm::vec3(-5.0, -0.7, 15.0));
+	matrixHand2 = glm::scale(matrixHand2, glm::vec3(0.05, 0.05, 0.05));
+	matrixHand2 = glm::rotate(matrixHand2, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+	
+	glm::mat4 matrixHand3 = glm::mat4(1.0);
+	matrixHand3 = glm::translate(modelCasa, glm::vec3(20.0, -0.7, 15.0));
+	matrixHand3 = glm::scale(matrixHand3, glm::vec3(0.05, 0.05, 0.05));
+	matrixHand3 = glm::rotate(matrixHand3, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
+	
 	int estadoCarnes = 0;
 	float avanceCarnesX = 0;
 	float avanceCarnesZ = 0;
 	int estadoSenora = 0;
 	float avanceSenora = 0.0;
+	int estadoManoZombie = 0;
+	float avanceManoZombie = 0.0;
+	float avanceManoZombie2 = 0.0;
 	//TERMINA ANIMACIONES ALE
 
 	//ANIMACIONES CRIS
@@ -2136,7 +2139,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[14].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[14].quadratic", 0.004);
 			//FOCO CUARTO BAÑO
-			shaderMulLighting.setVectorFloat3("pointLights[15].position", glm::value_ptr((glm::vec3(42.5, 1.45, -1.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[15].position", glm::value_ptr((glm::vec3(42.5, 1.45, -5.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
@@ -2173,7 +2176,7 @@ void applicationLoop() {
 		luzAutomatica.render();
 		//LUZ BANIO ALE
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
-		luzAutomatica.setPosition(glm::vec3(42.5, 1.45, -1.5));
+		luzAutomatica.setPosition(glm::vec3(42.5, 1.45, -5.5));
 		luzAutomatica.render();
 		
 		/*******************************************
@@ -2897,7 +2900,7 @@ void applicationLoop() {
 
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
 		//TECHO ALE
-		/*glm::mat4 modelCasaTecho = glm::mat4(1.0);
+		glm::mat4 modelCasaTecho = glm::mat4(1.0);
 		modelCasaTecho = glm::translate(modelAle, glm::vec3(0.0, 0.0, 0.0));
 		glm::mat4 modelCasaRoof = glm::translate(modelCasaTecho, glm::vec3(7.5, 1.5, 3.5));
 		glBindTexture(GL_TEXTURE_2D, textureIDA28);
@@ -2908,7 +2911,7 @@ void applicationLoop() {
 		glm::mat4 modelCasaRoof3 = glm::translate(modelCasaTecho, glm::vec3(2.0, 1.5, -6.0));
 		casaTecho.render(glm::scale(modelCasaRoof3, glm::vec3(4.0, 0.01, 3.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));*/
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 
 		//PARED IZQUIERDA
 
@@ -3335,18 +3338,26 @@ void applicationLoop() {
 		modelMeat3.render(matrixMeat3);
 		glActiveTexture(GL_TEXTURE0);
 		//MANO ZOMBIE
-		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.5, -3.5));
+		glm::mat4 matrixHand = glm::mat4(1.0);
+		matrixHand = glm::translate(modelCasa4, glm::vec3(-15.0, -1.2, -3.5));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
-		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.5, -0.5));
+		matrixHand = glm::translate(modelCasa4, glm::vec3(15.0, -1.2, -0.5));
 		matrixHand = glm::scale(matrixHand, glm::vec3(0.05, 0.05, 0.05));
 		matrixHand = glm::rotate(matrixHand, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelHand.render(matrixHand);
 		glActiveTexture(GL_TEXTURE0);
 
+		modelHand2.render(matrixHand2);
+		glActiveTexture(GL_TEXTURE0);
+
+		modelHand3.render(matrixHand3);
+		glActiveTexture(GL_TEXTURE0);
+
+		
 
 		glm::mat4 matrixPanMuerto = glm::mat4(1.0);
 		matrixPanMuerto = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
@@ -4275,6 +4286,7 @@ void applicationLoop() {
 			}
 			break;
 
+
 		case 3:
 			matrixSenora = glm::translate(matrixSenora, glm::vec3(0.0, -0.001, 0.0));
 			avanceSenora += 0.04;
@@ -4290,6 +4302,29 @@ void applicationLoop() {
 				avanceSenora = 0.0;
 				estadoSenora = 0;
 			}
+
+		}
+		
+		switch (estadoManoZombie) {
+			case 0:
+				matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, -0.1, 0.0));
+				matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, -0.1, 0.0));
+				avanceManoZombie += 0.1;
+				if (avanceManoZombie > 130.0) {
+					avanceManoZombie = 0.0;
+					estadoManoZombie = 1;
+				}
+			break;
+
+			case 1:
+				matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, 0.1, 0.0));
+				matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, 0.1, 0.0));
+				avanceManoZombie2 += 0.1;
+				if (avanceManoZombie2 > 130.0) {
+					avanceManoZombie2 = 0.0;
+					estadoManoZombie = 0;
+				}
+				break;
 
 		}
 
