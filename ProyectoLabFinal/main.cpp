@@ -47,6 +47,7 @@ Shader shaderSkybox;
 Shader shaderMulLighting;
 
 std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
+std::shared_ptr<FirstPersonCamera> camera2(new FirstPersonCamera());
 
 
 Sphere sphereLamp(20, 20);
@@ -653,10 +654,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//NAVIDAD
 
 
-	camera->setPosition(glm::vec3(50.0, 0.0, 0.0));
+	camera->setPosition(glm::vec3(4.0, 5.0, -5.0));
 
-	// Descomentar
-	// Definimos el tamanio de la imagen
 	int imageWidth, imageHeight;
 	// Definiendo la textura a utilizar
 	Texture texture1("../Textures/sponge.jpg");
@@ -1805,7 +1804,7 @@ void applicationLoop() {
 	matrixadorno1 = glm::translate(matrixadorno1, glm::vec3(13.0, 3.3, -12.0));
 
 	glm::mat4 matrixpiessanta = glm::mat4(matrixadorno1);
-	matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(-0.02302, -0.57959, -0.255));
+	matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(-0.02302, -0.57959, -0.155));
 
 	//ANIMACIONES ALE INICIA
 	glm::mat4 modelAle = glm::translate(model, glm::vec3(40.0, 0.2, 0));
@@ -1848,6 +1847,11 @@ void applicationLoop() {
 	int estadoSenora = 0;
 	float avanceSenora = 0.0;
 	//TERMINA ANIMACIONES ALE
+
+	//ANIMACIONES CRIS
+	int estadoPiesSanta = 0;
+	float avancePiesSanta = 0.0;
+	//TERMINA ANIMACIONES CRIS
 	float angulo = 0.0;
 	float offX = 0.0;
 	float angle = 0.0;
@@ -4168,6 +4172,27 @@ void applicationLoop() {
 		}
 		
 		//TERMINA MAQUINAS DE ESTADO DE ALE
+
+		//MAQUINA DE ESTADOS DE CRIS
+		switch(estadoPiesSanta) {
+		case 0: 
+			matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(0.0, 0.01, 0.0));
+			avancePiesSanta += 0.01;
+			if (avancePiesSanta > 1.0) {
+				avancePiesSanta = 0;
+				estadoPiesSanta = 1;
+			}
+			break;
+		case 1:
+			matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(0.0, -0.01, 0.0));
+			avancePiesSanta += 0.01;
+			if (avancePiesSanta > 1.0) {
+				avancePiesSanta = 0;
+				estadoPiesSanta = 0;
+			}
+			break;
+
+		}
 
 		glfwSwapBuffers(window);
 	}
