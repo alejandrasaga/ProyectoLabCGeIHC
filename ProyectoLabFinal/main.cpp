@@ -51,6 +51,7 @@ std::shared_ptr<FirstPersonCamera> camera2(new FirstPersonCamera());
 
 
 Sphere sphereLamp(20, 20);
+Sphere sphereLamp2(20, 20);
 Sphere skyboxSphere(20, 20);
 Sphere luzAutomatica(20,20);
 Sphere planeta(20,20); //es pal tiro parabolico
@@ -60,7 +61,7 @@ Box boxMaterials;
 Box  boxc1;
 Box boxventana;
 Box boxalberca;
-GLuint textureID1, textureID2, textureID3, textureID4, /*CASA*/ textureID5, textureID6, textureID7, textureID8, textureID9, textureID10, textureID11, textureID12, textureID13, textureID14, textureID15, textureID16, textureID17;
+GLuint textureID1, textureID2, textureID3, textureID4, /*CASA*/ textureID5, textureID6, textureID7, textureID8, textureID9, textureID10, textureID11, textureID12, textureID13, textureID14, textureID15, textureID16, textureID17, textureIDnacimiento;
 //=======CASA ALE======
 Cylinder buroHabit(20, 20, 0.5, 0.5);
 Cylinder jacuzi(20, 20, 0.5, 0.5);
@@ -141,8 +142,12 @@ Model modelbaston;
 Model modelfloresrojas;
 Model modelarbusto;
 Model modelduende;
+Model modelduendebrazo;
 Model modelpiesSanta;
 Model modelPinata;
+Model modelarboldulce;
+Model modelbuzz;
+
 
 //CASA
 //Animacion 
@@ -182,7 +187,7 @@ Box box7;
 Cylinder cylinderMaterials(20, 20, 0.5, 0.5);
 
 
-float rot1 = 0.0, rot2 = 0.0, rot3 = 0.0, rot4 = 0.0, rot5 = 0.0, rot6 = 0.0, rot7 = 0.0, rot8 = 0.0, rot9 = 0.0, rot10 = 0.0;
+float rot1 = 0.0, rot2 = 0.0, rot3 = 0.0, rot4 = 0.0, rot5 = 0.0, rot6 = 0.0, rot7 = 0.0, rot8 = 0.0, rot9 = 0.0, rot10 = 0.0, rotbuzz1 = 0.0, rotbuzz2 = 0.0, rotbuzz3 = 0.0, rotbuzz4 = 0.0;
 float rot0 = 0.0, dz = 0.0, rot01 = 0.0, dz2 = 0.0;
 
 
@@ -301,6 +306,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphereLamp.init();
 	sphereLamp.setShader(&shader);
 	sphereLamp.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	sphereLamp2.init();
+	sphereLamp2.setShader(&shader);
+	sphereLamp2.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	velaPunta.init(); 
 	velaPunta.setShader(&shader);
 	velaPunta.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
@@ -313,6 +321,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//planeta.setShader(&shaderMulLighting);
 	planeta.setShader(&shader);
 	planeta.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
+	planeta.setScale(glm::vec3(5.0,5.0,5.0));
 
 
 	/////////////////////////////////////////////CASA ////////////////////////////////////////////////////////////////////////////
@@ -641,6 +650,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	// NAVIDAD
 
+	
 	modelcorona.loadModel("../models/adornos/corona/ChristmasWreath.obj");
 	modelcorona.setShader(&shaderMulLighting);
 	modeladorno1.loadModel("../models/adornos/santa/chimenea.obj");
@@ -659,15 +669,20 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelmuneconieve.loadModel("../models/adornos/nieve/11581_Snowman_V2_l3.obj");
 	modelmuneconieve.setShader(&shaderMulLighting);
 
-	//modelduende.loadModel("../models/adornos/duende/AnnoyingElfFinsurf.obj");
-	//modelduende.setShader(&shaderMulLighting);
+	modelduende.loadModel("../models/adornos/duende/duende.obj");
+	modelduende.setShader(&shaderMulLighting);
+	modelarboldulce.loadModel("../models/adornos/arboldulce/CandyCaneTree.obj");
+	modelarboldulce.setShader(&shaderMulLighting);
+	modelduendebrazo.loadModel("../models/adornos/duende/brazosduende.obj");
+	modelduendebrazo.setShader(&shaderMulLighting);
 	modelpiesSanta.loadModel("../models/adornos/santa/piessanta.obj");
 	modelpiesSanta.setShader(&shaderMulLighting);
-	//modelarboldenavidad.loadModel("../models/adornos/arbol/12150_Christmas_Tree_V2_L2.obj");
-	//modelarboldenavidad.setShader(&shaderMulLighting);
+	modelarboldenavidad.loadModel("../models/adornos/arbol/ChristmasTree.obj");
+	modelarboldenavidad.setShader(&shaderMulLighting);
 	modelPinata.loadModel("../models/pinata/untitled.obj");
 	modelPinata.setShader(&shaderMulLighting);
 
+	
 	//NAVIDAD
 
 
@@ -1559,6 +1574,27 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else
 		std::cout << "Failed to load texture" << std::endl;
 	textureA37.freeImage(bitmap);
+
+
+	Texture texturenacimiento("../Textures/nacimiento.png");
+	bitmap = texturenacimiento.loadImage();
+	data = texturenacimiento.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureIDnacimiento);
+	glBindTexture(GL_TEXTURE_2D, textureIDnacimiento);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texturenacimiento.freeImage(bitmap);
+
+
 	//FINALIZA TEXTURA PARA LA CASA
 
 
@@ -1734,6 +1770,7 @@ bool processInput(bool continueApplication) {
 
 
 void applicationLoop() {
+	float angulo;
 	bool psi = true;
 	// para movimiento de Santa 
 	glm::mat4 modelMatrixSanta = glm::mat4(1.0f);
@@ -1746,10 +1783,12 @@ void applicationLoop() {
 	modelMatrixHelicoptero = glm::translate(modelMatrixHelicoptero, glm::vec3(0.0, 0.0, -25));
 	glm::mat4 modelMatrixLambo = glm::mat4(1.0f);
 	modelMatrixLambo = glm::translate(modelMatrixLambo, glm::vec3(-10, -1.1, 9));
-
+	////BUzz
+	glm::mat4 modelMatrizBuzz = glm::mat4(1.0f);
+	modelMatrizBuzz = glm::translate(modelMatrizBuzz, glm::vec3(0, 0, 0));
 	//=======
 	glm::mat4 matrixadorno1 = glm::mat4(1.0);
-	matrixadorno1 = glm::translate(matrixadorno1, glm::vec3(13.0, 3.3, -12.0));
+	matrixadorno1 = glm::translate(matrixadorno1, glm::vec3(13.0, 2.8, -12.0));
 
 	glm::mat4 matrixpiessanta = glm::mat4(matrixadorno1);
 	matrixpiessanta = glm::translate(matrixpiessanta, glm::vec3(-0.02302, -0.57959, -0.155));
@@ -1784,7 +1823,7 @@ void applicationLoop() {
 	matrixHand3 = glm::rotate(matrixHand3, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
 	//TIRO PARABOLICO
 	glm::mat4 matrixTiroParabolico = glm::mat4(1.0);
-	matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(0.0, 15.0, -40.0));
+	matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(10.0, 15.0, -40.0));
 	matrixTiroParabolico = glm::scale(matrixTiroParabolico, glm::vec3(5.0, 5.0, 5.0));
 
 	int estadoCarnes = 0;
@@ -1801,9 +1840,9 @@ void applicationLoop() {
 	int estadoPiesSanta = 0;
 	float avancePiesSanta = 0.0;
 	//TERMINA ANIMACIONES CRIS
-	float angulo = 0.0;
 	float offX = 0.0;
 	float angle = 0.0;
+
 	float ratio = 5.0;
 	int state = 0;
 	float advanceCount = 0.0;
@@ -1831,6 +1870,8 @@ void applicationLoop() {
 	//TIRO PARABOLICO
 	float tiroPosX = 0.0;
 	float tiroPosY = 0.0;
+	float tiroPosX2 = 10.0;
+	float tiroPosY2 = 15.0;
 	float tiroTiempo = 0.0;
 	float tiroVelocidad = 30; // 30 [m/s]
 
@@ -2378,41 +2419,41 @@ void applicationLoop() {
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
-		 /*	sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(13.0, 2.0, -14.5));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
-			 sphereLamp.render();
+		 /*	sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(13.0, 2.0, -14.5));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+			 sphereLamp2.render();
 
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(11.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
-			 sphereLamp.render();
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(11.0, 2.0, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			 sphereLamp2.render();
 
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(9.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
-			 sphereLamp.render();
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(9.0, 2.0, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
+			 sphereLamp2.render();
 
 
 
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(7.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
-			 sphereLamp.render();
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(7.0, 2.0, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+			 sphereLamp2.render();
 
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(5.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
-			 sphereLamp.render();
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(5.0, 2.0, -15.0));
+			 sphereLamp2setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			 sphereLamp2.render();
 
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(3.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
-			 sphereLamp.render();
-			 sphereLamp.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp.setPosition(glm::vec3(1.0, 2.0, -15.0));
-			 sphereLamp.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
-			 sphereLamp.render();*/
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(3.0, 2.0, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
+			 sphereLamp2.render();
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(1.0, 2.0, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
+			 sphereLamp2.render();*/
 
 		glm::mat4 lightModelmatrix = glm::rotate(glm::mat4(1.0f), angle,
 			glm::vec3(1.0f, 0.0f, 0.0f));
@@ -2467,13 +2508,15 @@ void applicationLoop() {
 		/////////////////////////////////////COCINA////////////////////////
 
 		glm::mat4 matrixcocina = glm::mat4(1.0);
-		matrixcocina = glm::translate(matrixcocina, glm::vec3(11.0, -1.2, 8.0));
-		matrixcocina = glm::rotate(matrixcocina, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixcocina = glm::translate(matrixcocina, glm::vec3(11.0, -1.2, 4.0));
+		matrixcocina= glm::scale(matrixcocina, glm::vec3(1.0, 1.0, 1.0));
+		
 		modelcocina.render(matrixcocina);
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixmueblecocina = glm::mat4(1.0);
-		matrixmueblecocina = glm::translate(matrixmueblecocina, glm::vec3(11.0, -1.2, 7.0));
+		matrixmueblecocina = glm::translate(matrixmueblecocina, glm::vec3(12.0, -1.2, 7.0));
+		matrixmueblecocina = glm::scale(matrixmueblecocina, glm::vec3(0.8,0.8,0.8));
 		matrixmueblecocina = glm::rotate(matrixmueblecocina, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelmueblecocina.render(matrixmueblecocina);
 		glActiveTexture(GL_TEXTURE0);
@@ -2507,10 +2550,15 @@ void applicationLoop() {
 
 
 
+
 		// corona 
 		glm::mat4 matrixcorona = glm::mat4(1.0);
-		matrixcorona = glm::translate(matrixcorona, glm::vec3(2, -1.2, -12.0));
+		matrixcorona = glm::translate(matrixcorona, glm::vec3(6.0, 1.0, 14.6));
 		modelcorona.render(matrixcorona);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixcorona2 = glm::mat4(1.0);
+		matrixcorona2 = glm::translate(matrixcorona2, glm::vec3(6, 0.0, -14.1));
+		modelcorona.render(matrixcorona2);
 		glActiveTexture(GL_TEXTURE0);
 		// PARA SANTA CHIMENEA
 
@@ -2525,52 +2573,72 @@ void applicationLoop() {
 		modeladotrineo.render(matrixtrineo);
 		glActiveTexture(GL_TEXTURE0);
 		//Duende
-		/*glm::mat4 matrixduende = glm::mat4(1.0);
+		glm::mat4 matrixduende = glm::mat4(1.0);
 		matrixduende = glm::translate(matrixduende, glm::vec3(20, 1.0, -6.0));
 		modelduende.render(matrixduende);
-		glActiveTexture(GL_TEXTURE0);*/
-		// regalo
-		glm::mat4 matrixregalo = glm::mat4(1.0);
-		matrixregalo = glm::translate(matrixregalo, glm::vec3(9.0, -1.0, -11.0));
-		modelregalo.render(matrixregalo);
+		glActiveTexture(GL_TEXTURE0);
+		//brazo duende 
+		glm::mat4 matrixduendebrazo = glm::mat4(matrixduende);
+		modelduendebrazo.render(matrixduendebrazo);
 		glActiveTexture(GL_TEXTURE0);
 
-		
-
+		// regalo
+		glm::mat4 matrixregalo = glm::mat4(1.0);
+		matrixregalo = glm::translate(matrixregalo, glm::vec3(4.0, -0.5, -11.0));
+		modelregalo.render(matrixregalo);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixregalo2 = glm::mat4(1.0);
+		matrixregalo2 = glm::translate(matrixregalo2, glm::vec3(1.0, -0.5, 12));
+		modelregalo.render(matrixregalo2);
+		glActiveTexture(GL_TEXTURE0);
+		//Arboldulce
+		glm::mat4 matrixarboldulce = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixarboldulce = glm::translate(matrixarboldulce, glm::vec3(-1.0, -1.0, -20));
+		modelarboldulce.render(matrixarboldulce);
+		glActiveTexture(GL_TEXTURE0);
 		// flores 1
 
 		//bastones puerta 
 		glm::mat4 matrixbaston = glm::mat4(1.0);
 		matrixbaston = glm::translate(matrixbaston, glm::vec3(4.5, -1.2, 22.0));
+		matrixbaston = glm::scale(matrixbaston, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston1 = glm::mat4(1.0);
 		matrixbaston1 = glm::translate(matrixbaston1, glm::vec3(4.5, -1.2, 20.0));
+		matrixbaston1 = glm::scale(matrixbaston1, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston1);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston2 = glm::mat4(1.0);
 		matrixbaston2 = glm::translate(matrixbaston2, glm::vec3(4.5, -1.2, 17.0));
+		matrixbaston2 = glm::scale(matrixbaston2, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston2);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston3 = glm::mat4(1.0);
 		matrixbaston3 = glm::translate(matrixbaston3, glm::vec3(4.5, -1.2, 15.0));
+		matrixbaston3 = glm::scale(matrixbaston3, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston3);
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixbaston4 = glm::mat4(1.0);
 		matrixbaston4 = glm::translate(matrixbaston4, glm::vec3(7.5, -1.2, 22.0));
+		matrixbaston4 = glm::scale(matrixbaston4, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston4);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston5 = glm::mat4(1.0);
 		matrixbaston5 = glm::translate(matrixbaston5, glm::vec3(7.5, -1.2, 20.0));
+		matrixbaston5 = glm::scale(matrixbaston5, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston5);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston6 = glm::mat4(1.0);
 		matrixbaston6 = glm::translate(matrixbaston6, glm::vec3(7.5, -1.2, 17.0));
+		matrixbaston6 = glm::scale(matrixbaston6, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston6);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixbaston7 = glm::mat4(1.0);
 		matrixbaston7 = glm::translate(matrixbaston7, glm::vec3(7.5, -1.2, 15.0));
+		matrixbaston7 = glm::scale(matrixbaston7, glm::vec3(0.5, 0.5, 0.5));
 		modelbaston.render(matrixbaston7);
 		glActiveTexture(GL_TEXTURE0);
 
@@ -2578,34 +2646,100 @@ void applicationLoop() {
 		glm::mat4 matrixmuneconieve = glm::mat4(1.0);
 		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(-5, -1.2, 16.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixmuneconieve = glm::rotate(matrixmuneconieve, rotWheely, glm::vec3(0, 1, 0));
 		modelmuneconieve.render(matrixmuneconieve);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixmuneconieve2 = glm::mat4(1.0);
 		matrixmuneconieve2 = glm::translate(matrixmuneconieve2, glm::vec3(16, -1.2, 16.0));
+		matrixmuneconieve2 = glm::rotate(matrixmuneconieve2, rotWheely, glm::vec3(0, 1, 0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		modelmuneconieve.render(matrixmuneconieve2);
 		glActiveTexture(GL_TEXTURE0);
 
 		//PINATA CRIS
 		glm::mat4 matrixPinata = glm::mat4(1.0);
-		matrixPinata = glm::translate(matrixPinata, glm::vec3(5.0, 2.0, -5.0));
+		matrixPinata = glm::translate(matrixPinata, glm::vec3(0.0, 1.5, 9));
+		matrixPinata = glm::rotate(matrixPinata, rotWheely, glm::vec3(0, 1, 0));
 		matrixPinata = glm::scale(matrixPinata, glm::vec3(0.5, 0.5, 0.5));
 		modelPinata.render(matrixPinata);
 
+		// piñatas bebés
+
+		glm::mat4 matrixPinata1 = glm::mat4(1.0);
+		matrixPinata1 = glm::translate(matrixPinata1, glm::vec3(-3.0, 2.0, 15));
+		matrixPinata1 = glm::scale(matrixPinata1, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata1);
+
+		glm::mat4 matrixPinata2 = glm::mat4(1.0);
+		matrixPinata2 = glm::translate(matrixPinata2, glm::vec3(2.0, 2.0, 15));
+		matrixPinata2 = glm::scale(matrixPinata2, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata2);
+
+		glm::mat4 matrixPinata3 = glm::mat4(1.0);
+		matrixPinata3 = glm::translate(matrixPinata3, glm::vec3(7.0, 2.0, 15));
+		matrixPinata3 = glm::scale(matrixPinata3, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata3);
+
+		glm::mat4 matrixPinata4 = glm::mat4(1.0);
+		matrixPinata4 = glm::translate(matrixPinata4, glm::vec3(11.0, 2.0, 15));
+		matrixPinata4 = glm::scale(matrixPinata4, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata4);
+
+
+		glm::mat4 matrixPinata5 = glm::mat4(1.0);
+		matrixPinata5 = glm::translate(matrixPinata5, glm::vec3(16.0, 2.0, 0));
+		matrixPinata5 = glm::scale(matrixPinata5, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata5);
+
+
+
+		glm::mat4 matrixPinata6 = glm::mat4(1.0);
+		matrixPinata6 = glm::translate(matrixPinata6, glm::vec3(16, 2.0, -14));
+		matrixPinata6 = glm::scale(matrixPinata6, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata6);
+
+
+		glm::mat4 matrixPinata7 = glm::mat4(1.0);
+		matrixPinata7 = glm::translate(matrixPinata7, glm::vec3(16, 2.0, 14));
+		matrixPinata7 = glm::scale(matrixPinata7, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata7);
+
+
+		glm::mat4 matrixPinata8 = glm::mat4(1.0);
+		matrixPinata8 = glm::translate(matrixPinata8, glm::vec3(-4, 2.0, 0));
+		matrixPinata8 = glm::scale(matrixPinata8, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata8);
+
+
+
+		glm::mat4 matrixPinata9 = glm::mat4(1.0);
+		matrixPinata9 = glm::translate(matrixPinata9, glm::vec3(-4, 2.0, -14));
+		matrixPinata9 = glm::scale(matrixPinata9, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata9);
+
+
+		glm::mat4 matrixPinata10 = glm::mat4(1.0);
+		matrixPinata10 = glm::translate(matrixPinata10, glm::vec3(-4, 2.0, 14));
+		matrixPinata10 = glm::scale(matrixPinata10, glm::vec3(0.2, 0.2, 0.2));
+		modelPinata.render(matrixPinata10);
+
+		// Arbol de navidad 
+		glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
+		matrixarboldenavidad = glm::translate(matrixarboldenavidad, glm::vec3(2.0, -1.2, -12.0));
+		matrixarboldenavidad = glm::rotate(matrixarboldenavidad, rotWheely, glm::vec3(0, 1, 0));
+		matrixarboldenavidad = glm::scale(matrixarboldenavidad, glm::vec3(2.0, 2.0, 2.0));
+		modelarboldenavidad.render(matrixarboldenavidad);
+		glActiveTexture(GL_TEXTURE0);
+
 		//FLORES ROJAS 
 
-			/*glm::mat4 matrixfloresrojas1 = glm::mat4(1.0);
-			shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
-			matrixfloresrojas1 = glm::translate(matrixfloresrojas1, glm::vec3((2.0, -1.2, 18.0)));
-			modelfloresrojas.render(matrixfloresrojas1);
-			glActiveTexture(GL_TEXTURE0);
-			/*glm::mat4 matrixarboldenavidad = glm::mat4(1.0);
-			matrixarboldenavidad = glm::translate(matrixarboldenavidad, glm::vec3(8.0, 2.3, -12.0));
-			modelarboldenavidad.render(matrixarboldenavidad);
-			glActiveTexture(GL_TEXTURE0);*/
+			// Buzz 
+		/*glm::mat4 matrixabuzz = glm::mat4(modelMatrizBuzz);
+		matrixabuzz = glm::scale(matrixabuzz, glm::vec3(2.0, 2.0, 2.0));
+		modelarboldenavidad.render(matrixabuzz);
+		glActiveTexture(GL_TEXTURE0)*/
 			////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			//ALBERCA
+			
 		glm::mat4 modelAgua = glm::mat4(1.0);
 		modelAgua = glm::translate(modelAgua, glm::vec3(17, -1, 2.0));
 		modelAgua = glm::scale(modelAgua, glm::vec3(6.0, 0.01, 10.0));
@@ -2638,18 +2772,28 @@ void applicationLoop() {
 
 
 		//box1.enableWireMode();
+		//nacimiento 
+		glBindTexture(GL_TEXTURE_2D, textureIDnacimiento);
+		shaderTexture.setVectorFloat2("scaleUV",
+			glm::value_ptr(glm::vec2(2.0, 1.0)));
 
+		glm::mat4 nacimiento = glm::translate(modelpiso, glm::vec3(5.0, 1.5, 10.6));
+		boxc1.render(glm::scale(nacimiento, glm::vec3(0.1, 4.0, 4.0)));
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+	
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 
 		glm::mat4 pared1 = glm::translate(modelpiso, glm::vec3(-4.5, 2.0, 14));
 		boxc1.render(glm::scale(pared1, glm::vec3(5.5, 4.0, 0.1)));
-
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glBindTexture(GL_TEXTURE_2D, textureID9);//PUERTA
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
+
 
 		glm::mat4 puerta = glm::translate(pared1, glm::vec3(4.0, 0.0, 0.0));
 		boxc1.render(glm::scale(puerta, glm::vec3(4.5, 4.0, 0.1)));
@@ -2674,7 +2818,7 @@ void applicationLoop() {
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared4 = glm::translate(modelpiso, glm::vec3(-4.5, 2.0, 2));
 		boxc1.render(glm::scale(pared4, glm::vec3(5.5, 4.0, 0.1)));
-
+		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindTexture(GL_TEXTURE_2D, textureID8);
 
 		glm::mat4 modelventana4 = glm::mat4(1.0); //textura PNG
@@ -2695,7 +2839,7 @@ void applicationLoop() {
 		modelventana4c = glm::translate(pared4, glm::vec3(-2.75, 0.2, -1.1));
 		modelventana4c = glm::scale(modelventana4c, glm::vec3(0.1, 2.8, 2.1));
 		boxventana.render(modelventana4c);
-
+		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
@@ -2713,7 +2857,7 @@ void applicationLoop() {
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared4c = glm::translate(pared4, glm::vec3(-2.75, 0.0, 3.0));
 		boxc1.render(glm::scale(pared4c, glm::vec3(0.1, 4.0, 0.6)));
-
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 
 		/*glBindTexture(GL_TEXTURE_2D, textureID6);
@@ -2747,7 +2891,7 @@ void applicationLoop() {
 
 
 
-		glBindTexture(GL_TEXTURE_2D, textureID13);
+		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
 		glm::mat4 pared5b = glm::translate(pared5, glm::vec3(2.75, 0.0, 6.7));
@@ -4234,10 +4378,11 @@ void applicationLoop() {
 		glm::mat4 modelMatriLambo = glm::mat4(modelMatrixLambo);
 
 
-		if (angle > 2 * M_PI)
+		if (angle > 1 * M_PI)
 			angle = 0.0;
 		else
 			angle += 0.0001;
+
 
 		// Se Dibuja el Skybox
 		GLint oldCullFaceMode;
@@ -4257,6 +4402,7 @@ void applicationLoop() {
 		offX += 0.001;
 		rotWheelx += 0.1;
 		rotHeliHeliy += 0.01;
+		rotWheely += 0.01;
 		rotWheelx2 += 0.1;
 		rotSanta += 0.1;
 
@@ -4290,53 +4436,13 @@ void applicationLoop() {
 		}
 
 		//LAMBO
-		switch (state3) {
-		case 0:
-			modelMatrixLambo = glm::translate(modelMatrixLambo, glm::vec3(0.0, 0.0, 0.1));
-			advanceCount += 0.01;
-			rotWheely -= 0.01;
-			if (rotWheely < 0) {
-				rotWheely = 0.0;
-			}
-
-			if (advanceCount >= 20.0) {
-				advanceCount = 0;
-				state3 = 1;
-			}
-			break;
-		case 1:
-			modelMatrixLambo = glm::translate(modelMatrixLambo, glm::vec3(0.0, 0.0, 0.025));
-			modelMatrixLambo = glm::rotate(modelMatrixLambo, glm::radians(0.5f), glm::vec3(0, 1, 0));
-			rotCount += 0.5f;
-			rotWheely += 0.01;
-			if (rotWheely > glm::radians(15.0)) {
-				rotWheely = glm::radians(15.0);
-			}
-			if (rotCount >= 90.0) {
-				rotCount = 0;
-				state3 = 2;
-			}
-		case 2:
-			angulo += 0.1;
-			if (angulo >= 70) {
-				state3 = 3;
-			}
-			break;
-
-		case 3:
-			angulo -= 0.1;
-			if (angulo < 0) {
-				angulo = 0.0;
-				state3 = 0;
-			}
-			break;
-		}
+		
 
 
 
 
 
-
+/*
 		//para movimiento helicoptero
 		switch (state2) {
 		case 0:
@@ -4391,7 +4497,7 @@ void applicationLoop() {
 				state2 = 0;
 			}
 			break;
-		}
+		}*/
 
 		//Para movimiento de Santa 
 		switch (stateSanta) {
@@ -4548,19 +4654,29 @@ void applicationLoop() {
 			break;
 
 		}
-
+		/*
 		//TIRO PARABOLICO
-		tiroTiempo += 0.0001;
+		tiroTiempo += 0.01;
 		tiroPosX = tiroVelocidad * 0.7071 * tiroTiempo;
 		tiroPosY = (tiroVelocidad * 0.7071 * tiroTiempo) - (0.5 * 9.81 * tiroTiempo * tiroTiempo);
+		
+		//tiroPosX2 += tiroPosX;
+		//tiroPosY2 += tiroPosY;
+
 		if (tiroTiempo > 10.0)
 			tiroTiempo = 0.0;
 		
-		matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(tiroPosX, tiroPosY, 0.0));
-		planeta.render(matrixTiroParabolico);
+		//matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(tiroPosX, tiroPosY, 0.0));
+		planeta.setPosition(glm::vec3(tiroPosX, tiroPosY, -20.0));
+		planeta.render();
+
 		std::cout << "tiro parabolic: " << std::endl;
 		std::cout << tiroPosX<< std::endl;
-		std::cout << tiroPosY << std::endl;
+		std::cout << tiroPosY << std::endl;*/
+
+		glm::mat4 tiroParabolicoMatrix = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(1.0f, 0.0f, 0.0f));
+		tiroParabolicoMatrix = glm::translate(tiroParabolicoMatrix, glm::vec3(0.0f, -ratio, 0.0f));
+		planeta.render(tiroParabolicoMatrix);
 
 		glfwSwapBuffers(window);
 	}
