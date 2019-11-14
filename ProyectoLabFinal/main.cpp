@@ -1811,6 +1811,12 @@ void applicationLoop() {
 	float encenderModelosBob = 10.35;
 	float encenderCuartoIzq = 10.35;
 	float encenderCuartoIzqEntrada = 10.35;
+	float encenderCuartoMedioEntrada = 10.35;
+	float encenderCuartoDerEntrada = 10.35;
+	float encenderCocinaCris = 10.35;
+	float encenderCuarto2 = 10.35; //cuarto que esta detras de la cocina
+	float encenderCuarto3 = 10.35; //cuarto que esta detras del cuarto2
+	float encenderCuarto4 = 10.35; //cuarto que esta detras del cuarto3
 	
 	//HELICPTE
 	int state2 = 0;
@@ -1934,12 +1940,12 @@ void applicationLoop() {
 			a += 0.001;
 			b -= 0.001;
 			//LUCES POINT LIGHT
-			shaderMulLighting.setInt("pointLightCount", 22);
+			shaderMulLighting.setInt("pointLightCount", 27);
 			shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(13.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));//naranja
-			shaderMulLighting.setFloat("pointLights[0].constant", a);
+			shaderMulLighting.setFloat("pointLights[0].constant", 0.3);
 			shaderMulLighting.setFloat("pointLights[0].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[0].quadratic", 0.004);
 			a += 0.001;
@@ -1948,7 +1954,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 1.0)));// purupura
-			shaderMulLighting.setFloat("pointLights[1].constant", b);
+			shaderMulLighting.setFloat("pointLights[1].constant", 0.3);
 			shaderMulLighting.setFloat("pointLights[1].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[1].quadratic", 0.004);
 			a += 0.001;
@@ -1957,7 +1963,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[2].constant", a);
+			shaderMulLighting.setFloat("pointLights[2].constant", 0.3);
 			shaderMulLighting.setFloat("pointLights[2].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[2].quadratic", 0.004);
 			a += 0.001;
@@ -1966,7 +1972,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));//naranja
-			shaderMulLighting.setFloat("pointLights[3].constant", b);
+			shaderMulLighting.setFloat("pointLights[3].constant", 0.15);
 			shaderMulLighting.setFloat("pointLights[3].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[3].quadratic", 0.004);
 			a += 0.001;
@@ -1975,7 +1981,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 1.0)));// purupura
-			shaderMulLighting.setFloat("pointLights[4].constant", a);
+			shaderMulLighting.setFloat("pointLights[4].constant", 0.15);
 			shaderMulLighting.setFloat("pointLights[4].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[4].quadratic", 0.004);
 			a += 0.001;
@@ -1984,7 +1990,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[5].constant", b);
+			shaderMulLighting.setFloat("pointLights[5].constant", 0.15);
 			shaderMulLighting.setFloat("pointLights[5].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[5].quadratic", 0.004);
 			a += 0.001;
@@ -1993,7 +1999,7 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[6].constant", a);
+			shaderMulLighting.setFloat("pointLights[6].constant", 0.15);
 			shaderMulLighting.setFloat("pointLights[6].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[6].quadratic", 0.004);
 			//OFRENDA  esta es la vela izquierda
@@ -2109,7 +2115,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[20].constant", encenderCuartoIzq);
 			shaderMulLighting.setFloat("pointLights[20].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[20].quadratic", 0.004);
-			//LUZ CUARTo izquierdo
+			//LUZ CUARTo izquierdo entrada
 			shaderMulLighting.setVectorFloat3("pointLights[21].position", glm::value_ptr((glm::vec3(2.0, 2.7, 10.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[21].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[21].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -2117,6 +2123,47 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[21].constant", encenderCuartoIzqEntrada);
 			shaderMulLighting.setFloat("pointLights[21].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[21].quadratic", 0.004);
+			//LUZ CUARTo EN MEDIO ENTRADA
+			shaderMulLighting.setVectorFloat3("pointLights[22].position", glm::value_ptr((glm::vec3(5.5, 2.7, 10.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[22].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[22].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[22].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[22].constant", encenderCuartoMedioEntrada);
+			shaderMulLighting.setFloat("pointLights[22].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[22].quadratic", 0.004);
+			//LUZ CUARTo DERECHA ENTRADA
+			shaderMulLighting.setVectorFloat3("pointLights[23].position", glm::value_ptr((glm::vec3(9.0, 2.7, 10.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[23].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[23].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[23].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[23].constant", encenderCuartoDerEntrada);
+			shaderMulLighting.setFloat("pointLights[23].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[23].quadratic", 0.004);
+			//LUZ COCINA CRIS
+			shaderMulLighting.setVectorFloat3("pointLights[24].position", glm::value_ptr((glm::vec3(9.0, 2.7, 5.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[24].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[24].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[24].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[24].constant", encenderCocinaCris);
+			shaderMulLighting.setFloat("pointLights[24].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[24].quadratic", 0.004);
+			//LUZ CUARTO 2 CRIS EL QUE ESTA DETRAS DE LA COCINA
+			shaderMulLighting.setVectorFloat3("pointLights[25].position", glm::value_ptr((glm::vec3(7.0, 2.7, 0.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[25].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[25].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[25].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[25].constant", encenderCuarto2);
+			shaderMulLighting.setFloat("pointLights[25].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[25].quadratic", 0.004);
+
+			shaderMulLighting.setVectorFloat3("pointLights[26].position", glm::value_ptr((glm::vec3(12.0, 2.7, -4.5))));
+			shaderMulLighting.setVectorFloat3("pointLights[26].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[26].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[26].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[26].constant", encenderCuarto3);
+			shaderMulLighting.setFloat("pointLights[26].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[26].quadratic", 0.004);
+
 		}
 		//LUCES AUTOMATICAS DE LAS CASAS
 		
@@ -2184,6 +2231,33 @@ void applicationLoop() {
 		luzAutomatica.render();
 		glm::mat4 luzCris6 = glm::translate(model, glm::vec3(2.0, 2.7, 10.5));
 
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(5.5, 2.7, 10.5));
+		luzAutomatica.render();
+		glm::mat4 luzCris7 = glm::translate(model, glm::vec3(5.5, 2.7, 10.5));
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, 10.5));
+		luzAutomatica.render();
+		glm::mat4 luzCris8 = glm::translate(model, glm::vec3(9.0, 2.7, 10.5));
+		//cocina cris
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, 5.5));
+		luzAutomatica.render();
+		glm::mat4 luzCris9 = glm::translate(model, glm::vec3(9.0, 2.7, 5.5));
+		//cuarto 2
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, 0.5));
+		luzAutomatica.render();
+		glm::mat4 luzCris10 = glm::translate(model, glm::vec3(9.0, 2.7, 0.5));
+
+		//cuarto 3
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(12.0, 2.7, -4.5));
+		luzAutomatica.render();
+		glm::mat4 luzCris11 = glm::translate(model, glm::vec3(12.0, 2.7, -4.5));
+
+
 		//automatizacion luces casas cris
 		glm::vec3 regalosPos = luzCris1[3];
 		if (glm::distance(camera_pos, regalosPos) < 4.0) {
@@ -2238,6 +2312,52 @@ void applicationLoop() {
 		else {
 			encenderCuartoIzqEntrada = 10.35;
 		}
+
+		glm::vec3 modelCuartoMedioEntrada = luzCris7[3];
+		if (glm::distance(camera_pos, modelCuartoMedioEntrada) < 4.0) {
+			std::cout << "Prender la luz entrada Cris" << std::endl;
+			encenderCuartoMedioEntrada = 0.35;
+		}
+		else {
+			encenderCuartoMedioEntrada = 10.35;
+		}
+
+		glm::vec3 modelCuartoDerEntrada = luzCris8[3];
+		if (glm::distance(camera_pos, modelCuartoDerEntrada) < 4.0) {
+			std::cout << "Prender la luz entrada der Cris" << std::endl;
+			encenderCuartoDerEntrada = 0.35;
+		}
+		else {
+			encenderCuartoDerEntrada = 10.35;
+		}
+
+		glm::vec3 modelCocinaCris = luzCris9[3];
+		if (glm::distance(camera_pos, modelCocinaCris) < 4.0) {
+			std::cout << "Prender la luz cocina Cris" << std::endl;
+			encenderCocinaCris = 0.35;
+		}
+		else {
+			encenderCocinaCris = 10.35;
+		}
+
+		glm::vec3 modelCuarto2 = luzCris10[3];
+		if (glm::distance(camera_pos, modelCuarto2) < 2.0) {
+			std::cout << "Prender la luz cuarto2 Cris" << std::endl;
+			encenderCuarto2 = 0.35;
+		}
+		else {
+			encenderCuarto2 = 10.35;
+		}
+
+		glm::vec3 modelCuarto3 = luzCris11[3];
+		if (glm::distance(camera_pos, modelCuarto3) < 3.0) {
+			std::cout << "Prender la luz cuarto3 Cris" << std::endl;
+			encenderCuarto3 = 0.35;
+		}
+		else {
+			encenderCuarto3 = 10.35;
+		}
+
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
