@@ -53,6 +53,7 @@ std::shared_ptr<FirstPersonCamera> camera2(new FirstPersonCamera());
 Sphere sphereLamp(20, 20);
 Sphere skyboxSphere(20, 20);
 Sphere luzAutomatica(20,20);
+Sphere planeta(20,20); //es pal tiro parabolico
 
 Box boxMaterials;
 
@@ -307,6 +308,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	luzAutomatica.init();
 	luzAutomatica.setShader(&shader);
 	luzAutomatica.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
+
+	planeta.init();
+	//planeta.setShader(&shaderMulLighting);
+	planeta.setShader(&shader);
+	planeta.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
 
 
 	/////////////////////////////////////////////CASA ////////////////////////////////////////////////////////////////////////////
@@ -1776,7 +1782,11 @@ void applicationLoop() {
 	matrixHand3 = glm::translate(modelCasa, glm::vec3(20.0, -0.7, 15.0));
 	matrixHand3 = glm::scale(matrixHand3, glm::vec3(0.05, 0.05, 0.05));
 	matrixHand3 = glm::rotate(matrixHand3, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
-	
+	//TIRO PARABOLICO
+	glm::mat4 matrixTiroParabolico = glm::mat4(1.0);
+	matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(0.0, 15.0, -40.0));
+	matrixTiroParabolico = glm::scale(matrixTiroParabolico, glm::vec3(5.0, 5.0, 5.0));
+
 	int estadoCarnes = 0;
 	float avanceCarnesX = 0;
 	float avanceCarnesZ = 0;
@@ -1817,6 +1827,13 @@ void applicationLoop() {
 	float encenderCuarto2 = 10.35; //cuarto que esta detras de la cocina
 	float encenderCuarto3 = 10.35; //cuarto que esta detras del cuarto2
 	float encenderCuarto4 = 10.35; //cuarto que esta detras del cuarto3
+	
+	//TIRO PARABOLICO
+	float tiroPosX = 0.0;
+	float tiroPosY = 0.0;
+	float tiroTiempo = 0.0;
+	float tiroVelocidad = 30; // 30 [m/s]
+
 	
 	//HELICPTE
 	int state2 = 0;
@@ -4531,6 +4548,19 @@ void applicationLoop() {
 			break;
 
 		}
+
+		//TIRO PARABOLICO
+		tiroTiempo += 0.0001;
+		tiroPosX = tiroVelocidad * 0.7071 * tiroTiempo;
+		tiroPosY = (tiroVelocidad * 0.7071 * tiroTiempo) - (0.5 * 9.81 * tiroTiempo * tiroTiempo);
+		if (tiroTiempo > 10.0)
+			tiroTiempo = 0.0;
+		
+		matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(tiroPosX, tiroPosY, 0.0));
+		planeta.render(matrixTiroParabolico);
+		std::cout << "tiro parabolic: " << std::endl;
+		std::cout << tiroPosX<< std::endl;
+		std::cout << tiroPosY << std::endl;
 
 		glfwSwapBuffers(window);
 	}
