@@ -665,206 +665,121 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//NAVIDAD
 
 
-	camera->setPosition(glm::vec3(4.0, 5.0, -5.0));
+	camera->setPosition(glm::vec3(40.0, 5.0, -5.0));
 
 	int imageWidth, imageHeight;
-	// Definiendo la textura a utilizar
 	Texture texture1("../Textures/sponge.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
 	FIBITMAP *bitmap = texture1.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	unsigned char *data = texture1.convertToData(bitmap, imageWidth,
 		imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID1);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID1);
-	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture1.freeImage(bitmap);
 
-	// Definiendo la textura a utilizar
 	Texture texture2("../Textures/water2.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
 	bitmap = texture2.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture2.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
+
 	glGenTextures(1, &textureID2);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID2);
-	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture2.freeImage(bitmap);
 
-	// Definiendo la textura a utilizar
 	Texture texture3("../Textures/goku.png");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texture3.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture3.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID3);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID3);
-	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture3.freeImage(bitmap);
 
 	Texture texture4("../Textures/texturaLadrillos.jpg");
 	bitmap = texture4.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture4.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID4);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID4);
-	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture4.freeImage(bitmap);
 
 	//////////////////////////////////////////CASA//////////////////////////////
 	Texture texture5("../Textures/piso.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texture5.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture5.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID5);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID5);
-	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture5.freeImage(bitmap);
 
 
 
 	Texture texture6("../Textures/PARED.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texture6.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texture6.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID6);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID6);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texture6.freeImage(bitmap);
-
-
-
 
 
 	Texture texture9("../Textures/puerta.jpg");
@@ -1889,6 +1804,10 @@ void applicationLoop() {
 	float encenderCocinaAle = 10.35;
 	float encenderCuartoAle = 10.35;
 	float encenderBanoAle = 10.35;
+
+	float encenderRegalosCris = 10.35;
+	float encenderRegalosCris2 = 10.35;
+	float encenderRegalosCris3 = 10.35;
 	
 	//HELICPTE
 	int state2 = 0;
@@ -2011,8 +1930,8 @@ void applicationLoop() {
 		else {
 			a += 0.001;
 			b -= 0.001;
-
-			shaderMulLighting.setInt("pointLightCount", 15);
+			//LUCES POINT LIGHT
+			shaderMulLighting.setInt("pointLightCount", 19);
 			shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(13.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -2146,6 +2065,31 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[15].constant", encenderBanoAle);
 			shaderMulLighting.setFloat("pointLights[15].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[15].quadratic", 0.004);
+			//LUCES CASA CRIS
+			//LUZ DONDE ESTAN LOS REGALOS
+			shaderMulLighting.setVectorFloat3("pointLights[16].position", glm::value_ptr((glm::vec3(9.0, 2.7, -11.0))));
+			shaderMulLighting.setVectorFloat3("pointLights[16].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[16].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[16].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[16].constant", encenderRegalosCris);
+			shaderMulLighting.setFloat("pointLights[16].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[16].quadratic", 0.004);
+			//LUZ EN MEDIO DONDE ESTAN LOS REGALOS
+			shaderMulLighting.setVectorFloat3("pointLights[17].position", glm::value_ptr((glm::vec3(5.0, 2.7, -11.0))));
+			shaderMulLighting.setVectorFloat3("pointLights[17].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[17].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[17].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[17].constant", encenderRegalosCris2);
+			shaderMulLighting.setFloat("pointLights[17].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[17].quadratic", 0.004);
+			//LUZ IZQUIERDA DONDE ESTAN LOS REGALOS
+			shaderMulLighting.setVectorFloat3("pointLights[18].position", glm::value_ptr((glm::vec3(5.0, 2.7, -11.0))));
+			shaderMulLighting.setVectorFloat3("pointLights[18].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[18].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[18].light.specular", glm::value_ptr(glm::vec3(0.9, 0.9, 0.9)));// blanca
+			shaderMulLighting.setFloat("pointLights[18].constant", encenderRegalosCris3);
+			shaderMulLighting.setFloat("pointLights[18].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[18].quadratic", 0.004);
 		}
 		//LUCES AUTOMATICAS DE LAS CASAS
 		
@@ -2178,7 +2122,64 @@ void applicationLoop() {
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(42.5, 1.45, -5.5));
 		luzAutomatica.render();
+
+		//LUCES AUTOMATICAS CASA CRIS
+		//LUZ DONDE ESTAN LOS REGALOS
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, -11.0));
+		luzAutomatica.render();
+		glm::mat4 luzCris1 = glm::translate(model, glm::vec3(9.0, 2.7, -11.0));
 		
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(5.0, 2.7, -11.0));
+		luzAutomatica.render();
+		glm::mat4 luzCris2 = glm::translate(model, glm::vec3(5.0, 2.7, -11.0));
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(1.0, 2.7, -11.0));
+		luzAutomatica.render();
+		glm::mat4 luzCris3 = glm::translate(luzCris3, glm::vec3(1.0, 2.7, -11.0));
+
+		//LUZ DONDE ESTAN BOB Y R2-D2
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(2.0, 2.7, -2.0));
+		luzAutomatica.render();
+		//cuarto del lado izquierdo
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(2.0, 2.7, 5.5));
+		luzAutomatica.render();
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(2.0, 2.7, 10.5));
+		luzAutomatica.render();
+
+		//automatizacion luces casas cris
+		glm::vec3 regalosPos = luzCris1[3];
+		if (glm::distance(camera_pos, regalosPos) < 4.0) {
+			std::cout << "Prender la luz sala Cris" << std::endl;
+			encenderRegalosCris = 0.35;
+		}
+		else {
+			encenderRegalosCris = 10.35;
+		}
+
+		glm::vec3 regalosPos2 = luzCris2[3];
+		if (glm::distance(camera_pos, regalosPos2) < 4.0) {
+			std::cout << "Prender la luz sala Cris" << std::endl;
+			encenderRegalosCris2 = 0.35;
+		}
+		else {
+			encenderRegalosCris2 = 10.35;
+		}
+
+		glm::vec3 regalosPos3 = luzCris3[3];
+		if (glm::distance(camera_pos, regalosPos3) < 4.0) {
+			std::cout << "Prender la luz sala Cris" << std::endl;
+			encenderRegalosCris3 = 0.35;
+		}
+		else {
+			encenderRegalosCris3 = 10.35;
+		}
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
@@ -2338,6 +2339,9 @@ void applicationLoop() {
 		matrixregalo = glm::translate(matrixregalo, glm::vec3(9.0, -1.0, -11.0));
 		modelregalo.render(matrixregalo);
 		glActiveTexture(GL_TEXTURE0);
+
+		
+
 		// flores 1
 
 		//bastones puerta 
@@ -2390,7 +2394,7 @@ void applicationLoop() {
 		//PINATA CRIS
 		glm::mat4 matrixPinata = glm::mat4(1.0);
 		matrixPinata = glm::translate(matrixPinata, glm::vec3(5.0, 2.0, -5.0));
-		matrixPinata = glm::scale(matrixPinata, glm::vec3(3.0, 3.0, 3.0));
+		matrixPinata = glm::scale(matrixPinata, glm::vec3(0.5, 0.5, 0.5));
 		modelPinata.render(matrixPinata);
 
 		//FLORES ROJAS 
@@ -2897,7 +2901,6 @@ void applicationLoop() {
 
 		//CASA ALE//
 		//CASITA
-
 		modelAle = glm::rotate(modelAle, rot0, glm::vec3(0, 1, 0));
 		//TECHO ALE
 		glm::mat4 modelCasaTecho = glm::mat4(1.0);
@@ -3101,7 +3104,7 @@ void applicationLoop() {
 		glActiveTexture(GL_TEXTURE0);
 		// cirio izquierdo
 
-		//AQUI LE MOVI CIRIO IZQ
+		//CIRIO IZQUIERDO
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
 		modelVeladora = glm::translate(modelCasa3, glm::vec3(-1.05, -1.2, 1.9));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.6, 0.1));
@@ -3112,7 +3115,7 @@ void applicationLoop() {
 		velaPunta.render(modelVelaPunta);
 		glActiveTexture(GL_TEXTURE0);
 
-		//AQUI LE MOVI CIRIO der
+		//CIRIO DERECHO
 		glBindTexture(GL_TEXTURE_2D, textureIDA34);
 		modelVeladora = glm::translate(modelCasa3, glm::vec3(-1.05, -1.2, 4.2));
 		modelVeladora = glm::scale(modelVeladora, glm::vec3(0.1, 0.6, 0.1));
