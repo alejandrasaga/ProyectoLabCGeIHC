@@ -214,7 +214,7 @@ bool exitApp = false;
 int lastMousePosX, offsetX = 0;
 int lastMousePosY, offsetY = 0;
 
-
+double currTime, lastTime;
 double deltaTime;
 
 // Se definen todos las funciones.
@@ -1899,6 +1899,15 @@ void applicationLoop() {
 	while (psi) {
 		glm::vec3 camera_pos = camera->getPosition();
 
+		currTime = TimeManager::Instance().GetTime();
+		if ((currTime - lastTime) < 0.01666667) {
+			glfwPollEvents();
+			continue;
+		}
+		lastTime = currTime;
+		TimeManager::Instance().CalculateFrameRate(true);
+		deltaTime = TimeManager::Instance().DeltaTime;
+
 		psi = processInput(true);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -1997,8 +2006,9 @@ void applicationLoop() {
 		else {
 			a += 0.001;
 			b -= 0.001;
+			//LUCES NAVIDENAS
 			//LUCES POINT LIGHT
-			shaderMulLighting.setInt("pointLightCount", 27);
+			shaderMulLighting.setInt("pointLightCount", 31);
 			shaderMulLighting.setVectorFloat3("pointLights[0].position", glm::value_ptr((glm::vec3(13.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -2222,6 +2232,37 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[26].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[26].quadratic", 0.004);
 
+			shaderMulLighting.setVectorFloat3("pointLights[27].position", glm::value_ptr((glm::vec3(11.0, 2.3, 10.7))));
+			shaderMulLighting.setVectorFloat3("pointLights[27].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[27].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[27].light.specular", glm::value_ptr(glm::vec3(1.0, 1.0, 0.0)));
+			shaderMulLighting.setFloat("pointLights[27].constant", 0.35);
+			shaderMulLighting.setFloat("pointLights[27].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[27].quadratic", 0.004);
+
+			shaderMulLighting.setVectorFloat3("pointLights[28].position", glm::value_ptr((glm::vec3(11.0, 1.6, 11.2))));
+			shaderMulLighting.setVectorFloat3("pointLights[28].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[28].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[28].light.specular", glm::value_ptr(glm::vec3(0.5, 0.85, 0.2)));
+			shaderMulLighting.setFloat("pointLights[28].constant", 1.1);
+			shaderMulLighting.setFloat("pointLights[28].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[28].quadratic", 0.004);
+
+			shaderMulLighting.setVectorFloat3("pointLights[29].position", glm::value_ptr((glm::vec3(11.0, 1.6, 10.2))));
+			shaderMulLighting.setVectorFloat3("pointLights[29].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[29].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[29].light.specular", glm::value_ptr(glm::vec3(0.5, 0.0, 0.2)));
+			shaderMulLighting.setFloat("pointLights[29].constant", 2.5);
+			shaderMulLighting.setFloat("pointLights[29].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[29].quadratic", 0.004);
+
+			shaderMulLighting.setVectorFloat3("pointLights[30].position", glm::value_ptr((glm::vec3(11.0, 1.6, 10.7))));
+			shaderMulLighting.setVectorFloat3("pointLights[30].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
+			shaderMulLighting.setVectorFloat3("pointLights[30].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
+			shaderMulLighting.setVectorFloat3("pointLights[30].light.specular", glm::value_ptr(glm::vec3(0.3, 0.65, 0.5)));
+			shaderMulLighting.setFloat("pointLights[30].constant", 3.15);
+			shaderMulLighting.setFloat("pointLights[30].linear", 0.04);
+			shaderMulLighting.setFloat("pointLights[30].quadratic", 0.004);
 		}
 		//LUCES AUTOMATICAS DE LAS CASAS
 		
@@ -2298,9 +2339,33 @@ void applicationLoop() {
 		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, 10.5));
 		luzAutomatica.render();
 		glm::mat4 luzCris8 = glm::translate(model, glm::vec3(9.0, 2.7, 10.5));
+
+		//LUZ NACIMIENTO
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(11.0, 2.3, 10.7));
+		luzAutomatica.setColor(glm::vec4(1.0,1.0,0.0,1.0));
+		luzAutomatica.render();
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(11.0, 1.6, 11.2));
+		luzAutomatica.setColor(glm::vec4(0.5, 0.85, 0.2, 1.0));
+		luzAutomatica.render();
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(11.0, 1.6, 10.2));
+		luzAutomatica.setColor(glm::vec4(0.5, 0.0, 0.2, 1.0));
+		luzAutomatica.render();
+
+		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
+		luzAutomatica.setPosition(glm::vec3(11.0, 1.6, 10.7));
+		luzAutomatica.setColor(glm::vec4(0.3, 0.65, 0.5, 1.0));
+		luzAutomatica.render();
+
+
 		//cocina cris
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, 5.5));
+		luzAutomatica.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 		luzAutomatica.render();
 		glm::mat4 luzCris9 = glm::translate(model, glm::vec3(9.0, 2.7, 5.5));
 		//cuarto 2
@@ -2419,41 +2484,42 @@ void applicationLoop() {
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
-		 /*	sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(13.0, 2.0, -14.5));
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+			 sphereLamp2.setPosition(glm::vec3(13.0, 2.5, -15.0));
 			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
 			 sphereLamp2.render();
 
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(11.0, 2.0, -15.0));
+			 sphereLamp2.setPosition(glm::vec3(11.0, 2.5, -15.0));
 			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
 			 sphereLamp2.render();
 
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(9.0, 2.0, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
+			 sphereLamp2.setPosition(glm::vec3(9.0, 2.5, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo point 2
 			 sphereLamp2.render();
 
-
-
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(7.0, 2.0, -15.0));
+			 sphereLamp2.setPosition(glm::vec3(7.0, 2.5, -15.0));
 			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
 			 sphereLamp2.render();
 
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(5.0, 2.0, -15.0));
-			 sphereLamp2setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			 sphereLamp2.setPosition(glm::vec3(5.0, 2.5, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
 			 sphereLamp2.render();
 
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(3.0, 2.0, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
+			 sphereLamp2.setPosition(glm::vec3(3.0, 2.5, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
 			 sphereLamp2.render();
+
 			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(1.0, 2.0, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
-			 sphereLamp2.render();*/
+			 sphereLamp2.setPosition(glm::vec3(1.0, 2.5, -15.0));
+			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
+			 sphereLamp2.render();
+
 
 		glm::mat4 lightModelmatrix = glm::rotate(glm::mat4(1.0f), angle,
 			glm::vec3(1.0f, 0.0f, 0.0f));
