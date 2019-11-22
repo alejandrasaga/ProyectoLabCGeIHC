@@ -1767,11 +1767,11 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 2)
+		if (modelSelected > 3)
 			modelSelected = 0;
-		if (modelSelected == 1)
-			fileName = "../animaciones/animation_dart_joints.txt";
 		if (modelSelected == 2)
+			fileName = "../animaciones/animation_dart_joints.txt";
+		if (modelSelected == 3)
 			fileName = "../animaciones/animation_dart.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
@@ -1791,9 +1791,9 @@ bool processInput(bool continueApplication) {
 		&& glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
 		record = false;
 		myfile.close();
-		if (modelSelected == 1)
-			keyFramesDartJoints = getKeyRotFrames(fileName);
 		if (modelSelected == 2)
+			keyFramesDartJoints = getKeyRotFrames(fileName);
+		if (modelSelected == 3)
 			keyFramesDart = getKeyFrames(fileName);
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
@@ -2058,8 +2058,8 @@ void applicationLoop() {
 	float rotSanta = 0.0;
 
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
-	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(30.0, 0.0, 20.0));
-	modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(1.5, 1.5, 1.5));
+	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0,-1.5, 20.0));
+	modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
 
 	// Descomentar
 	// Variables to interpolation key frames
@@ -2562,7 +2562,7 @@ void applicationLoop() {
 		//automatizacion luces casas cris
 		glm::vec3 regalosPos = luzCris1[3];
 		if (glm::distance(camera_pos, regalosPos) < 4.0) {
-			std::cout << "Prender la luz sala Cris" << std::endl;
+			//std::cout << "Prender la luz sala Cris" << std::endl;
 			encenderRegalosCris = 0.35;
 		}
 		else {
@@ -2571,7 +2571,7 @@ void applicationLoop() {
 
 		glm::vec3 regalosPos2 = luzCris2[3];
 		if (glm::distance(camera_pos, regalosPos2) < 4.0) {
-			std::cout << "Prender la luz sala Cris" << std::endl;
+			//std::cout << "Prender la luz sala Cris" << std::endl;
 			encenderRegalosCris2 = 0.35;
 		}
 		else {
@@ -2580,7 +2580,7 @@ void applicationLoop() {
 
 		glm::vec3 regalosPos3 = luzCris3[3];
 		if (glm::distance(camera_pos, regalosPos3) < 4.0) {
-			std::cout << "Prender la luz sala Cris" << std::endl;
+			//std::cout << "Prender la luz sala Cris" << std::endl;
 			encenderRegalosCris3 = 0.35;
 		}
 		else {
@@ -2589,7 +2589,7 @@ void applicationLoop() {
 
 		glm::vec3 modeloBobR2D2 = luzCris4[3];
 		if (glm::distance(camera_pos, modeloBobR2D2) < 4.0) {
-			std::cout << "Prender la luz modelos Bob R2D2 Cris" << std::endl;
+			//std::cout << "Prender la luz modelos Bob R2D2 Cris" << std::endl;
 			encenderModelosBob = 0.35;
 		}
 		else {
@@ -2598,7 +2598,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuartoIzq = luzCris5[3];
 		if (glm::distance(camera_pos, modelCuartoIzq) < 4.0) {
-			std::cout << "Prender la luz cuarto izquierdo Cris" << std::endl;
+			//std::cout << "Prender la luz cuarto izquierdo Cris" << std::endl;
 			encenderCuartoIzq = 0.35;
 		}
 		else {
@@ -2607,7 +2607,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuartoIzqEntrada = luzCris6[3];
 		if (glm::distance(camera_pos, modelCuartoIzqEntrada) < 4.0) {
-			std::cout << "Prender la luz entrada izq Cris" << std::endl;
+			//std::cout << "Prender la luz entrada izq Cris" << std::endl;
 			encenderCuartoIzqEntrada = 0.35;
 		}
 		else {
@@ -2616,7 +2616,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuartoMedioEntrada = luzCris7[3];
 		if (glm::distance(camera_pos, modelCuartoMedioEntrada) < 4.0) {
-			std::cout << "Prender la luz entrada Cris" << std::endl;
+			//std::cout << "Prender la luz entrada Cris" << std::endl;
 			encenderCuartoMedioEntrada = 0.35;
 		}
 		else {
@@ -2625,7 +2625,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuartoDerEntrada = luzCris8[3];
 		if (glm::distance(camera_pos, modelCuartoDerEntrada) < 4.0) {
-			std::cout << "Prender la luz entrada der Cris" << std::endl;
+			//std::cout << "Prender la luz entrada der Cris" << std::endl;
 			encenderCuartoDerEntrada = 0.35;
 		}
 		else {
@@ -2634,7 +2634,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCocinaCris = luzCris9[3];
 		if (glm::distance(camera_pos, modelCocinaCris) < 4.0) {
-			std::cout << "Prender la luz cocina Cris" << std::endl;
+			//std::cout << "Prender la luz cocina Cris" << std::endl;
 			encenderCocinaCris = 0.35;
 		}
 		else {
@@ -2643,7 +2643,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuarto2 = luzCris10[3];
 		if (glm::distance(camera_pos, modelCuarto2) < 2.0) {
-			std::cout << "Prender la luz cuarto2 Cris" << std::endl;
+			//std::cout << "Prender la luz cuarto2 Cris" << std::endl;
 			encenderCuarto2 = 0.35;
 		}
 		else {
@@ -2652,7 +2652,7 @@ void applicationLoop() {
 
 		glm::vec3 modelCuarto3 = luzCris11[3];
 		if (glm::distance(camera_pos, modelCuarto3) < 3.0) {
-			std::cout << "Prender la luz cuarto3 Cris" << std::endl;
+			//std::cout << "Prender la luz cuarto3 Cris" << std::endl;
 			encenderCuarto3 = 0.35;
 		}
 		else {
@@ -3551,7 +3551,7 @@ void applicationLoop() {
 
 		glm::vec3 banioPos = mosaicoBano[3];
 		if (glm::distance(camera_pos, banioPos) < 4.0) {
-			std::cout << "Prender la luz banio." << std::endl;
+			//std::cout << "Prender la luz banio." << std::endl;
 			encenderBanoAle = 0.35;
 		}
 		else {
@@ -3977,7 +3977,7 @@ void applicationLoop() {
 
 		glm::vec3 comedorPos = comedor[3];
 		if (glm::distance(camera_pos, comedorPos) < 4.0) {
-			std::cout << "Prender la luz cocina." << std::endl;
+			//std::cout << "Prender la luz cocina." << std::endl;
 			encenderCocinaAle = 0.35;
 		}
 		else {
@@ -4135,7 +4135,7 @@ void applicationLoop() {
 		//AUTOMATIZACION DE LUCES
 		glm::vec3 cuartoAlePos = muebles[3];
 		if (glm::distance(camera_pos, cuartoAlePos) < 4.0) {
-			std::cout << "Prender la luz cuarto" << std::endl;
+			//std::cout << "Prender la luz cuarto" << std::endl;
 			encenderCuartoAle = 0.35;
 		}
 		else {
@@ -4170,7 +4170,7 @@ void applicationLoop() {
 
 		glm::vec3 salaPos = sillones[3];
 		if (glm::distance(camera_pos, salaPos) < 4.0) {
-			std::cout << "Prender la luz sala." << std::endl;
+			//std::cout << "Prender la luz sala." << std::endl;
 			encenderSalaAle = 0.35;
 		}
 		else {
@@ -4637,7 +4637,7 @@ void applicationLoop() {
 		modelMatrixDartHead = glm::rotate(modelMatrixDartHead, rotDartHead, glm::vec3(0, 1, 0));
 		modelMatrixDartHead = glm::translate(modelMatrixDartHead, glm::vec3(0.0, -0.2, 0.0));
 		modelDartLegoHead.render(modelMatrixDartHead);
-		//modelDartLegoMask.render(modelMatrixDartHead);
+		modelDartLegoMask.render(modelMatrixDartHead);
 		glm::mat4 modelMatrixDartLeftArm = glm::mat4(modelMatrixDart);
 		modelMatrixDartLeftArm = glm::translate(modelMatrixDartLeftArm, glm::vec3(-0.023515, 2.43607, 0.446066));
 		modelMatrixDartLeftArm = glm::rotate(modelMatrixDartLeftArm, glm::radians(-5.0f), glm::vec3(1, 0, 0));
