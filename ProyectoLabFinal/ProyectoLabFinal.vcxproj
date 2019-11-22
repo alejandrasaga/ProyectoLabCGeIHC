@@ -30,6 +30,20 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\AbstractModel.h" />
+    <ClInclude Include="Headers\AnimationUtils.h" />
+    <ClInclude Include="Headers\Box.h" />
+    <ClInclude Include="Headers\Camera.h" />
+    <ClInclude Include="Headers\Cylinder.h" />
+    <ClInclude Include="Headers\FirstPersonCamera.h" />
+    <ClInclude Include="Headers\Mesh.h" />
+    <ClInclude Include="Headers\Model.h" />
+    <ClInclude Include="Headers\Shader.h" />
+    <ClInclude Include="Headers\Sphere.h" />
+    <ClInclude Include="Headers\Texture.h" />
+    <ClInclude Include="Headers\TimeManager.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B52C2283-A93A-46A9-BCBE-68FCAF15ACCE}</ProjectGuid>
