@@ -4632,6 +4632,7 @@ void applicationLoop() {
 		// Se deshabilita el cull faces IMPORTANTE para la capa
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		glDisable(GL_CULL_FACE);
+
 		glm::mat4 modelMatrixDartBody = glm::mat4(modelMatrixDart);
 		modelMatrixDartBody = glm::scale(modelMatrixDartBody, glm::vec3(0.5, 0.5, 0.5));
 		modelDartLegoBody.render(modelMatrixDartBody);
