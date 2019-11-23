@@ -57,8 +57,8 @@ std::shared_ptr<FirstPersonCamera> camera2(new FirstPersonCamera());
 Sphere sphereLamp(20, 20);
 Sphere sphereLamp2(20, 20);
 Sphere skyboxSphere(20, 20);
-Sphere luzAutomatica(20,20);
-Sphere planeta(20,20); //es pal tiro parabolico
+Sphere luzAutomatica(20, 20);
+Sphere planeta(20, 20); //es pal tiro parabolico
 
 Box boxMaterials;
 
@@ -353,10 +353,10 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	sphereLamp2.init();
 	sphereLamp2.setShader(&shader);
 	sphereLamp2.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	velaPunta.init(); 
+	velaPunta.init();
 	velaPunta.setShader(&shader);
 	velaPunta.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
-	
+
 	luzAutomatica.init();
 	luzAutomatica.setShader(&shader);
 	luzAutomatica.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
@@ -365,7 +365,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//planeta.setShader(&shaderMulLighting);
 	planeta.setShader(&shader);
 	planeta.setColor(glm::vec4(1.0, 1.0, 1.0, 0.8));
-	planeta.setScale(glm::vec3(5.0,5.0,5.0));
+	planeta.setScale(glm::vec3(5.0, 5.0, 5.0));
 
 
 	/////////////////////////////////////////////CASA ////////////////////////////////////////////////////////////////////////////
@@ -713,7 +713,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	// NAVIDAD
 
-	
+
 	modelcorona.loadModel("../models/adornos/corona/ChristmasWreath.obj");
 	modelcorona.setShader(&shaderMulLighting);
 	modeladorno1.loadModel("../models/adornos/santa/chimenea.obj");
@@ -745,7 +745,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelPinata.loadModel("../models/pinata/untitled.obj");
 	modelPinata.setShader(&shaderMulLighting);
 
-	
+
 	//NAVIDAD
 
 
@@ -1850,7 +1850,7 @@ bool processInput(bool continueApplication) {
 		rot9 += 0.01;
 	else if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS && !sentido)
 		rot9 -= 0.01;
-	
+
 	//R2D2 MODEL SELECTED = 1
 	if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS && sentido)
 		rot7 += 0.01;
@@ -1977,7 +1977,7 @@ void applicationLoop() {
 	matrixHand2 = glm::translate(modelCasa, glm::vec3(-5.0, -0.7, 15.0));
 	matrixHand2 = glm::scale(matrixHand2, glm::vec3(0.05, 0.05, 0.05));
 	matrixHand2 = glm::rotate(matrixHand2, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-	
+
 	glm::mat4 matrixHand3 = glm::mat4(1.0);
 	matrixHand3 = glm::translate(modelCasa, glm::vec3(20.0, -0.7, 15.0));
 	matrixHand3 = glm::scale(matrixHand3, glm::vec3(0.05, 0.05, 0.05));
@@ -2027,7 +2027,7 @@ void applicationLoop() {
 	float encenderCuarto2 = 10.35; //cuarto que esta detras de la cocina
 	float encenderCuarto3 = 10.35; //cuarto que esta detras del cuarto2
 	float encenderCuarto4 = 10.35; //cuarto que esta detras del cuarto3
-	
+
 	//TIRO PARABOLICO
 	float tiroPosX = 0.0;
 	float tiroPosY = 0.0;
@@ -2036,7 +2036,7 @@ void applicationLoop() {
 	float tiroTiempo = 0.0;
 	float tiroVelocidad = 30; // 30 [m/s]
 
-	
+
 	//HELICPTE
 	int state2 = 0;
 	int state3 = 0;
@@ -2058,8 +2058,8 @@ void applicationLoop() {
 	float rotSanta = 0.0;
 
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
-	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0,-1.5, 20.0));
-	modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
+	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0, -1.5, 20.0));
+	//modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
 
 	// Descomentar
 	// Variables to interpolation key frames
@@ -2443,7 +2443,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[30].quadratic", 0.004);
 		}
 		//LUCES AUTOMATICAS DE LAS CASAS
-		
+
 		//LUCES CASA ALE AUTOMATICAS
 		//LUZ SALA
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
@@ -2457,7 +2457,7 @@ void applicationLoop() {
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(43.0, 1.45, 3.0));
 		luzAutomatica.render();
-		
+
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(45.0, 1.45, 3.0));
 		luzAutomatica.render();
@@ -2480,7 +2480,7 @@ void applicationLoop() {
 		luzAutomatica.setPosition(glm::vec3(9.0, 2.7, -11.0));
 		luzAutomatica.render();
 		glm::mat4 luzCris1 = glm::translate(model, glm::vec3(9.0, 2.7, -11.0));
-		
+
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(5.0, 2.7, -11.0));
 		luzAutomatica.render();
@@ -2521,7 +2521,7 @@ void applicationLoop() {
 		//LUZ NACIMIENTO
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
 		luzAutomatica.setPosition(glm::vec3(11.0, 2.3, 10.7));
-		luzAutomatica.setColor(glm::vec4(1.0,1.0,0.0,1.0));
+		luzAutomatica.setColor(glm::vec4(1.0, 1.0, 0.0, 1.0));
 		luzAutomatica.render();
 
 		luzAutomatica.setScale(glm::vec3(0.2, 0.2, 0.2));
@@ -2662,41 +2662,41 @@ void applicationLoop() {
 		/*******************************************
 		 * Modelo de Luces dentro de la casa
 		 *******************************************/
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(13.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(13.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(11.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(11.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(9.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo point 2
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(9.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo point 2
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(7.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(7.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.5, 0.0, 1.0));
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(5.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(5.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.0, 1.0, 1.0));
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(3.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(3.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
+		sphereLamp2.render();
 
-			 sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
-			 sphereLamp2.setPosition(glm::vec3(1.0, 2.5, -15.0));
-			 sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
-			 sphereLamp2.render();
+		sphereLamp2.setScale(glm::vec3(0.2, 0.2, 0.2));
+		sphereLamp2.setPosition(glm::vec3(1.0, 2.5, -15.0));
+		sphereLamp2.setColor(glm::vec4(1.0, 0.0, 0.0, 1.0)); //amarillo
+		sphereLamp2.render();
 
 
 		glm::mat4 lightModelmatrix = glm::rotate(glm::mat4(1.0f), angle,
@@ -2753,14 +2753,14 @@ void applicationLoop() {
 
 		glm::mat4 matrixcocina = glm::mat4(1.0);
 		matrixcocina = glm::translate(matrixcocina, glm::vec3(11.0, -1.2, 4.0));
-		matrixcocina= glm::scale(matrixcocina, glm::vec3(1.0, 1.0, 1.0));
-		
+		matrixcocina = glm::scale(matrixcocina, glm::vec3(1.0, 1.0, 1.0));
+
 		modelcocina.render(matrixcocina);
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixmueblecocina = glm::mat4(1.0);
 		matrixmueblecocina = glm::translate(matrixmueblecocina, glm::vec3(12.0, -1.2, 7.0));
-		matrixmueblecocina = glm::scale(matrixmueblecocina, glm::vec3(0.8,0.8,0.8));
+		matrixmueblecocina = glm::scale(matrixmueblecocina, glm::vec3(0.8, 0.8, 0.8));
 		matrixmueblecocina = glm::rotate(matrixmueblecocina, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelmueblecocina.render(matrixmueblecocina);
 		glActiveTexture(GL_TEXTURE0);
@@ -2982,8 +2982,8 @@ void applicationLoop() {
 		matrixabuzz = glm::scale(matrixabuzz, glm::vec3(2.0, 2.0, 2.0));
 		modelarboldenavidad.render(matrixabuzz);
 		glActiveTexture(GL_TEXTURE0)*/
-			////////////////////////////////////////////////////////////////////////////////////////////////////
-			
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		glm::mat4 modelAgua = glm::mat4(1.0);
 		modelAgua = glm::translate(modelAgua, glm::vec3(17, -1, 2.0));
 		modelAgua = glm::scale(modelAgua, glm::vec3(6.0, 0.01, 10.0));
@@ -3025,7 +3025,7 @@ void applicationLoop() {
 		boxc1.render(glm::scale(nacimiento, glm::vec3(0.1, 4.0, 4.0)));
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-	
+
 		glBindTexture(GL_TEXTURE_2D, textureID6);
 		shaderTexture.setVectorFloat2("scaleUV",
 			glm::value_ptr(glm::vec2(2.0, 1.0)));
@@ -3337,7 +3337,7 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 
-		
+
 
 
 		//Parte arriba casa
@@ -3943,7 +3943,7 @@ void applicationLoop() {
 		modelHand3.render(matrixHand3);
 		glActiveTexture(GL_TEXTURE0);
 
-		
+
 
 		glm::mat4 matrixPanMuerto = glm::mat4(1.0);
 		matrixPanMuerto = glm::translate(modelCasa3, glm::vec3(-0.75, -0.75, 3.5));
@@ -4632,13 +4632,14 @@ void applicationLoop() {
 		// Se deshabilita el cull faces IMPORTANTE para la capa
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		glDisable(GL_CULL_FACE);
-		modelDartLegoBody.render(modelMatrixDart);
-		glm::mat4 modelMatrixDartHead = glm::mat4(modelMatrixDart);
+		glm::mat4 modelMatrixDartBody = glm::mat4(modelMatrixDart);
+		modelMatrixDartBody = glm::scale(modelMatrixDartBody, glm::vec3(0.5, 0.5, 0.5));
+		modelDartLegoBody.render(modelMatrixDartBody);
+		glm::mat4 modelMatrixDartHead = glm::mat4(modelMatrixDartBody);
 		modelMatrixDartHead = glm::rotate(modelMatrixDartHead, rotDartHead, glm::vec3(0, 1, 0));
-		modelMatrixDartHead = glm::translate(modelMatrixDartHead, glm::vec3(0.0, -0.2, 0.0));
 		modelDartLegoHead.render(modelMatrixDartHead);
 		modelDartLegoMask.render(modelMatrixDartHead);
-		glm::mat4 modelMatrixDartLeftArm = glm::mat4(modelMatrixDart);
+		glm::mat4 modelMatrixDartLeftArm = glm::mat4(modelMatrixDartBody);
 		modelMatrixDartLeftArm = glm::translate(modelMatrixDartLeftArm, glm::vec3(-0.023515, 2.43607, 0.446066));
 		modelMatrixDartLeftArm = glm::rotate(modelMatrixDartLeftArm, glm::radians(-5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartLeftArm = glm::rotate(modelMatrixDartLeftArm, rotDartLeftArm, glm::vec3(0, 0, 1));
@@ -4652,7 +4653,7 @@ void applicationLoop() {
 		modelMatrixDartLeftHand = glm::rotate(modelMatrixDartLeftHand, glm::radians(5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartLeftHand = glm::translate(modelMatrixDartLeftHand, glm::vec3(-0.201343, -1.68317, -0.99774));
 		modelDartLegoLeftHand.render(modelMatrixDartLeftHand);
-		glm::mat4 modelMatrixDartRightArm = glm::mat4(modelMatrixDart);
+		glm::mat4 modelMatrixDartRightArm = glm::mat4(modelMatrixDartBody);
 		modelMatrixDartRightArm = glm::translate(modelMatrixDartRightArm, glm::vec3(-0.023515, 2.43607, -0.446066));
 		modelMatrixDartRightArm = glm::rotate(modelMatrixDartRightArm, glm::radians(5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartRightArm = glm::rotate(modelMatrixDartRightArm, rotDartRightArm, glm::vec3(0, 0, 1));
@@ -4666,12 +4667,12 @@ void applicationLoop() {
 		modelMatrixDartRightHand = glm::rotate(modelMatrixDartRightHand, glm::radians(-5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartRightHand = glm::translate(modelMatrixDartRightHand, glm::vec3(-0.201343, -1.68317, 0.99774));
 		modelDartLegoRightHand.render(modelMatrixDartRightHand);
-		glm::mat4 modelMatrixDartLeftLeg = glm::mat4(modelMatrixDart);
+		glm::mat4 modelMatrixDartLeftLeg = glm::mat4(modelMatrixDartBody);
 		modelMatrixDartLeftLeg = glm::translate(modelMatrixDartLeftLeg, glm::vec3(0, 1.12632, 0.423349));
 		modelMatrixDartLeftLeg = glm::rotate(modelMatrixDartLeftLeg, rotDartLeftLeg, glm::vec3(0, 0, 1));
 		modelMatrixDartLeftLeg = glm::translate(modelMatrixDartLeftLeg, glm::vec3(0, -1.12632, -0.423349));
 		modelDartLegoLeftLeg.render(modelMatrixDartLeftLeg);
-		glm::mat4 modelMatrixDartRightLeg = glm::mat4(modelMatrixDart);
+		glm::mat4 modelMatrixDartRightLeg = glm::mat4(modelMatrixDartBody);
 		modelMatrixDartRightLeg = glm::translate(modelMatrixDartRightLeg, glm::vec3(0, 1.12632, -0.423349));
 		modelMatrixDartRightLeg = glm::rotate(modelMatrixDartRightLeg, rotDartRightLeg, glm::vec3(0, 0, 1));
 		modelMatrixDartRightLeg = glm::translate(modelMatrixDartRightLeg, glm::vec3(0, -1.12632, 0.423349));
@@ -4794,7 +4795,7 @@ void applicationLoop() {
 		}
 
 		//LAMBO
-		
+
 
 
 
@@ -4966,27 +4967,27 @@ void applicationLoop() {
 			}
 
 		}
-		
+
 		switch (estadoManoZombie) {
-			case 0:
-				matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, -0.1, 0.0));
-				matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, -0.1, 0.0));
-				avanceManoZombie += 0.1;
-				if (avanceManoZombie > 130.0) {
-					avanceManoZombie = 0.0;
-					estadoManoZombie = 1;
-				}
+		case 0:
+			matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, -0.1, 0.0));
+			matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, -0.1, 0.0));
+			avanceManoZombie += 0.1;
+			if (avanceManoZombie > 130.0) {
+				avanceManoZombie = 0.0;
+				estadoManoZombie = 1;
+			}
 			break;
 
-			case 1:
-				matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, 0.1, 0.0));
-				matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, 0.1, 0.0));
-				avanceManoZombie2 += 0.1;
-				if (avanceManoZombie2 > 130.0) {
-					avanceManoZombie2 = 0.0;
-					estadoManoZombie = 0;
-				}
-				break;
+		case 1:
+			matrixHand2 = glm::translate(matrixHand2, glm::vec3(0.0, 0.1, 0.0));
+			matrixHand3 = glm::translate(matrixHand3, glm::vec3(0.0, 0.1, 0.0));
+			avanceManoZombie2 += 0.1;
+			if (avanceManoZombie2 > 130.0) {
+				avanceManoZombie2 = 0.0;
+				estadoManoZombie = 0;
+			}
+			break;
 
 		}
 
@@ -5017,13 +5018,13 @@ void applicationLoop() {
 		tiroTiempo += 0.01;
 		tiroPosX = tiroVelocidad * 0.7071 * tiroTiempo;
 		tiroPosY = (tiroVelocidad * 0.7071 * tiroTiempo) - (0.5 * 9.81 * tiroTiempo * tiroTiempo);
-		
+
 		//tiroPosX2 += tiroPosX;
 		//tiroPosY2 += tiroPosY;
 
 		if (tiroTiempo > 10.0)
 			tiroTiempo = 0.0;
-		
+
 		//matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(tiroPosX, tiroPosY, 0.0));
 		planeta.setPosition(glm::vec3(tiroPosX, tiroPosY, -20.0));
 		planeta.render();
