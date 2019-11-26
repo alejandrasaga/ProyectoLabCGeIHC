@@ -52,6 +52,7 @@ Shader shaderMulLighting;
 
 std::shared_ptr<FirstPersonCamera> camera(new FirstPersonCamera());
 std::shared_ptr<FirstPersonCamera> camera2(new FirstPersonCamera());
+std::shared_ptr<FirstPersonCamera> camera3(new FirstPersonCamera());
 
 
 Sphere sphereLamp(20, 20);
@@ -780,6 +781,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 
 	camera->setPosition(glm::vec3(40.0, 5.0, -5.0));
+	camera2->setPosition(glm::vec3(0.0, 5.0, -5.0));
 
 	int imageWidth, imageHeight;
 	Texture texture1("../Textures/sponge.jpg");
@@ -1780,18 +1782,45 @@ bool processInput(bool continueApplication) {
 	}
 
 	TimeManager::Instance().CalculateFrameRate(false);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	if (numCam == 0 && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera->moveFrontCamera(true, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	if (numCam == 0 && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		camera->moveFrontCamera(false, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	if (numCam == 0 && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		camera->moveRightCamera(false, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	if (numCam == 0 && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera->moveRightCamera(true, deltaTime);
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (numCam == 0 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 		camera->mouseMoveCamera(offsetX, offsetY, deltaTime);
+
+	if (numCam == 1 && glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera2->moveFrontCamera(true, deltaTime);
+	if (numCam == 1 && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera2->moveFrontCamera(false, deltaTime);
+	if (numCam == 1 && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera2->moveRightCamera(false, deltaTime);
+	if (numCam == 1 && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera2->moveRightCamera(true, deltaTime);
+	if (numCam == 1 && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		camera2->mouseMoveCamera(offsetX, offsetY, deltaTime);
+
+	if (!cambia && glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+		numCam++;
+		if (numCam > 1) {
+			numCam = 0;
+		}
+		cambia = true;
+
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_RELEASE) {
+		cambia = false;
+
+	}
 	offsetX = 0;
 	offsetY = 0;
+
+
 
 	// Seleccionar modelo
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
@@ -2095,7 +2124,7 @@ void applicationLoop() {
 	float rotHeliHeliarriba = 0.0;
 	float rotSanta = 0.0;
 
-	glm::mat4 view;
+	
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
 	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0, -1.5, 20.0));
 	//modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
@@ -2133,10 +2162,20 @@ void applicationLoop() {
 
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 			(float)screenWidth / (float)screenHeight, 0.01f, 100.0f);
+		
 
+		glm::mat4 view;
+		
 		if (record || modelSelected != 4) {
-			view = camera->getViewMatrix();
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
 		}
+		
+
 
 		// Settea la matriz de vista y projection al shader con solo color
 		shader.setMatrix4("projection", 1, false, glm::value_ptr(projection));
@@ -4836,8 +4875,7 @@ void applicationLoop() {
 				appendFrame(myfile, vectorMatrix);
 				saveFrame = false;
 			}
-		}
-		else if (keyFramesCamera.size() > 0) {
+		} else if (keyFramesCamera.size() > 0) {
 			// Para reproducir el frame
 			interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
 			numPasosCamera++;
@@ -4874,6 +4912,8 @@ void applicationLoop() {
 				indexCameraNext2 = 0;
 			view = interpolate(keyFramesCamera2, indexCamera2, indexCameraNext2, 0, interpolationCamera2);
 		}
+
+
 
 
 		// Se Dibuja el Skybox
