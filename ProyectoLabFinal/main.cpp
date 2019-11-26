@@ -151,6 +151,10 @@ Model modelpiesSanta;
 Model modelPinata;
 Model modelarboldulce;
 Model modelbuzz;
+Model modelsombrero;
+Model modelsillas;
+Model modelescritorio;
+Model modelsillon;
 
 // Dart lego
 Model modelDartLegoBody;
@@ -234,6 +238,14 @@ int indexFrameDartNext = 1;
 float interpolationDart = 0.0;
 int maxNumPasosDart = 200;
 int numPasosDart = 0;
+
+//frames para el recorrido de las casas
+std::vector<std::vector<glm::mat4>> keyFramesCamera;
+int indexCamera = 0;
+int indexCameraNext = 1;
+float interpolationCamera = 0.0;
+int maxNumPasosCamera = 300;
+int numPasosCamera = 0.0;
 
 
 GLenum types[6] = {
@@ -691,6 +703,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//modelSayu.loadModel("../models/kitchen/Kitchen.obj");
 	//modelSayu.setShader(&shaderMulLighting);
 
+
+
 	// Dart Lego
 	modelDartLegoBody.loadModel("../models/LegoDart/LeoDart_body.obj");
 	modelDartLegoBody.setShader(&shaderMulLighting);
@@ -744,6 +758,14 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelarboldenavidad.setShader(&shaderMulLighting);
 	modelPinata.loadModel("../models/pinata/untitled.obj");
 	modelPinata.setShader(&shaderMulLighting);
+	modelsillas.loadModel("../models/silla/Highback Prison Chair.obj");
+	modelsillas.setShader(&shaderMulLighting);
+	modelescritorio.loadModel("../models/escritorio/Desk_Wood.obj");
+	modelescritorio.setShader(&shaderMulLighting);
+	modelsillon.loadModel("../models/sillon/Sofa1.obj");
+	modelsillon.setShader(&shaderMulLighting);
+	modelsombrero.loadModel("../models/adornos/sombrero/SantaHat.obj");
+	modelsombrero.setShader(&shaderMulLighting);
 
 
 	//NAVIDAD
@@ -1767,12 +1789,14 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 3)
+		if (modelSelected > 4)
 			modelSelected = 0;
 		if (modelSelected == 2)
 			fileName = "../animaciones/animation_dart_joints.txt";
 		if (modelSelected == 3)
 			fileName = "../animaciones/animation_dart.txt";
+		if (modelSelected == 4)
+			fileName = "../animaciones/animation_camera.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_RELEASE)
@@ -1795,6 +1819,8 @@ bool processInput(bool continueApplication) {
 			keyFramesDartJoints = getKeyRotFrames(fileName);
 		if (modelSelected == 3)
 			keyFramesDart = getKeyFrames(fileName);
+		if (modelSelected == 4)
+			keyFramesCamera = getKeyFrames(fileName);
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
 		saveFrame = true;
@@ -2057,6 +2083,7 @@ void applicationLoop() {
 	float rotHeliHeliarriba = 0.0;
 	float rotSanta = 0.0;
 
+	glm::mat4 view;
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
 	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0, -1.5, 20.0));
 	//modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
@@ -2066,6 +2093,7 @@ void applicationLoop() {
 	fileName = "../animaciones/animation_dart_joints.txt";
 	keyFramesDartJoints = getKeyRotFrames(fileName);
 	keyFramesDart = getKeyFrames("../animaciones/animation_dart.txt");
+	keyFramesCamera = getKeyFrames("../animaciones/animation_camera.txt");
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -2089,9 +2117,13 @@ void applicationLoop() {
 		std::vector<glm::mat4> matrixDart;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 			(float)screenWidth / (float)screenHeight, 0.01f, 100.0f);
-		glm::mat4 view = camera->getViewMatrix();
+		
+		if (record || modelSelected != 4) {
+			view = camera->getViewMatrix();
+		}
 
 		// Settea la matriz de vista y projection al shader con solo color
 		shader.setMatrix4("projection", 1, false, glm::value_ptr(projection));
@@ -2584,7 +2616,7 @@ void applicationLoop() {
 			encenderRegalosCris3 = 0.35;
 		}
 		else {
-			encenderRegalosCris3 = 10.35;
+			encenderRegalosCris3 = 10.35; 
 		}
 
 		glm::vec3 modeloBobR2D2 = luzCris4[3];
@@ -2786,6 +2818,38 @@ void applicationLoop() {
 		glm::mat4 matrixModelRock = glm::mat4(1.0);
 		matrixModelRock = glm::translate(matrixModelRock, glm::vec3(4, -1.0, -18));
 		modelRock.render(matrixModelRock);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixsillas = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixsillas = glm::translate(matrixsillas, glm::vec3(0.5, -0.9, 6.9));
+		matrixsillas = glm::scale(matrixsillas, glm::vec3(0.013, 0.013, 0.013));
+		modelsillas.render(matrixsillas);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixsillas1 = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixsillas1 = glm::translate(matrixsillas1, glm::vec3(0.5, -0.9, 5.9));
+		matrixsillas1 = glm::scale(matrixsillas1, glm::vec3(0.013, 0.013, 0.013));
+		modelsillas.render(matrixsillas1);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixsillas3 = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixsillas3 = glm::translate(matrixsillas3, glm::vec3(0.5, -0.9, 4.9));
+		matrixsillas3 = glm::scale(matrixsillas3, glm::vec3(0.013, 0.013, 0.013));
+		modelsillas.render(matrixsillas3);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixsillas2 = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixsillas2 = glm::translate(matrixsillas2, glm::vec3(0.5, -0.9, 3.9));
+		matrixsillas2 = glm::scale(matrixsillas2, glm::vec3(0.013, 0.013, 0.013));
+		modelsillas.render(matrixsillas2);
+		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixescritorio = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixescritorio = glm::translate(matrixescritorio, glm::vec3(10.0, -1.2, -3.7));
+		matrixescritorio = glm::scale(matrixescritorio, glm::vec3(0.016, 0.02, 0.02));
+		modelescritorio.render(matrixescritorio);
 		glActiveTexture(GL_TEXTURE0);
 		////////////////////////////////////////////////////// CASA NAVIDAD  ////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////// MODELOS //////////////////////////////7777
@@ -4377,9 +4441,10 @@ void applicationLoop() {
 		dd10 = glm::rotate(dd10, glm::radians(-130.0f), glm::vec3(0.0, 0.0, 1.0));
 		cylinder1.render(glm::scale(dd10, glm::vec3(0.009, 0.12, 0.009)));
 		// HASTA AQUÍ BOB 
+
 		// R2-D2
 			// CUERPO 
-		glm::mat4 cuerpo = glm::translate(model2, glm::vec3(3.0, 0.5, 0.0));
+		glm::mat4 cuerpo = glm::translate(model2, glm::vec3(-8.0, 0.5, 0.0));
 		cylinder4.render(glm::scale(cuerpo, glm::vec3(6.0, 1.5, 6.0)));
 
 		glm::mat4 cuerpo2 = glm::translate(cuerpo, glm::vec3(0.0, 0.75, 0.0));
@@ -4516,6 +4581,16 @@ void applicationLoop() {
 		box6.render(glm::scale(abajo, glm::vec3(0.2l, 0.3, 0.5)));
 		glm::mat4 abajoc = glm::translate(abajo, glm::vec3(0.0, -0.2, 0.0));
 		box6.render(glm::scale(abajoc, glm::vec3(0.4, 0.2, 0.5)));
+		glActiveTexture(GL_TEXTURE0);
+		//sombrero 
+		glm::mat4 matrixsombrero = glm::mat4(1.0);
+		matrixsombrero = glm::translate(cabeza, glm::vec3(0.0, 0.5, 0.0));
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixsombrero = glm::scale(matrixsombrero, glm::vec3(0.5, 0.5, 0.5));
+		modelsombrero.render(matrixsombrero);
+		glActiveTexture(GL_TEXTURE0);
+
+
 		/////////////////////////////////////////////////////////////////////////////////////////ANIMACIONES///////////////////////////////////////////////////////////////
 
 
@@ -4632,15 +4707,13 @@ void applicationLoop() {
 		// Se deshabilita el cull faces IMPORTANTE para la capa
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		glDisable(GL_CULL_FACE);
-
-		glm::mat4 modelMatrixDartBody = glm::mat4(modelMatrixDart);
-		modelMatrixDartBody = glm::scale(modelMatrixDartBody, glm::vec3(0.5, 0.5, 0.5));
-		modelDartLegoBody.render(modelMatrixDartBody);
-		glm::mat4 modelMatrixDartHead = glm::mat4(modelMatrixDartBody);
+		modelDartLegoBody.render(modelMatrixDart);
+		glm::mat4 modelMatrixDartHead = glm::mat4(modelMatrixDart);
 		modelMatrixDartHead = glm::rotate(modelMatrixDartHead, rotDartHead, glm::vec3(0, 1, 0));
+		modelMatrixDartHead = glm::translate(modelMatrixDartHead, glm::vec3(0.0, -0.2, 0.0));
 		modelDartLegoHead.render(modelMatrixDartHead);
 		modelDartLegoMask.render(modelMatrixDartHead);
-		glm::mat4 modelMatrixDartLeftArm = glm::mat4(modelMatrixDartBody);
+		glm::mat4 modelMatrixDartLeftArm = glm::mat4(modelMatrixDart);
 		modelMatrixDartLeftArm = glm::translate(modelMatrixDartLeftArm, glm::vec3(-0.023515, 2.43607, 0.446066));
 		modelMatrixDartLeftArm = glm::rotate(modelMatrixDartLeftArm, glm::radians(-5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartLeftArm = glm::rotate(modelMatrixDartLeftArm, rotDartLeftArm, glm::vec3(0, 0, 1));
@@ -4654,7 +4727,7 @@ void applicationLoop() {
 		modelMatrixDartLeftHand = glm::rotate(modelMatrixDartLeftHand, glm::radians(5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartLeftHand = glm::translate(modelMatrixDartLeftHand, glm::vec3(-0.201343, -1.68317, -0.99774));
 		modelDartLegoLeftHand.render(modelMatrixDartLeftHand);
-		glm::mat4 modelMatrixDartRightArm = glm::mat4(modelMatrixDartBody);
+		glm::mat4 modelMatrixDartRightArm = glm::mat4(modelMatrixDart);
 		modelMatrixDartRightArm = glm::translate(modelMatrixDartRightArm, glm::vec3(-0.023515, 2.43607, -0.446066));
 		modelMatrixDartRightArm = glm::rotate(modelMatrixDartRightArm, glm::radians(5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartRightArm = glm::rotate(modelMatrixDartRightArm, rotDartRightArm, glm::vec3(0, 0, 1));
@@ -4668,12 +4741,12 @@ void applicationLoop() {
 		modelMatrixDartRightHand = glm::rotate(modelMatrixDartRightHand, glm::radians(-5.0f), glm::vec3(1, 0, 0));
 		modelMatrixDartRightHand = glm::translate(modelMatrixDartRightHand, glm::vec3(-0.201343, -1.68317, 0.99774));
 		modelDartLegoRightHand.render(modelMatrixDartRightHand);
-		glm::mat4 modelMatrixDartLeftLeg = glm::mat4(modelMatrixDartBody);
+		glm::mat4 modelMatrixDartLeftLeg = glm::mat4(modelMatrixDart);
 		modelMatrixDartLeftLeg = glm::translate(modelMatrixDartLeftLeg, glm::vec3(0, 1.12632, 0.423349));
 		modelMatrixDartLeftLeg = glm::rotate(modelMatrixDartLeftLeg, rotDartLeftLeg, glm::vec3(0, 0, 1));
 		modelMatrixDartLeftLeg = glm::translate(modelMatrixDartLeftLeg, glm::vec3(0, -1.12632, -0.423349));
 		modelDartLegoLeftLeg.render(modelMatrixDartLeftLeg);
-		glm::mat4 modelMatrixDartRightLeg = glm::mat4(modelMatrixDartBody);
+		glm::mat4 modelMatrixDartRightLeg = glm::mat4(modelMatrixDart);
 		modelMatrixDartRightLeg = glm::translate(modelMatrixDartRightLeg, glm::vec3(0, 1.12632, -0.423349));
 		modelMatrixDartRightLeg = glm::rotate(modelMatrixDartRightLeg, rotDartRightLeg, glm::vec3(0, 0, 1));
 		modelMatrixDartRightLeg = glm::translate(modelMatrixDartRightLeg, glm::vec3(0, -1.12632, 0.423349));
@@ -4741,6 +4814,29 @@ void applicationLoop() {
 				indexFrameDartNext = 0;
 
 			modelMatrixDart = interpolate(keyFramesDart, indexFrameDart, indexFrameDartNext, 0, interpolationDart);
+		}
+
+		if (record && modelSelected == 4) {
+			std::vector<glm::mat4> vectorMatrix;
+			vectorMatrix.push_back(camera->getViewMatrix());
+			if (saveFrame) {
+				appendFrame(myfile, vectorMatrix);
+				saveFrame = false;
+			}
+		}
+		else if(keyFramesCamera.size() > 0){
+			// Para reproducir el frame
+			interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
+			numPasosCamera++;
+			if (interpolationCamera > 1.0) {
+				numPasosCamera = 0;
+				interpolationCamera = 0;
+				indexCamera = indexCameraNext;
+				indexCameraNext++;
+			}
+			if (indexCameraNext > keyFramesCamera.size() - 1)
+				indexCameraNext = 0;
+			view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
 		}
 
 
