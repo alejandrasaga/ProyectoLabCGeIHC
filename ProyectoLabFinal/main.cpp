@@ -247,6 +247,13 @@ float interpolationCamera = 0.0;
 int maxNumPasosCamera = 300;
 int numPasosCamera = 0.0;
 
+std::vector<std::vector<glm::mat4>> keyFramesCamera2;
+int indexCamera2 = 0;
+int indexCameraNext2 = 1;
+float interpolationCamera2 = 0.0;
+int maxNumPasosCamera2 = 300;
+int numPasosCamera2 = 0.0;
+
 
 GLenum types[6] = {
 	GL_TEXTURE_CUBE_MAP_POSITIVE_X,
@@ -282,7 +289,8 @@ void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod);
 void init(int width, int height, std::string strTitle, bool bFullScreen);
 void destroy();
 bool processInput(bool continueApplication = true);
-
+int numCam = 0;
+bool cambia = false;
 // Implementacion de todas las funciones.
 void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
@@ -1789,7 +1797,7 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 4)
+		if (modelSelected > 5)
 			modelSelected = 0;
 		if (modelSelected == 2)
 			fileName = "../animaciones/animation_dart_joints.txt";
@@ -1797,6 +1805,8 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_dart.txt";
 		if (modelSelected == 4)
 			fileName = "../animaciones/animation_camera.txt";
+		if (modelSelected == 5)
+			fileName = "../animaciones/animation_camera2.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_RELEASE)
@@ -1821,6 +1831,8 @@ bool processInput(bool continueApplication) {
 			keyFramesDart = getKeyFrames(fileName);
 		if (modelSelected == 4)
 			keyFramesCamera = getKeyFrames(fileName);
+		if (modelSelected == 5)
+			keyFramesCamera2 = getKeyFrames(fileName);
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
 		saveFrame = true;
@@ -1830,7 +1842,7 @@ bool processInput(bool continueApplication) {
 
 
 	//CONDICIONES PARA MOVER EL BOB ESPONJA ES MODEL SELECTED = 0
-	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		sentido = false;
 	if (modelSelected == 0 && glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS && sentido)
 		rot1 += 0.01;
@@ -2094,6 +2106,7 @@ void applicationLoop() {
 	keyFramesDartJoints = getKeyRotFrames(fileName);
 	keyFramesDart = getKeyFrames("../animaciones/animation_dart.txt");
 	keyFramesCamera = getKeyFrames("../animaciones/animation_camera.txt");
+	keyFramesCamera = getKeyFrames("../animaciones/animation_camera2.txt");
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -2120,7 +2133,7 @@ void applicationLoop() {
 
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 			(float)screenWidth / (float)screenHeight, 0.01f, 100.0f);
-		
+
 		if (record || modelSelected != 4) {
 			view = camera->getViewMatrix();
 		}
@@ -2616,7 +2629,7 @@ void applicationLoop() {
 			encenderRegalosCris3 = 0.35;
 		}
 		else {
-			encenderRegalosCris3 = 10.35; 
+			encenderRegalosCris3 = 10.35;
 		}
 
 		glm::vec3 modeloBobR2D2 = luzCris4[3];
@@ -4824,7 +4837,7 @@ void applicationLoop() {
 				saveFrame = false;
 			}
 		}
-		else if(keyFramesCamera.size() > 0){
+		else if (keyFramesCamera.size() > 0) {
 			// Para reproducir el frame
 			interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
 			numPasosCamera++;
@@ -4837,6 +4850,29 @@ void applicationLoop() {
 			if (indexCameraNext > keyFramesCamera.size() - 1)
 				indexCameraNext = 0;
 			view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
+		}
+
+		if (record && modelSelected == 5) {
+			std::vector<glm::mat4> vectorMatrix;
+			vectorMatrix.push_back(camera->getViewMatrix());
+			if (saveFrame) {
+				appendFrame(myfile, vectorMatrix);
+				saveFrame = false;
+			}
+		}
+		else if (keyFramesCamera2.size() > 0) {
+			// Para reproducir el frame
+			interpolationCamera2 = numPasosCamera2 / (float)maxNumPasosCamera2;
+			numPasosCamera2++;
+			if (interpolationCamera2 > 1.0) {
+				numPasosCamera2 = 0;
+				interpolationCamera2 = 0;
+				indexCamera2 = indexCameraNext2;
+				indexCameraNext2++;
+			}
+			if (indexCameraNext2 > keyFramesCamera2.size() - 1)
+				indexCameraNext2 = 0;
+			view = interpolate(keyFramesCamera2, indexCamera2, indexCameraNext2, 0, interpolationCamera2);
 		}
 
 
@@ -5110,29 +5146,7 @@ void applicationLoop() {
 			break;
 
 		}
-		/*
-		//TIRO PARABOLICO
-		tiroTiempo += 0.01;
-		tiroPosX = tiroVelocidad * 0.7071 * tiroTiempo;
-		tiroPosY = (tiroVelocidad * 0.7071 * tiroTiempo) - (0.5 * 9.81 * tiroTiempo * tiroTiempo);
 
-		//tiroPosX2 += tiroPosX;
-		//tiroPosY2 += tiroPosY;
-
-		if (tiroTiempo > 10.0)
-			tiroTiempo = 0.0;
-
-		//matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(tiroPosX, tiroPosY, 0.0));
-		planeta.setPosition(glm::vec3(tiroPosX, tiroPosY, -20.0));
-		planeta.render();
-
-		std::cout << "tiro parabolic: " << std::endl;
-		std::cout << tiroPosX<< std::endl;
-		std::cout << tiroPosY << std::endl;*/
-
-		glm::mat4 tiroParabolicoMatrix = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(1.0f, 0.0f, 0.0f));
-		tiroParabolicoMatrix = glm::translate(tiroParabolicoMatrix, glm::vec3(0.0f, -ratio, 0.0f));
-		planeta.render(tiroParabolicoMatrix);
 
 		glfwSwapBuffers(window);
 	}
