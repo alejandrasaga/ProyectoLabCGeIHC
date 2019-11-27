@@ -96,8 +96,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>../external/glew/include;../external/glfw/include;../external/glm;../external/assimp/include;../external/FreeImage/include;$(IncludePath)</IncludePath>
-    <LibraryPath>../external/glfw/lib;../external/glew/lib;../external/assimp/lib;../external/FreeImage/lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>../external/glew/include;../external/glfw/include;../external/glm;../external/assimp/include;../external/FreeImage/include;../external/freealut/include;../external/OpenAL/include;$(IncludePath)</IncludePath>
+    <LibraryPath>../external/glfw/lib;../external/glew/lib;../external/assimp/lib;../external/FreeImage/lib;../external/freealut/lib;../external/OpenAL/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>../external/glew/include;../external/glfw/include;../external/glm;../external/assimp/include;../external/FreeImage/include;$(IncludePath)</IncludePath>
@@ -111,7 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;FreeImaged.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32d.lib;FreeImaged.lib;assimp-vc140-mt.lib;OpenAL32.lib;alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -584,7 +584,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	box4.init();
 	box4.setShader(&shader);
 	box4.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	// pestañas
+	// pestaÃ±as
 	cylinder3.init();
 	cylinder3.setShader(&shader);
 	cylinder3.setColor(glm::vec4(0.0, 0.0, 0.0, 0.0));
@@ -1752,7 +1752,7 @@ void destroy() {
 	// --------- IMPORTANTE ----------
 	// Eliminar los shader y buffers creados.
 
-	// Destrucción de los VAO, EBO, VBO
+	// DestrucciÃ³n de los VAO, EBO, VBO
 
 
 	shader.destroy();
@@ -2178,7 +2178,7 @@ void applicationLoop() {
 	int estadoCanasta = 0;
 
 
-	
+
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
 	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0, -1.5, 20.0));
 	//modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
@@ -2222,10 +2222,10 @@ void applicationLoop() {
 
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 			(float)screenWidth / (float)screenHeight, 0.01f, 100.0f);
-		
+
 
 		glm::mat4 view;
-		
+
 		if (record) {
 			if (numCam == 0) {
 				view = camera->getViewMatrix();
@@ -2296,8 +2296,8 @@ void applicationLoop() {
 		default:
 			break;
 		}
-		
-		
+
+
 
 
 		// Settea la matriz de vista y projection al shader con solo color
@@ -2519,7 +2519,7 @@ void applicationLoop() {
 			shaderMulLighting.setFloat("pointLights[14].constant", encenderCuartoAle);
 			shaderMulLighting.setFloat("pointLights[14].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[14].quadratic", 0.004);
-			//FOCO CUARTO BAÑO
+			//FOCO CUARTO BAÃ‘O
 			shaderMulLighting.setVectorFloat3("pointLights[15].position", glm::value_ptr((glm::vec3(42.5, 1.45, -5.5))));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[15].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
@@ -2978,12 +2978,7 @@ void applicationLoop() {
 
 		////////////////////////////////termina cocina////////////////////////////
 
-		glm::mat4 matrixmesa = glm::mat4(1.0);
-		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
-		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
-		modelmesa.render(matrixmesa);
-		glActiveTexture(GL_TEXTURE0);
-
+		
 		glm::mat4 matrixModelAircraft = glm::mat4(1.0);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(-7.0, 0.0, -9.0));
@@ -3026,6 +3021,12 @@ void applicationLoop() {
 		matrixescritorio = glm::scale(matrixescritorio, glm::vec3(0.016, 0.02, 0.02));
 		modelescritorio.render(matrixescritorio);
 		glActiveTexture(GL_TEXTURE0);
+		glm::mat4 matrixmesa = glm::mat4(1.0);
+		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
+		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
+		modelMesaOfrenda.render(matrixmesa);
+		glActiveTexture(GL_TEXTURE0);
+
 		////////////////////////////////////////////////////// CASA NAVIDAD  ////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////// MODELOS //////////////////////////////7777
 
@@ -3125,7 +3126,7 @@ void applicationLoop() {
 		modelbaston.render(matrixbaston7);
 		glActiveTexture(GL_TEXTURE0);
 
-		//muñeco de nieve
+		//muÃ±eco de nieve
 		glm::mat4 matrixmuneconieve = glm::mat4(1.0);
 		matrixmuneconieve = glm::translate(matrixmuneconieve, glm::vec3(-5, -1.2, 16.0));
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
@@ -3146,7 +3147,7 @@ void applicationLoop() {
 		matrixPinata = glm::scale(matrixPinata, glm::vec3(0.5, 0.5, 0.5));
 		modelPinata.render(matrixPinata);
 
-		// piñatas bebés
+		// piÃ±atas bebÃ©s
 
 		glm::mat4 matrixPinata1 = glm::mat4(1.0);
 		matrixPinata1 = glm::translate(matrixPinata1, glm::vec3(-3.0, 2.0, 15));
@@ -3635,7 +3636,7 @@ void applicationLoop() {
 		glm::mat4 cama2 = glm::translate(modelpiso, glm::vec3(-5.0, 0.0, -2.4));
 		boxc1.render(glm::scale(cama2, glm::vec3(2.5, 0.25, 3.5)));
 		glBindTexture(GL_TEXTURE_2D, 0);
-		// SOFÁ
+		// SOFÃ
 
 
 
@@ -4495,12 +4496,12 @@ void applicationLoop() {
 		//sphere2.enableWireMode();
 		sphere2.render(glm::scale(ojo, glm::vec3(0.3, 0.3, 0.1)));
 
-		//ojo2 pequeño parte negra
+		//ojo2 pequeÃ±o parte negra
 		glm::mat4 ojo1 = glm::translate(model, glm::vec3(0.15, 0.15, 0.09));
 		//sphere3.enableWireMode();
 		sphere3.render(glm::scale(ojo1, glm::vec3(0.08, 0.08, 0.05)));
 
-		//ojo2 pequeño parte azul
+		//ojo2 pequeÃ±o parte azul
 		glm::mat4 ojo5 = glm::translate(model, glm::vec3(0.15, 0.15, 0.08));
 		//sphere3.enableWireMode();
 		sphere6.render(glm::scale(ojo5, glm::vec3(0.15, 0.15, 0.05)));
@@ -4509,12 +4510,12 @@ void applicationLoop() {
 		glm::mat4 ojo2 = glm::translate(model, glm::vec3(-0.15, 0.15, 0.05));
 		//sphere1.enableWireMode();
 		sphere1.render(glm::scale(ojo2, glm::vec3(0.3, 0.3, 0.1)));
-		//ojo1 pequeño parte negra
+		//ojo1 pequeÃ±o parte negra
 		glm::mat4 ojo3 = glm::translate(model, glm::vec3(-0.15, 0.15, 0.09));
 		//sphere3.enableWireMode();
 		sphere4.render(glm::scale(ojo3, glm::vec3(0.08, 0.08, 0.05)));
 
-		//ojo1 pequeño parte azul
+		//ojo1 pequeÃ±o parte azul
 		glm::mat4 ojo4 = glm::translate(model, glm::vec3(-0.15, 0.15, 0.08));
 		//sphere3.enableWireMode();
 		sphere5.render(glm::scale(ojo4, glm::vec3(0.15, 0.15, 0.05)));
@@ -4539,7 +4540,7 @@ void applicationLoop() {
 		glm::mat4 n1 = glm::translate(boca, glm::vec3(0.0f, 0.2, 0.05));
 		cylinder1.render(glm::scale(n1, glm::vec3(0.05, 0.05, 0.2)));
 
-		//pestañas
+		//pestaÃ±as
 		glm::mat4 pe1 = glm::translate(ojo2, glm::vec3(0.0f, 0.16, 0.05));
 		cylinder3.render(glm::scale(pe1, glm::vec3(0.05, 0.05, 0.2)));
 
@@ -4549,7 +4550,7 @@ void applicationLoop() {
 		glm::mat4 pe3 = glm::translate(ojo2, glm::vec3(0.06f, 0.155, 0.05));
 		cylinder3.render(glm::scale(pe3, glm::vec3(0.05, 0.05, 0.2)));
 
-		// pestañas 2
+		// pestaÃ±as 2
 		glm::mat4 pe4 = glm::translate(ojo1, glm::vec3(0.0f, 0.16, 0.0));
 		cylinder3.render(glm::scale(pe4, glm::vec3(0.05, 0.05, 0.2)));
 
@@ -4609,7 +4610,7 @@ void applicationLoop() {
 		glm::mat4 dd10 = glm::translate(mm2, glm::vec3(0.02, 0.01, 0.0));
 		dd10 = glm::rotate(dd10, glm::radians(-130.0f), glm::vec3(0.0, 0.0, 1.0));
 		cylinder1.render(glm::scale(dd10, glm::vec3(0.009, 0.12, 0.009)));
-		// HASTA AQUÍ BOB 
+		// HASTA AQUÃ BOB 
 
 		// R2-D2
 			// CUERPO 
@@ -4992,19 +4993,20 @@ void applicationLoop() {
 				appendFrame(myfile, vectorMatrix);
 				saveFrame = false;
 			}
-		} else if (modelSelected == 4 && keyFramesCamera.size() > 0) {
+		}
+		else if (modelSelected == 4 && keyFramesCamera.size() > 0) {
 			// Para reproducir el frame
-				interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
-				numPasosCamera++;
-				if (interpolationCamera > 1.0) {
-					numPasosCamera = 0;
-					interpolationCamera = 0;
-					indexCamera = indexCameraNext;
-					indexCameraNext++;
-				}
-				if (indexCameraNext > keyFramesCamera.size() - 1)
-					indexCameraNext = 0;
-				view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
+			interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
+			numPasosCamera++;
+			if (interpolationCamera > 1.0) {
+				numPasosCamera = 0;
+				interpolationCamera = 0;
+				indexCamera = indexCameraNext;
+				indexCameraNext++;
+			}
+			if (indexCameraNext > keyFramesCamera.size() - 1)
+				indexCameraNext = 0;
+			view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
 		}
 		//frames para el recorrido de la casa de cris
 		if (record && modelSelected == 6) {
@@ -5101,11 +5103,11 @@ void applicationLoop() {
 				indexFrameR2D2JointsNext = 0;
 
 			rot7 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 0, interpolationR2D2Joints);
-			rot9 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 1, interpolationR2D2Joints);
-			rot8 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 2, interpolationR2D2Joints);
+			rot8 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 1, interpolationR2D2Joints);
+			rot9 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 2, interpolationR2D2Joints);
 		}
 
-		
+
 
 		// Se Dibuja el Skybox
 		GLint oldCullFaceMode;
@@ -5381,7 +5383,7 @@ void applicationLoop() {
 
 		switch (estadoCanasta) {
 		case 0:
-			
+
 			matrixDulcesPuerta = glm::translate(matrixDulcesPuerta, glm::vec3(0.0, 0.01, 0.0));
 			subirCanasta += 0.01;
 			if (subirCanasta > 1.5) {
