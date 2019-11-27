@@ -1845,7 +1845,7 @@ bool processInput(bool continueApplication) {
 	offsetY = 0;
 
 
-
+	//SELECCION DE CAMARAS CON TABULADOR PARA EL RECORRIDO
 	// Seleccionar modelo
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
@@ -1856,13 +1856,13 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_dart_joints.txt";
 		if (modelSelected == 3)
 			fileName = "../animaciones/animation_dart.txt";
-		if (modelSelected == 4) //RECORRIDO POR CASA ALE
+		if (modelSelected == 4) //RECORRIDO POR CASA DIA DE MUERTOS
 			fileName = "../animaciones/animation_camera.txt";
-		if (modelSelected == 6) //RECORRIDO POR CASA CRIS
+		if (modelSelected == 6) //RECORRIDO POR CASA NAVIDENA
 			fileName = "../animaciones/animation_camera2.txt";
-		if (modelSelected == 8) //RECORRIDO POR CASA ALE OFRENDA
+		if (modelSelected == 8) //RECORRIDO POR CASA DIA DE MUERTOS
 			fileName = "../animaciones/animation_ofrenda.txt";
-		if (modelSelected == 10) //RECORRIDO POR CASA CRIS NACIMIENTO
+		if (modelSelected == 10) //RECORRIDO POR CASA NAVIDAD
 			fileName = "../animaciones/animation_nacimiento.txt";
 		if (modelSelected == 11)
 			fileName = "../animaciones/animation_R2D2_joints.txt";
@@ -5072,7 +5072,7 @@ void applicationLoop() {
 				saveFrame = false;
 			}
 		}
-		else if (modelSelected == 8 && keyFramesNacimiento.size() > 0) {
+		else if (modelSelected == 10 && keyFramesNacimiento.size() > 0) {
 			// Para reproducir el frame
 			interpolationCameraN = numPasosCameraN / (float)maxNumPasosCameraN;
 			numPasosCameraN++;
