@@ -2384,13 +2384,13 @@ void applicationLoop() {
 		 * Propiedades PointLights
 		 *******************************************/
 
-		if (a >= 10.0) {
-			a = 0.0;
+		if (a >= 10.0 || b<=1.0) {
+			a = 1.0;
 			b = 5.0;
 		}
 		else {
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			//LUCES NAVIDENAS
 			//LUCES POINT LIGHT
 			shaderMulLighting.setInt("pointLightCount", 31);
@@ -2398,61 +2398,61 @@ void applicationLoop() {
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[0].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));//naranja
-			shaderMulLighting.setFloat("pointLights[0].constant", 0.3);
+			shaderMulLighting.setFloat("pointLights[0].constant", a);
 			shaderMulLighting.setFloat("pointLights[0].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[0].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[1].position", glm::value_ptr((glm::vec3(11.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[1].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 1.0)));// purupura
-			shaderMulLighting.setFloat("pointLights[1].constant", 0.3);
+			shaderMulLighting.setFloat("pointLights[1].constant",b);
 			shaderMulLighting.setFloat("pointLights[1].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[1].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[2].position", glm::value_ptr((glm::vec3(9.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[2].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[2].constant", 0.3);
+			shaderMulLighting.setFloat("pointLights[2].constant", a);
 			shaderMulLighting.setFloat("pointLights[2].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[2].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[3].position", glm::value_ptr((glm::vec3(7.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[3].light.specular", glm::value_ptr(glm::vec3(1.0, 0.5, 0.0)));//naranja
-			shaderMulLighting.setFloat("pointLights[3].constant", 0.15);
+			shaderMulLighting.setFloat("pointLights[3].constant", b);
 			shaderMulLighting.setFloat("pointLights[3].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[3].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[4].position", glm::value_ptr((glm::vec3(5.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[4].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 1.0)));// purupura
-			shaderMulLighting.setFloat("pointLights[4].constant", 0.15);
+			shaderMulLighting.setFloat("pointLights[4].constant", a);
 			shaderMulLighting.setFloat("pointLights[4].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[4].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[5].position", glm::value_ptr((glm::vec3(3.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[5].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[5].constant", 0.15);
+			shaderMulLighting.setFloat("pointLights[5].constant", b);
 			shaderMulLighting.setFloat("pointLights[5].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[5].quadratic", 0.004);
-			a += 0.001;
-			b -= 0.001;
+			a += 0.01;
+			b -= 0.01;
 			shaderMulLighting.setVectorFloat3("pointLights[6].position", glm::value_ptr((glm::vec3(1.0, 2.5, -15.0))));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.ambient", glm::value_ptr(glm::vec3(0.001, 0.001, 0.001)));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.diffuse", glm::value_ptr(glm::vec3(0.0, 0.01, 0.0)));
 			shaderMulLighting.setVectorFloat3("pointLights[6].light.specular", glm::value_ptr(glm::vec3(1.0, 0.0, 0.0)));// amarillo
-			shaderMulLighting.setFloat("pointLights[6].constant", 0.15);
+			shaderMulLighting.setFloat("pointLights[6].constant", a);
 			shaderMulLighting.setFloat("pointLights[6].linear", 0.04);
 			shaderMulLighting.setFloat("pointLights[6].quadratic", 0.004);
 			//OFRENDA  esta es la vela izquierda
@@ -2977,8 +2977,20 @@ void applicationLoop() {
 
 
 		////////////////////////////////termina cocina////////////////////////////
+		glm::mat4 matrixmesa = glm::mat4(1.0);
+		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
+		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
+		modelmesa.render(matrixmesa);
+		glActiveTexture(GL_TEXTURE0);
 
-		
+
+		glm::mat4 matrixmesaofrenda2 = glm::mat4(1.0);
+		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
+		matrixmesaofrenda2 = glm::translate(matrixmesaofrenda2, glm::vec3(3,-1.0,5.3));
+		matrixmesaofrenda2 = glm::scale(matrixmesaofrenda2, glm::vec3(1.5,2.3,4.5));
+		modelMesaOfrenda.render(matrixmesaofrenda2);
+		glActiveTexture(GL_TEXTURE0);
+
 		glm::mat4 matrixModelAircraft = glm::mat4(1.0);
 		shaderMulLighting.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0, 0.0)));
 		matrixModelAircraft = glm::translate(matrixModelAircraft, glm::vec3(-7.0, 0.0, -9.0));
@@ -3021,12 +3033,7 @@ void applicationLoop() {
 		matrixescritorio = glm::scale(matrixescritorio, glm::vec3(0.016, 0.02, 0.02));
 		modelescritorio.render(matrixescritorio);
 		glActiveTexture(GL_TEXTURE0);
-		glm::mat4 matrixmesa = glm::mat4(1.0);
-		matrixmesa = glm::translate(matrixmesa, glm::vec3(11.0, -1.2, -12.0));
-		matrixmesa = glm::scale(matrixmesa, glm::vec3(2.0, 2.0, 2.0));
-		modelMesaOfrenda.render(matrixmesa);
-		glActiveTexture(GL_TEXTURE0);
-
+		
 		////////////////////////////////////////////////////// CASA NAVIDAD  ////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////// MODELOS //////////////////////////////7777
 
@@ -3068,11 +3075,11 @@ void applicationLoop() {
 
 		// regalo
 		glm::mat4 matrixregalo = glm::mat4(1.0);
-		matrixregalo = glm::translate(matrixregalo, glm::vec3(4.0, -0.5, -11.0));
+		matrixregalo = glm::translate(matrixregalo, glm::vec3(4.2, -0.9, -11.0));
 		modelregalo.render(matrixregalo);
 		glActiveTexture(GL_TEXTURE0);
 		glm::mat4 matrixregalo2 = glm::mat4(1.0);
-		matrixregalo2 = glm::translate(matrixregalo2, glm::vec3(1.0, -0.5, 12));
+		matrixregalo2 = glm::translate(matrixregalo2, glm::vec3(1.0, -0.9, 12));
 		modelregalo.render(matrixregalo2);
 		glActiveTexture(GL_TEXTURE0);
 		//Arboldulce
@@ -3142,7 +3149,7 @@ void applicationLoop() {
 
 		//PINATA CRIS
 		glm::mat4 matrixPinata = glm::mat4(1.0);
-		matrixPinata = glm::translate(matrixPinata, glm::vec3(0.0, 1.5, 9));
+		matrixPinata = glm::translate(matrixPinata, glm::vec3(0.0, 1.5, 9.2));
 		matrixPinata = glm::rotate(matrixPinata, rotWheely, glm::vec3(0, 1, 0));
 		matrixPinata = glm::scale(matrixPinata, glm::vec3(0.5, 0.5, 0.5));
 		modelPinata.render(matrixPinata);
