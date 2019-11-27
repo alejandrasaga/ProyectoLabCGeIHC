@@ -155,7 +155,6 @@ Model modelbuzz;
 Model modelsombrero;
 Model modelsillas;
 Model modelescritorio;
-Model modelsillon;
 
 // Dart lego
 Model modelDartLegoBody;
@@ -771,8 +770,6 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelsillas.setShader(&shaderMulLighting);
 	modelescritorio.loadModel("../models/escritorio/Desk_Wood.obj");
 	modelescritorio.setShader(&shaderMulLighting);
-	modelsillon.loadModel("../models/sillon/Sofa1.obj");
-	modelsillon.setShader(&shaderMulLighting);
 	modelsombrero.loadModel("../models/adornos/sombrero/SantaHat.obj");
 	modelsombrero.setShader(&shaderMulLighting);
 
@@ -1826,7 +1823,7 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 5)
+		if (modelSelected > 6)
 			modelSelected = 0;
 		if (modelSelected == 2)
 			fileName = "../animaciones/animation_dart_joints.txt";
@@ -1834,7 +1831,7 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_dart.txt";
 		if (modelSelected == 4) //RECORRIDO POR CASA ALE
 			fileName = "../animaciones/animation_camera.txt";
-		if (modelSelected == 5) //RECORRIDO POR CASA CRIS
+		if (modelSelected == 6) //RECORRIDO POR CASA CRIS
 			fileName = "../animaciones/animation_camera2.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
@@ -1860,7 +1857,7 @@ bool processInput(bool continueApplication) {
 			keyFramesDart = getKeyFrames(fileName);
 		if (modelSelected == 4)
 			keyFramesCamera = getKeyFrames(fileName);
-		if (modelSelected == 5)
+		if (modelSelected == 6)
 			keyFramesCamera2 = getKeyFrames(fileName);
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
@@ -2166,7 +2163,7 @@ void applicationLoop() {
 
 		glm::mat4 view;
 		
-		if (record || (modelSelected != 4 && modelSelected != 5)) {
+		if (record) {
 			if (numCam == 0) {
 				view = camera->getViewMatrix();
 			}
@@ -2174,6 +2171,53 @@ void applicationLoop() {
 				view = camera2->getViewMatrix();
 			}
 		}
+
+		switch (modelSelected)
+		{
+		case 0:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 1:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 2:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 3:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 5:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		default:
+			break;
+		}
+		
 		
 
 
@@ -4875,30 +4919,30 @@ void applicationLoop() {
 				appendFrame(myfile, vectorMatrix);
 				saveFrame = false;
 			}
-		} else if (keyFramesCamera.size() > 0) {
+		} else if (modelSelected == 4 && keyFramesCamera.size() > 0) {
 			// Para reproducir el frame
-			interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
-			numPasosCamera++;
-			if (interpolationCamera > 1.0) {
-				numPasosCamera = 0;
-				interpolationCamera = 0;
-				indexCamera = indexCameraNext;
-				indexCameraNext++;
-			}
-			if (indexCameraNext > keyFramesCamera.size() - 1)
-				indexCameraNext = 0;
-			view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
+				interpolationCamera = numPasosCamera / (float)maxNumPasosCamera;
+				numPasosCamera++;
+				if (interpolationCamera > 1.0) {
+					numPasosCamera = 0;
+					interpolationCamera = 0;
+					indexCamera = indexCameraNext;
+					indexCameraNext++;
+				}
+				if (indexCameraNext > keyFramesCamera.size() - 1)
+					indexCameraNext = 0;
+				view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
 		}
 
-		if (record && modelSelected == 5) {
-			std::vector<glm::mat4> vectorMatrix2;
-			vectorMatrix2.push_back(camera->getViewMatrix());
+		if (record && modelSelected == 6) {
+			std::vector<glm::mat4> vectorMatrix;
+			vectorMatrix.push_back(camera->getViewMatrix());
 			if (saveFrame) {
-				appendFrame(myfile, vectorMatrix2);
+				appendFrame(myfile, vectorMatrix);
 				saveFrame = false;
 			}
 		}
-		else if (keyFramesCamera2.size() > 0) {
+		else if (modelSelected == 6 && keyFramesCamera2.size() > 0) {
 			// Para reproducir el frame
 			interpolationCamera2 = numPasosCamera2 / (float)maxNumPasosCamera2;
 			numPasosCamera2++;
