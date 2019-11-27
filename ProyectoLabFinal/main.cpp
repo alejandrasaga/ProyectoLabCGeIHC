@@ -224,7 +224,6 @@ std::string fileName = "";
 bool record = false;
 
 // Joints interpolations Dart Lego
-// Descomentar
 std::vector<std::vector<float>> keyFramesDartJoints;
 std::vector<std::vector<glm::mat4>> keyFramesDart;
 int indexFrameDartJoints = 0;
@@ -238,6 +237,21 @@ int indexFrameDartNext = 1;
 float interpolationDart = 0.0;
 int maxNumPasosDart = 200;
 int numPasosDart = 0;
+
+//frames para R2D2
+std::vector<std::vector<float>> keyFramesR2D2Joints;
+std::vector<std::vector<glm::mat4>> keyFramesR2D2;
+int indexFrameR2D2Joints = 0;
+int indexFrameR2D2JointsNext = 1;
+float interpolationR2D2Joints = 0.0;
+int maxNumPasosR2D2Joints = 20;
+int numPasosR2D2Joints = 0;
+
+int indexFrameR2D2 = 0;
+int indexFrameR2D2Next = 1;
+float interpolationR2D2 = 0.0;
+int maxNumPasosR2D2 = 200;
+int numPasosR2D2 = 0;
 
 //frames para el recorrido de las casas
 std::vector<std::vector<glm::mat4>> keyFramesCamera;
@@ -1836,7 +1850,7 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 10)
+		if (modelSelected > 12)
 			modelSelected = 0;
 		if (modelSelected == 2)
 			fileName = "../animaciones/animation_dart_joints.txt";
@@ -1850,6 +1864,10 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_ofrenda.txt";
 		if (modelSelected == 10) //RECORRIDO POR CASA CRIS NACIMIENTO
 			fileName = "../animaciones/animation_nacimiento.txt";
+		if (modelSelected == 11)
+			fileName = "../animaciones/animation_R2D2_joints.txt";
+		if (modelSelected == 12)
+			fileName = "../animaciones/animation_R2D2.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_RELEASE)
@@ -1880,6 +1898,11 @@ bool processInput(bool continueApplication) {
 			keyFramesOfrenda = getKeyFrames(fileName);
 		if (modelSelected == 10)
 			keyFramesNacimiento = getKeyFrames(fileName);
+		if (modelSelected == 11)
+			keyFramesR2D2Joints = getKeyRotFrames(fileName);
+		if (modelSelected == 12)
+			keyFramesR2D2 = getKeyFrames(fileName);
+
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
 		saveFrame = true;
@@ -1937,17 +1960,17 @@ bool processInput(bool continueApplication) {
 		rot9 -= 0.01;
 
 	//R2D2 MODEL SELECTED = 1
-	if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS && sentido)
+	if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS && sentido)
 		rot7 += 0.01;
-	else if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS && !sentido)
+	else if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS && !sentido)
 		rot7 -= 0.01;
-	if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS && sentido)
+	if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS && sentido)
 		rot8 += 0.01;
-	else if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS && !sentido)
+	else if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS && !sentido)
 		rot8 -= 0.01;
-	if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS && sentido)
+	if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS && sentido)
 		rot10 += 0.01;
-	else if (modelSelected == 1 && glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS && !sentido)
+	else if (modelSelected == 11 && glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS && !sentido)
 		rot10 -= 0.01;
 	sentido = true;
 
@@ -2167,6 +2190,8 @@ void applicationLoop() {
 	keyFramesCamera2 = getKeyFrames("../animaciones/animation_camera2.txt");
 	keyFramesOfrenda = getKeyFrames("../animaciones/animation_ofrenda.txt");
 	keyFramesNacimiento = getKeyFrames("../animaciones/animation_nacimiento.txt");
+	keyFramesR2D2 = getKeyFrames("../animaciones/animation_R2D2.txt");
+	keyFramesR2D2Joints = getKeyRotFrames("../animaciones/animation_R2D2_joints.txt");
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -2188,6 +2213,10 @@ void applicationLoop() {
 		// Variables donde se guardan las matrices de cada articulacion por 1 frame
 		std::vector<float> matrixDartJoints;
 		std::vector<glm::mat4> matrixDart;
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		std::vector<float> matrixR2D2Joints;
+		std::vector<glm::mat4> matrixR2D2;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -5048,7 +5077,35 @@ void applicationLoop() {
 				indexCameraNextN = 0;
 			view = interpolate(keyFramesNacimiento, indexCameraN, indexCameraNextN, 0, interpolationCameraN);
 		}
+		//FRAMES DE R2D2
+		if (record && modelSelected == 11) {
+			matrixR2D2Joints.push_back(rot7);
+			matrixR2D2Joints.push_back(rot8);
+			matrixR2D2Joints.push_back(rot9);
+			if (saveFrame) {
+				appendFrame(myfile, matrixR2D2Joints);
+				saveFrame = false;
+			}
+		}
+		else if (keyFramesR2D2Joints.size() > 0) {
+			// Para reproducir el frame
+			interpolationR2D2Joints = numPasosR2D2Joints / (float)maxNumPasosR2D2Joints;
+			numPasosR2D2Joints++;
+			if (interpolationR2D2Joints > 1.0) {
+				numPasosR2D2Joints = 0;
+				interpolationR2D2Joints = 0;
+				indexFrameR2D2Joints = indexFrameR2D2JointsNext;
+				indexFrameR2D2JointsNext++;
+			}
+			if (indexFrameR2D2JointsNext > keyFramesR2D2Joints.size() - 1)
+				indexFrameR2D2JointsNext = 0;
 
+			rot7 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 0, interpolationR2D2Joints);
+			rot9 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 1, interpolationR2D2Joints);
+			rot8 = interpolate(keyFramesR2D2Joints, indexFrameR2D2Joints, indexFrameR2D2JointsNext, 2, interpolationR2D2Joints);
+		}
+
+		
 
 		// Se Dibuja el Skybox
 		GLint oldCullFaceMode;
