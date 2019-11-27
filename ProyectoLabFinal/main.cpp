@@ -1832,9 +1832,9 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_dart_joints.txt";
 		if (modelSelected == 3)
 			fileName = "../animaciones/animation_dart.txt";
-		if (modelSelected == 4)
+		if (modelSelected == 4) //RECORRIDO POR CASA ALE
 			fileName = "../animaciones/animation_camera.txt";
-		if (modelSelected == 5)
+		if (modelSelected == 5) //RECORRIDO POR CASA CRIS
 			fileName = "../animaciones/animation_camera2.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
@@ -2135,7 +2135,7 @@ void applicationLoop() {
 	keyFramesDartJoints = getKeyRotFrames(fileName);
 	keyFramesDart = getKeyFrames("../animaciones/animation_dart.txt");
 	keyFramesCamera = getKeyFrames("../animaciones/animation_camera.txt");
-	keyFramesCamera = getKeyFrames("../animaciones/animation_camera2.txt");
+	keyFramesCamera2 = getKeyFrames("../animaciones/animation_camera2.txt");
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -2166,7 +2166,7 @@ void applicationLoop() {
 
 		glm::mat4 view;
 		
-		if (record || modelSelected != 4) {
+		if (record || (modelSelected != 4 && modelSelected != 5)) {
 			if (numCam == 0) {
 				view = camera->getViewMatrix();
 			}
@@ -4891,10 +4891,10 @@ void applicationLoop() {
 		}
 
 		if (record && modelSelected == 5) {
-			std::vector<glm::mat4> vectorMatrix;
-			vectorMatrix.push_back(camera->getViewMatrix());
+			std::vector<glm::mat4> vectorMatrix2;
+			vectorMatrix2.push_back(camera->getViewMatrix());
 			if (saveFrame) {
-				appendFrame(myfile, vectorMatrix);
+				appendFrame(myfile, vectorMatrix2);
 				saveFrame = false;
 			}
 		}
