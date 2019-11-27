@@ -2072,6 +2072,15 @@ void applicationLoop() {
 	matrixTiroParabolico = glm::translate(matrixTiroParabolico, glm::vec3(10.0, 15.0, -40.0));
 	matrixTiroParabolico = glm::scale(matrixTiroParabolico, glm::vec3(5.0, 5.0, 5.0));
 
+	glm::mat4 matrixDulcesPuerta = glm::mat4(1.0);
+	matrixDulcesPuerta = glm::translate(modelCasa, glm::vec3(10.25, -1.5, 6.5));
+	matrixDulcesPuerta = glm::scale(matrixDulcesPuerta, glm::vec3(0.25, 0.25, 0.25));
+	matrixDulcesPuerta = glm::rotate(matrixDulcesPuerta, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
+
+	glm::mat4 matrixManoDulces = glm::translate(matrixDulcesPuerta, glm::vec3(-0.3, 1.5, 0.0));
+	matrixManoDulces = glm::scale(matrixManoDulces, glm::vec3(0.04, 0.04, 0.04));
+	matrixManoDulces = glm::rotate(matrixManoDulces, glm::radians(-30.0f), glm::vec3(0.0, 1.0, 0.0));
+
 	int estadoCarnes = 0;
 	float avanceCarnesX = 0;
 	float avanceCarnesZ = 0;
@@ -2142,12 +2151,14 @@ void applicationLoop() {
 	float rotHeliHeliarriba = 0.0;
 	float rotSanta = 0.0;
 
+	float subirCanasta = 0.0;
+	int estadoCanasta = 0;
+
+
 	
 	glm::mat4 modelMatrixDart = glm::mat4(1.0f);
 	modelMatrixDart = glm::translate(modelMatrixDart, glm::vec3(35.0, -1.5, 20.0));
 	//modelMatrixDart = glm::scale(modelMatrixDart, glm::vec3(0.5, 0.5, 0.5));
-
-	// Descomentar
 	// Variables to interpolation key frames
 	fileName = "../animaciones/animation_dart_joints.txt";
 	keyFramesDartJoints = getKeyRotFrames(fileName);
@@ -3998,18 +4009,12 @@ void applicationLoop() {
 		matrixDulces = glm::rotate(matrixDulces, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelDulces.render(matrixDulces);
 		glActiveTexture(GL_TEXTURE0);
-		//DULCES EN LA PUERTA
-		matrixDulces = glm::translate(modelCasa4, glm::vec3(2.75, -1.5, -0.5));
-		matrixDulces = glm::scale(matrixDulces, glm::vec3(0.5, 0.5, 0.5));
-		matrixDulces = glm::rotate(matrixDulces, glm::radians(-135.0f), glm::vec3(0.0, 1.0, 0.0));
-		modelDulces.render(matrixDulces);
-		glActiveTexture(GL_TEXTURE0);
 
-		glm::mat4 matrixManoDulces = glm::translate(modelCasa4, glm::vec3(2.75, -1.0, -0.8));
-		matrixManoDulces = glm::scale(matrixManoDulces, glm::vec3(0.04, 0.04, 0.04));
-		matrixManoDulces = glm::rotate(matrixManoDulces, glm::radians(-30.0f), glm::vec3(0.0, 1.0, 0.0));
-		modelHandCandy.render(matrixManoDulces);
+		//DULCES EN LA PUERTA 
+		modelDulces.render(matrixDulcesPuerta);
 		glActiveTexture(GL_TEXTURE0);
+		//modelHandCandy.render(matrixManoDulces);
+		//glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixCandy = glm::translate(modelCasa4, glm::vec3(2.75, -2.0, -0.5));
 		//matrixCandy
@@ -5314,6 +5319,32 @@ void applicationLoop() {
 			}
 			break;
 
+		}
+
+
+		switch (estadoCanasta) {
+		case 0:
+			
+			matrixDulcesPuerta = glm::translate(matrixDulcesPuerta, glm::vec3(0.0, 0.01, 0.0));
+			subirCanasta += 0.01;
+			if (subirCanasta > 1.5) {
+				estadoCanasta = 1;
+				subirCanasta = 0.0;
+			}
+			break;
+		case 1:
+			matrixDulcesPuerta = glm::translate(matrixDulcesPuerta, glm::vec3(0.0, 0.0, 0.01));
+			subirCanasta += 0.01;
+			if (subirCanasta > 0.25) {
+				estadoCanasta = 2;
+				subirCanasta = 0.0;
+			}
+			break;
+		case 2:
+			matrixDulcesPuerta = glm::translate(modelCasa, glm::vec3(10.25, -1.5, 6.5));
+			estadoCanasta = 0;
+			subirCanasta = 0.0;
+			break;
 		}
 
 
