@@ -254,6 +254,19 @@ float interpolationCamera2 = 0.0;
 int maxNumPasosCamera2 = 300;
 int numPasosCamera2 = 0.0;
 
+std::vector<std::vector<glm::mat4>> keyFramesOfrenda;
+int indexCameraO = 0;
+int indexCameraNextO = 1;
+float interpolationCameraO = 0.0;
+int maxNumPasosCameraO = 300;
+int numPasosCameraO = 0.0;
+
+std::vector<std::vector<glm::mat4>> keyFramesNacimiento;
+int indexCameraN = 0;
+int indexCameraNextN = 1;
+float interpolationCameraN = 0.0;
+int maxNumPasosCameraN = 300;
+int numPasosCameraN = 0.0;
 
 GLenum types[6] = {
 	GL_TEXTURE_CUBE_MAP_POSITIVE_X,
@@ -777,8 +790,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	//NAVIDAD
 
 
-	camera->setPosition(glm::vec3(40.0, 5.0, -5.0));
-	camera2->setPosition(glm::vec3(0.0, 5.0, -5.0));
+	camera->setPosition(glm::vec3(40.0, 5.0, 15.0));
+	camera2->setPosition(glm::vec3(0.0, 5.0, 15.0));
 
 	int imageWidth, imageHeight;
 	Texture texture1("../Textures/sponge.jpg");
@@ -1823,7 +1836,7 @@ bool processInput(bool continueApplication) {
 	if (enableCountSelected && glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
 		enableCountSelected = false;
 		modelSelected++;
-		if (modelSelected > 6)
+		if (modelSelected > 10)
 			modelSelected = 0;
 		if (modelSelected == 2)
 			fileName = "../animaciones/animation_dart_joints.txt";
@@ -1833,6 +1846,10 @@ bool processInput(bool continueApplication) {
 			fileName = "../animaciones/animation_camera.txt";
 		if (modelSelected == 6) //RECORRIDO POR CASA CRIS
 			fileName = "../animaciones/animation_camera2.txt";
+		if (modelSelected == 8) //RECORRIDO POR CASA ALE OFRENDA
+			fileName = "../animaciones/animation_ofrenda.txt";
+		if (modelSelected == 10) //RECORRIDO POR CASA CRIS NACIMIENTO
+			fileName = "../animaciones/animation_nacimiento.txt";
 		std::cout << "modelSelected:" << modelSelected << std::endl;
 	}
 	else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_RELEASE)
@@ -1859,6 +1876,10 @@ bool processInput(bool continueApplication) {
 			keyFramesCamera = getKeyFrames(fileName);
 		if (modelSelected == 6)
 			keyFramesCamera2 = getKeyFrames(fileName);
+		if (modelSelected == 8)
+			keyFramesOfrenda = getKeyFrames(fileName);
+		if (modelSelected == 10)
+			keyFramesNacimiento = getKeyFrames(fileName);
 	}
 	if (availableSave && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
 		saveFrame = true;
@@ -2133,6 +2154,8 @@ void applicationLoop() {
 	keyFramesDart = getKeyFrames("../animaciones/animation_dart.txt");
 	keyFramesCamera = getKeyFrames("../animaciones/animation_camera.txt");
 	keyFramesCamera2 = getKeyFrames("../animaciones/animation_camera2.txt");
+	keyFramesOfrenda = getKeyFrames("../animaciones/animation_ofrenda.txt");
+	keyFramesNacimiento = getKeyFrames("../animaciones/animation_nacimiento.txt");
 
 	lastTime = TimeManager::Instance().GetTime();
 
@@ -2207,6 +2230,22 @@ void applicationLoop() {
 			}
 			break;
 		case 5:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 7:
+			if (numCam == 0) {
+				view = camera->getViewMatrix();
+			}
+			else if (numCam == 1) {
+				view = camera2->getViewMatrix();
+			}
+			break;
+		case 9:
 			if (numCam == 0) {
 				view = camera->getViewMatrix();
 			}
@@ -4933,7 +4972,7 @@ void applicationLoop() {
 					indexCameraNext = 0;
 				view = interpolate(keyFramesCamera, indexCamera, indexCameraNext, 0, interpolationCamera);
 		}
-
+		//frames para el recorrido de la casa de cris
 		if (record && modelSelected == 6) {
 			std::vector<glm::mat4> vectorMatrix;
 			vectorMatrix.push_back(camera->getViewMatrix());
@@ -4957,7 +4996,53 @@ void applicationLoop() {
 			view = interpolate(keyFramesCamera2, indexCamera2, indexCameraNext2, 0, interpolationCamera2);
 		}
 
+		//frames para la ofrenda
+		if (record && modelSelected == 8) {
+			std::vector<glm::mat4> vectorMatrix;
+			vectorMatrix.push_back(camera->getViewMatrix());
+			if (saveFrame) {
+				appendFrame(myfile, vectorMatrix);
+				saveFrame = false;
+			}
+		}
+		else if (modelSelected == 8 && keyFramesOfrenda.size() > 0) {
+			// Para reproducir el frame
+			interpolationCameraO = numPasosCameraO / (float)maxNumPasosCameraO;
+			numPasosCameraO++;
+			if (interpolationCameraO > 1.0) {
+				numPasosCameraO = 0;
+				interpolationCameraO = 0;
+				indexCameraO = indexCameraNextO;
+				indexCameraNextO++;
+			}
+			if (indexCameraNextO > keyFramesOfrenda.size() - 1)
+				indexCameraNextO = 0;
+			view = interpolate(keyFramesOfrenda, indexCameraO, indexCameraNextO, 0, interpolationCameraO);
+		}
 
+		//Frames para el nacimiento
+		if (record && modelSelected == 10) {
+			std::vector<glm::mat4> vectorMatrix;
+			vectorMatrix.push_back(camera->getViewMatrix());
+			if (saveFrame) {
+				appendFrame(myfile, vectorMatrix);
+				saveFrame = false;
+			}
+		}
+		else if (modelSelected == 8 && keyFramesNacimiento.size() > 0) {
+			// Para reproducir el frame
+			interpolationCameraN = numPasosCameraN / (float)maxNumPasosCameraN;
+			numPasosCameraN++;
+			if (interpolationCameraN > 1.0) {
+				numPasosCameraN = 0;
+				interpolationCameraN = 0;
+				indexCameraN = indexCameraNextN;
+				indexCameraNextN++;
+			}
+			if (indexCameraNextN > keyFramesNacimiento.size() - 1)
+				indexCameraNextN = 0;
+			view = interpolate(keyFramesNacimiento, indexCameraN, indexCameraNextN, 0, interpolationCameraN);
+		}
 
 
 		// Se Dibuja el Skybox
